@@ -1,0 +1,22 @@
+{
+  "name": "drd-plus/races",
+  "license": "MIT",
+  "type": "project",
+  "description": "Drd+ races",
+  "autoload": {
+    "psr-4": {
+      "DrdPlus\\": "DrdPlus/"
+    }
+  },
+  "require": {
+    "php": ">=5.5.0",
+    "doctrineum/scalar": "dev-master",
+    "granam/strict-object": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.4",
+    "mockery/mockery": ">=0.9"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
