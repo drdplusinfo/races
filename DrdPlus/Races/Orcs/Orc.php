@@ -7,9 +7,9 @@ abstract class Orc extends Race
 {
     const ORC = 'orc';
 
-    protected static function getIt($subraceCode)
+    protected static function getItBySubrace($subraceCode)
     {
-        return parent::getIt(self::ORC, $subraceCode);
+        return parent::getItByRaceAndSubrace(self::ORC, $subraceCode);
     }
 
     public function getRaceCode()

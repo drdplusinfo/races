@@ -7,7 +7,7 @@ class Goblin extends Orc
 
     public static function getIt()
     {
-        return parent::getIt(self::GOBLIN);
+        return parent::getItBySubrace(self::GOBLIN);
     }
 
     public function getSubraceCode()

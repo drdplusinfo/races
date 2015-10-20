@@ -11,7 +11,7 @@ class MountainDwarf extends Dwarf
      */
     public static function getIt()
     {
-        return parent::getIt(self::MOUNTAIN);
+        return parent::getItBySubrace(self::MOUNTAIN);
     }
 
     public function getSubraceCode()

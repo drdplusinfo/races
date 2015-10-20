@@ -7,7 +7,7 @@ class GreenElf extends Elf
 
     public static function getIt()
     {
-        return parent::getIt(self::GREEN);
+        return parent::getItBySubrace(self::GREEN);
     }
 
     public function getSubraceCode()

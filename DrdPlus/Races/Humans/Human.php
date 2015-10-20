@@ -7,9 +7,9 @@ abstract class Human extends Race
 {
     const HUMAN = 'human';
 
-    protected static function getIt($subraceCode)
+    protected static function getItBySubrace($subraceCode)
     {
-        return parent::getIt(self::HUMAN, $subraceCode);
+        return parent::getItByRaceAndSubrace(self::HUMAN, $subraceCode);
     }
 
     public function getRaceCode()

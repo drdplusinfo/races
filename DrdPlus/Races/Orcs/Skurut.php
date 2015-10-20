@@ -7,7 +7,7 @@ class Skurut extends Orc
 
     public static function getIt()
     {
-        return parent::getIt(self::SKURUT);
+        return parent::getItBySubrace(self::SKURUT);
     }
 
     public function getSubraceCode()

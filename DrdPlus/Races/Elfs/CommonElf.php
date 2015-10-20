@@ -7,7 +7,7 @@ class CommonElf extends Elf
 
     public static function getIt()
     {
-        return parent::getIt(self::COMMON);
+        return parent::getItBySubrace(self::COMMON);
     }
 
     public function getSubraceCode()

@@ -7,7 +7,7 @@ class WildKroll extends Kroll
 
     public static function getIt()
     {
-        return parent::getIt(self::WILD);
+        return parent::getItBySubrace(self::WILD);
     }
 
     public function getSubraceCode()

@@ -7,7 +7,7 @@ class Highlander extends Human
 
     public static function getIt()
     {
-        return parent::getIt(self::HIGHLANDER);
+        return parent::getItBySubrace(self::HIGHLANDER);
     }
 
     public function getSubraceCode()

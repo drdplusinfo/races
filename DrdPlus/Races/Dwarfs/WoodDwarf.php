@@ -10,7 +10,7 @@ class WoodDwarf extends Dwarf
      */
     public static function getIt()
     {
-        return parent::getIt(self::WOOD);
+        return parent::getItBySubrace(self::WOOD);
     }
 
     public function getSubraceCode()

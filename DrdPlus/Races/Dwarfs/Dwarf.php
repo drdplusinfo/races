@@ -11,9 +11,9 @@ abstract class Dwarf extends Race
      * @param string $subraceCode
      * @return static
      */
-    protected static function getIt($subraceCode)
+    protected static function getItBySubrace($subraceCode)
     {
-        return parent::getIt(self::DWARF, $subraceCode);
+        return parent::getItByRaceAndSubrace(self::DWARF, $subraceCode);
     }
 
     public function getRaceCode()

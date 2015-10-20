@@ -10,7 +10,7 @@ class DarkElf extends Elf
      */
     public static function getIt()
     {
-        return parent::getIt(self::DARK);
+        return parent::getItBySubrace(self::DARK);
     }
 
     public function getSubraceCode()

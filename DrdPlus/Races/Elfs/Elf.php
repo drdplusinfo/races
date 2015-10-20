@@ -11,9 +11,9 @@ abstract class Elf extends Race
      * @param string $subraceCode
      * @return static
      */
-    protected static function getIt($subraceCode)
+    protected static function getItBySubrace($subraceCode)
     {
-        return parent::getIt(self::ELF, $subraceCode);
+        return parent::getItByRaceAndSubrace(self::ELF, $subraceCode);
     }
 
     public function getRaceCode()

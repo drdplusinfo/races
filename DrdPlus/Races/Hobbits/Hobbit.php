@@ -7,9 +7,9 @@ abstract class Hobbit extends Race
 {
     const HOBBIT = 'hobbit';
 
-    protected static function getIt($subraceCode)
+    protected static function getItBySubrace($subraceCode)
     {
-        return parent::getIt(self::HOBBIT, $subraceCode);
+        return parent::getItByRaceAndSubrace(self::HOBBIT, $subraceCode);
     }
 
     public function getRaceCode()
