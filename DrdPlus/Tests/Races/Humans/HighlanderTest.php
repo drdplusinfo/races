@@ -1,14 +1,13 @@
 <?php
-namespace DrdPlus\Races\Humans;
+namespace DrdPlus\Tests\Races\Humans;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tests\Races\AbstractTestOfRace;
 
-class HighlanderTest extends AbstractTestOfRace
+class HighlanderTest extends AbstractTestOfHuman
 {
-    protected function getExpectedProperty($genderCode, $propertyCode)
+    protected function getExpectedBodyProperty($genderCode, $propertyCode)
     {
         $properties = [
             Male::MALE => [

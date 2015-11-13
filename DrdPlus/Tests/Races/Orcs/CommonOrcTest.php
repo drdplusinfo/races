@@ -1,14 +1,13 @@
 <?php
-namespace DrdPlus\Races\Orcs;
+namespace DrdPlus\Tests\Races\Orcs;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tests\Races\AbstractTestOfRace;
 
-class CommonOrcTest extends AbstractTestOfRace
+class CommonOrcTest extends AbstractTestOfOrc
 {
-    protected function getExpectedProperty($genderCode, $propertyCode)
+    protected function getExpectedBodyProperty($genderCode, $propertyCode)
     {
         $properties = [
             Male::MALE => [
@@ -31,4 +30,19 @@ class CommonOrcTest extends AbstractTestOfRace
 
         return $properties[$genderCode][$propertyCode];
     }
+
+    protected function getExpectedOtherProperty($propertyCode)
+    {
+        switch ($propertyCode) {
+            case PropertyCodes::SIZE :
+                return -1;
+            case PropertyCodes::WEIGHT_IN_KG :
+                return 60.0;
+            case PropertyCodes::HEIGHT_IN_CM :
+                return 160.0;
+            default :
+                return parent::getExpectedOtherProperty($propertyCode);
+        }
+    }
+
 }

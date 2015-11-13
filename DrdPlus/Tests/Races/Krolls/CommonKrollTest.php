@@ -1,14 +1,13 @@
 <?php
-namespace DrdPlus\Races\Krolls;
+namespace DrdPlus\Tests\Races\Krolls;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tests\Races\AbstractTestOfRace;
 
-class CommonKrollTest extends AbstractTestOfRace
+class CommonKrollTest extends AbstractTestOfKroll
 {
-    protected function getExpectedProperty($genderCode, $propertyCode)
+    protected function getExpectedBodyProperty($genderCode, $propertyCode)
     {
         $properties = [
             Male::MALE => [

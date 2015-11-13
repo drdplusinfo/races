@@ -155,23 +155,6 @@ abstract class Race extends Enum
     }
 
     /**
-     * @param Gender $gender
-     * @param RacesTable $racesTable
-     * @param FemaleModifiersTable $femaleModifiersTable
-     *
-     * @return int
-     */
-    public function getResistance(Gender $gender, RacesTable $racesTable, FemaleModifiersTable $femaleModifiersTable)
-    {
-        return
-            $racesTable->getAgility($this->getRaceCode(), $this->getSubraceCode())
-            + ($gender->isFemale()
-                ? $femaleModifiersTable->getAgility($this->getRaceCode())
-                : 0
-            );
-    }
-
-    /**
      * @param RacesTable $racesTable
      *
      * @return int
@@ -214,6 +197,16 @@ abstract class Race extends Enum
     /**
      * @param RacesTable $racesTable
      *
+     * @return int
+     */
+    public function getHeightInCm(RacesTable $racesTable)
+    {
+        return $racesTable->getHeightInCm($this->getRaceCode(), $this->getSubraceCode());
+    }
+
+    /**
+     * @param RacesTable $racesTable
+     *
      * @return bool
      */
     public function hasInfravision(RacesTable $racesTable)
@@ -236,7 +229,7 @@ abstract class Race extends Enum
      *
      * @return bool
      */
-    public function requiresDungeonMasterAgreement(RacesTable $racesTable)
+    public function requiresDmAgreement(RacesTable $racesTable)
     {
         return $racesTable->requiresDmAgreement($this->getRaceCode(), $this->getSubraceCode());
     }
@@ -244,7 +237,8 @@ abstract class Race extends Enum
     /**
      * @param RacesTable $racesTable
      *
-     * @return false|string
+     * @return string
+     * @return string
      */
     public function getRemarkableSense(RacesTable $racesTable)
     {

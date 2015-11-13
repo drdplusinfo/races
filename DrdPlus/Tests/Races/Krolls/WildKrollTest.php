@@ -1,14 +1,13 @@
 <?php
-namespace DrdPlus\Races\Krolls;
+namespace DrdPlus\Tests\Races\Krolls;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tests\Races\AbstractTestOfRace;
 
-class WildKrollTest extends AbstractTestOfRace
+class WildKrollTest extends AbstractTestOfKroll
 {
-    protected function getExpectedProperty($genderCode, $propertyCode)
+    protected function getExpectedBodyProperty($genderCode, $propertyCode)
     {
         $properties = [
             Male::MALE => [
@@ -30,5 +29,14 @@ class WildKrollTest extends AbstractTestOfRace
         ];
 
         return $properties[$genderCode][$propertyCode];
+    }
+
+    protected function getExpectedOtherProperty($propertyCode)
+    {
+        if ($propertyCode === PropertyCodes::REQUIRES_DM_AGREEMENT) {
+            return true;
+        }
+
+        return parent::getExpectedOtherProperty($propertyCode);
     }
 }

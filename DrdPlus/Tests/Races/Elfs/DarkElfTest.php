@@ -1,14 +1,13 @@
 <?php
-namespace DrdPlus\Races\Elfs;
+namespace DrdPlus\Tests\Races\Elfs;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tests\Races\AbstractTestOfRace;
 
-class DarkElfTest extends AbstractTestOfRace
+class DarkElfTest extends AbstractTestOfElf
 {
-    protected function getExpectedProperty($genderCode, $propertyCode)
+    protected function getExpectedBodyProperty($genderCode, $propertyCode)
     {
         $properties = [
             Male::MALE => [
@@ -30,5 +29,17 @@ class DarkElfTest extends AbstractTestOfRace
         ];
 
         return $properties[$genderCode][$propertyCode];
+    }
+
+    protected function getExpectedOtherProperty($propertyCode)
+    {
+        switch ($propertyCode) {
+            case PropertyCodes::INFRAVISION :
+                return true;
+            case PropertyCodes::REQUIRES_DM_AGREEMENT :
+                return true;
+            default :
+                return parent::getExpectedOtherProperty($propertyCode);
+        }
     }
 }

@@ -32,7 +32,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
      */
     protected function getSubraceClass()
     {
-        return preg_replace('~Test$~', '', static::class);
+        return preg_replace('~[\\\]Tests(.+)Test$~', '$1', static::class);
     }
 
     /**
@@ -86,7 +86,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
      *
      * @param Race $race
      */
-    public function I_can_get_each_property_for_any_race(Race $race)
+    public function I_can_get_body_property(Race $race)
     {
         $racesTable = new RacesTable();
         $femaleModifiersTable = new FemaleModifiersTable();
@@ -94,10 +94,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
             foreach ($this->getPropertyCodes() as $propertyCode) {
                 $getProperty = 'get' . ucfirst($propertyCode);
                 $this->assertSame(
-                    $this->getExpectedProperty(
-                        $gender->getEnumValue(),
-                        $propertyCode
-                    ),
+                    $this->getExpectedBodyProperty($gender->getEnumValue(), $propertyCode),
                     $race->$getProperty($gender, $racesTable, $femaleModifiersTable),
                     "Unexpected {$gender} $propertyCode"
                 );
@@ -108,7 +105,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
     /**
      * @return array|Gender[]
      */
-    protected function getGenders()
+    private function getGenders()
     {
         return [
             Male::getIt(),
@@ -119,7 +116,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
     /**
      * @return array|string[]
      */
-    protected function getPropertyCodes()
+    private function getPropertyCodes()
     {
         return [
             PropertyCodes::STRENGTH,
@@ -137,6 +134,64 @@ abstract class AbstractTestOfRace extends TestWithMockery
      *
      * @return int
      */
-    abstract protected function getExpectedProperty($genderCode, $propertyCode);
+    abstract protected function getExpectedBodyProperty($genderCode, $propertyCode);
+
+    /**
+     * @test
+     * @depends I_can_get_subrace
+     *
+     * @param Race $race
+     */
+    public function I_can_get_other_property(Race $race)
+    {
+        $racesTable = new RacesTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
+        foreach ($this->getOtherPropertyCodes() as $propertyCode => $getProperty) {
+            $this->assertSame(
+                $this->getExpectedOtherProperty($propertyCode),
+                $race->$getProperty($racesTable, $femaleModifiersTable),
+                "Unexpected $propertyCode"
+            );
+        }
+    }
+
+    private function getOtherPropertyCodes()
+    {
+        return [
+            PropertyCodes::SENSES => 'getSenses',
+            PropertyCodes::TOUGHNESS => 'getToughness',
+            PropertyCodes::SIZE => 'getSize',
+            PropertyCodes::WEIGHT_IN_KG => 'getWeightInKg',
+            PropertyCodes::HEIGHT_IN_CM => 'getHeightInCm',
+            PropertyCodes::INFRAVISION => 'hasInfravision',
+            PropertyCodes::NATIVE_REGENERATION => 'hasNativeRegeneration',
+            PropertyCodes::REQUIRES_DM_AGREEMENT => 'requiresDmAgreement',
+        ];
+    }
+
+    /**
+     * @param string $propertyCode
+     * @return int|float|bool
+     */
+    abstract protected function getExpectedOtherProperty($propertyCode);
+
+    /**
+     * @test
+     * @depends I_can_get_subrace
+     *
+     * @param Race $race
+     */
+    public function I_can_get_remarkable_sense(Race $race)
+    {
+        $this->assertSame(
+            $this->getExpectedRemarkableSense(),
+            $race->getRemarkableSense(new RacesTable())
+        );
+    }
+
+    /**
+     * @return string|false
+     */
+    abstract protected function getExpectedRemarkableSense();
 
 }
