@@ -1,13 +1,20 @@
 <?php
 namespace DrdPlus\Tests\Races;
 
+use Drd\Genders\Female;
+use Drd\Genders\Gender;
+use Drd\Genders\Male;
+use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Race;
+use DrdPlus\Tables\Races\FemaleModifiersTable;
+use DrdPlus\Tables\Races\RacesTable;
 
 abstract class AbstractTestOfRace extends TestWithMockery
 {
     /**
      * @test
+     * @return Race
      */
     public function I_can_get_subrace()
     {
@@ -16,6 +23,8 @@ abstract class AbstractTestOfRace extends TestWithMockery
         $this->assertInstanceOf($subraceClass, $subrace);
         $this->assertSame($this->getRaceCode(), $subrace->getRaceCode());
         $this->assertSame($this->getSubraceCode(), $subrace->getSubraceCode());
+
+        return $subrace;
     }
 
     /**
@@ -70,4 +79,64 @@ abstract class AbstractTestOfRace extends TestWithMockery
 
         return preg_replace('~\\\[\w]+$~', '', $subraceClass);
     }
+
+    /**
+     * @test
+     * @depends I_can_get_subrace
+     *
+     * @param Race $race
+     */
+    public function I_can_get_each_property_for_any_race(Race $race)
+    {
+        $racesTable = new RacesTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
+        foreach ($this->getGenders() as $gender) {
+            foreach ($this->getPropertyCodes() as $propertyCode) {
+                $getProperty = 'get' . ucfirst($propertyCode);
+                $this->assertSame(
+                    $this->getExpectedProperty(
+                        $gender->getEnumValue(),
+                        $propertyCode
+                    ),
+                    $race->$getProperty($gender, $racesTable, $femaleModifiersTable),
+                    "Unexpected {$gender} $propertyCode"
+                );
+            }
+        }
+    }
+
+    /**
+     * @return array|Gender[]
+     */
+    protected function getGenders()
+    {
+        return [
+            Male::getIt(),
+            Female::getIt(),
+        ];
+    }
+
+    /**
+     * @return array|string[]
+     */
+    protected function getPropertyCodes()
+    {
+        return [
+            PropertyCodes::STRENGTH,
+            PropertyCodes::AGILITY,
+            PropertyCodes::KNACK,
+            PropertyCodes::WILL,
+            PropertyCodes::INTELLIGENCE,
+            PropertyCodes::CHARISMA,
+        ];
+    }
+
+    /**
+     * @param string $genderCode
+     * @param string $propertyCode
+     *
+     * @return int
+     */
+    abstract protected function getExpectedProperty($genderCode, $propertyCode);
+
 }
