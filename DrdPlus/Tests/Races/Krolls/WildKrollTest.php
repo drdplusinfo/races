@@ -31,12 +31,12 @@ class WildKrollTest extends AbstractTestOfKroll
         return $properties[$genderCode][$propertyCode];
     }
 
-    protected function getExpectedOtherProperty($propertyCode)
+    protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         if ($propertyCode === PropertyCodes::REQUIRES_DM_AGREEMENT) {
             return true;
         }
 
-        return parent::getExpectedOtherProperty($propertyCode);
+        return parent::getExpectedOtherProperty($propertyCode, $genderCode);
     }
 }

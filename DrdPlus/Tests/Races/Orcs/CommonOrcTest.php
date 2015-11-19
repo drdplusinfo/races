@@ -1,8 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Races\Orcs;
 
-use Drd\Genders\Female;
-use Drd\Genders\Male;
+use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
 
 class CommonOrcTest extends AbstractTestOfOrc
@@ -10,39 +9,48 @@ class CommonOrcTest extends AbstractTestOfOrc
     protected function getExpectedBodyProperty($genderCode, $propertyCode)
     {
         $properties = [
-            Male::MALE => [
-                PropertyCodes::STRENGTH => 0,
-                PropertyCodes::AGILITY => 2,
-                PropertyCodes::KNACK => 0,
-                PropertyCodes::WILL => -1,
-                PropertyCodes::INTELLIGENCE => 0,
-                PropertyCodes::CHARISMA => -2,
+            PropertyCodes::STRENGTH => [
+                GenderCodes::MALE => 0,
+                GenderCodes::FEMALE => -1,
             ],
-            Female::FEMALE => [
-                PropertyCodes::STRENGTH => -1,
-                PropertyCodes::AGILITY => 2,
-                PropertyCodes::KNACK => 0,
-                PropertyCodes::WILL => 0,
-                PropertyCodes::INTELLIGENCE => 0,
-                PropertyCodes::CHARISMA => -2,
+            PropertyCodes::AGILITY => 2,
+            PropertyCodes::KNACK => 0,
+            PropertyCodes::WILL => [
+                GenderCodes::MALE => -1,
+                GenderCodes::FEMALE => 0,
             ],
+            PropertyCodes::INTELLIGENCE => 0,
+            PropertyCodes::CHARISMA => -2,
         ];
 
-        return $properties[$genderCode][$propertyCode];
+
+        return isset($properties[$propertyCode][$genderCode])
+            ? $properties[$propertyCode][$genderCode]
+            : $properties[$propertyCode];
     }
 
-    protected function getExpectedOtherProperty($propertyCode)
+    protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
-        switch ($propertyCode) {
-            case PropertyCodes::SIZE :
-                return -1;
-            case PropertyCodes::WEIGHT_IN_KG :
-                return 60.0;
-            case PropertyCodes::HEIGHT_IN_CM :
-                return 160.0;
-            default :
-                return parent::getExpectedOtherProperty($propertyCode);
+        $properties = [
+            PropertyCodes::SIZE => [
+                GenderCodes::MALE => -1,
+                GenderCodes::FEMALE => -2,
+            ],
+            PropertyCodes::WEIGHT_IN_KG => [
+                GenderCodes::MALE => 60.0,
+                GenderCodes::FEMALE => 56.0,
+            ],
+            PropertyCodes::HEIGHT_IN_CM => 160.0,
+        ];
+
+        if (isset($properties[$propertyCode][$genderCode])) {
+            return $properties[$propertyCode][$genderCode];
         }
+        if (isset($properties[$propertyCode])) {
+            return $properties[$propertyCode];
+        }
+
+        return parent::getExpectedOtherProperty($propertyCode, $genderCode);
     }
 
 }

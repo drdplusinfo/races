@@ -31,7 +31,7 @@ class DarkElfTest extends AbstractTestOfElf
         return $properties[$genderCode][$propertyCode];
     }
 
-    protected function getExpectedOtherProperty($propertyCode)
+    protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         switch ($propertyCode) {
             case PropertyCodes::INFRAVISION :
@@ -39,7 +39,7 @@ class DarkElfTest extends AbstractTestOfElf
             case PropertyCodes::REQUIRES_DM_AGREEMENT :
                 return true;
             default :
-                return parent::getExpectedOtherProperty($propertyCode);
+                return parent::getExpectedOtherProperty($propertyCode, $genderCode);
         }
     }
 }

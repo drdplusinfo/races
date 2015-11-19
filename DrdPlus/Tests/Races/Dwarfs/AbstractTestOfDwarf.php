@@ -6,7 +6,7 @@ use DrdPlus\Tests\Races\AbstractTestOfRace;
 
 abstract class AbstractTestOfDwarf extends AbstractTestOfRace
 {
-    protected function getExpectedOtherProperty($propertyCode)
+    protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         $properties = [
             PropertyCodes::SENSES => -1,
@@ -17,14 +17,9 @@ abstract class AbstractTestOfDwarf extends AbstractTestOfRace
             PropertyCodes::INFRAVISION => true,
             PropertyCodes::NATIVE_REGENERATION => false,
             PropertyCodes::REQUIRES_DM_AGREEMENT => false,
+            PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TOUCH,
         ];
 
         return $properties[$propertyCode];
     }
-
-    protected function getExpectedRemarkableSense()
-    {
-        return PropertyCodes::TOUCH;
-    }
-
 }
