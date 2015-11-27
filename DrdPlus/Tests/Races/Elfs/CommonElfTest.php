@@ -7,7 +7,7 @@ use DrdPlus\Codes\PropertyCodes;
 
 class CommonElfTest extends AbstractTestOfElf
 {
-    protected function getExpectedBodyProperty($genderCode, $propertyCode)
+    protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
             Male::MALE => [

@@ -87,12 +87,15 @@ abstract class AbstractTestOfRace extends TestWithMockery
      *
      * @param Race $race
      */
-    public function I_can_get_body_property(Race $race)
+    public function I_can_get_base_property(Race $race)
     {
         $racesTable = new RacesTable();
         $femaleModifiersTable = new FemaleModifiersTable();
         foreach ($this->getGenders() as $gender) {
             foreach ($this->getPropertyCodes() as $propertyCode) {
+                $sameValueByGenericGetter = $race->getBaseProperty(
+                    $propertyCode, $racesTable, $gender, $femaleModifiersTable
+                );
                 switch ($propertyCode) {
                     case PropertyCodes::STRENGTH :
                         $value = $race->getStrength($racesTable, $gender, $femaleModifiersTable);
@@ -116,10 +119,11 @@ abstract class AbstractTestOfRace extends TestWithMockery
                         $value = null;
                 }
                 $this->assertSame(
-                    $this->getExpectedBodyProperty($gender->getEnumValue(), $propertyCode),
+                    $this->getExpectedBaseProperty($gender->getEnumValue(), $propertyCode),
                     $value,
                     "Unexpected {$gender} $propertyCode"
                 );
+                $this->assertSame($sameValueByGenericGetter, $value);
             }
         }
     }
@@ -156,7 +160,24 @@ abstract class AbstractTestOfRace extends TestWithMockery
      *
      * @return int
      */
-    abstract protected function getExpectedBodyProperty($genderCode, $propertyCode);
+    abstract protected function getExpectedBaseProperty($genderCode, $propertyCode);
+
+
+    /**
+     * @test
+     * @depends I_can_get_race
+     * @expectedException \DrdPlus\Races\Exceptions\UnknownBasePropertyCode
+     *
+     * @param Race $race
+     */
+    public function I_can_not_get_base_property_by_its_invalid_code(Race $race)
+    {
+        $racesTable = new RacesTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
+        /** @var Gender $gender */
+        $gender = \Mockery::mock(Gender::class);
+        $race->getBaseProperty('invalid code', $racesTable, $gender, $femaleModifiersTable);
+    }
 
     /**
      * @test
@@ -164,13 +185,13 @@ abstract class AbstractTestOfRace extends TestWithMockery
      *
      * @param Race $race
      */
-    public function I_can_get_other_property(Race $race)
+    public function I_can_get_non_base_property(Race $race)
     {
         $racesTable = new RacesTable();
         $femaleModifiersTable = new FemaleModifiersTable();
         $weightTable = new WeightTable();
         foreach ($this->getGenders() as $gender) {
-            foreach ($this->getOtherPropertyCodes() as $propertyCode) {
+            foreach ($this->getNonBasePropertyCodes() as $propertyCode) {
                 switch ($propertyCode) {
                     case PropertyCodes::SENSES :
                         $value = $race->getSenses($racesTable);
@@ -211,7 +232,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
         }
     }
 
-    private function getOtherPropertyCodes()
+    private function getNonBasePropertyCodes()
     {
         return [
             PropertyCodes::SENSES,

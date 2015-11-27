@@ -6,7 +6,7 @@ use DrdPlus\Codes\PropertyCodes;
 
 class CommonOrcTest extends AbstractTestOfOrc
 {
-    protected function getExpectedBodyProperty($genderCode, $propertyCode)
+    protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
             PropertyCodes::STRENGTH => [

@@ -7,7 +7,7 @@ use DrdPlus\Codes\PropertyCodes;
 
 class MountainDwarfTest extends AbstractTestOfDwarf
 {
-    protected function getExpectedBodyProperty($genderCode, $propertyCode)
+    protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
             Male::MALE => [

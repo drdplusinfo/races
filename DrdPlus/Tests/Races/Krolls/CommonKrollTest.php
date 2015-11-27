@@ -7,7 +7,7 @@ use DrdPlus\Codes\PropertyCodes;
 
 class CommonKrollTest extends AbstractTestOfKroll
 {
-    protected function getExpectedBodyProperty($genderCode, $propertyCode)
+    protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
             Male::MALE => [

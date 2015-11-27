@@ -7,7 +7,7 @@ use DrdPlus\Tests\Races\AbstractTestOfRace;
 
 class CommonHobbitTest extends AbstractTestOfRace
 {
-    protected function getExpectedBodyProperty($genderCode, $propertyCode)
+    protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
             PropertyCodes::STRENGTH => [

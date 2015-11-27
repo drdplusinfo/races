@@ -3,6 +3,7 @@ namespace DrdPlus\Races;
 
 use Doctrineum\Scalar\Enum;
 use Drd\Genders\Gender;
+use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
@@ -147,6 +148,33 @@ abstract class Race extends Enum
         }
 
         return $racesTable->getFemaleCharisma($this->getRaceCode(), $this->getSubraceCode(), $femaleModifiersTable);
+    }
+
+    public function getBaseProperty(
+        $basePropertyCode,
+        RacesTable $racesTable,
+        Gender $gender,
+        FemaleModifiersTable $femaleModifiersTable
+    )
+    {
+        switch ($basePropertyCode) {
+            case PropertyCodes::STRENGTH :
+                return $this->getStrength($racesTable, $gender, $femaleModifiersTable);
+            case PropertyCodes::AGILITY :
+                return $this->getAgility($racesTable, $gender, $femaleModifiersTable);
+            case PropertyCodes::KNACK :
+                return $this->getKnack($racesTable, $gender, $femaleModifiersTable);
+            case PropertyCodes::WILL :
+                return $this->getWill($racesTable, $gender, $femaleModifiersTable);
+            case PropertyCodes::INTELLIGENCE :
+                return $this->getIntelligence($racesTable, $gender, $femaleModifiersTable);
+            case PropertyCodes::CHARISMA :
+                return $this->getCharisma($racesTable, $gender, $femaleModifiersTable);
+            default :
+                throw new Exceptions\UnknownBasePropertyCode(
+                    "Unknown code of base property " . ValueDescriber::describe($basePropertyCode)
+                );
+        }
     }
 
     /**
