@@ -7,9 +7,7 @@ use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Race;
-use DrdPlus\Tables\Measurements\Weight\WeightTable;
-use DrdPlus\Tables\Races\FemaleModifiersTable;
-use DrdPlus\Tables\Races\RacesTable;
+use DrdPlus\Tables\Tables;
 
 abstract class AbstractTestOfRace extends TestWithMockery
 {
@@ -89,31 +87,28 @@ abstract class AbstractTestOfRace extends TestWithMockery
      */
     public function I_can_get_base_property(Race $race)
     {
-        $racesTable = new RacesTable();
-        $femaleModifiersTable = new FemaleModifiersTable();
+        $tables = new Tables();
         foreach ($this->getGenders() as $gender) {
             foreach ($this->getPropertyCodes() as $propertyCode) {
-                $sameValueByGenericGetter = $race->getBaseProperty(
-                    $propertyCode, $racesTable, $gender, $femaleModifiersTable
-                );
+                $sameValueByGenericGetter = $race->getProperty($propertyCode, $tables, $gender);
                 switch ($propertyCode) {
                     case PropertyCodes::STRENGTH :
-                        $value = $race->getStrength($racesTable, $gender, $femaleModifiersTable);
+                        $value = $race->getStrength($gender, $tables);
                         break;
                     case PropertyCodes::AGILITY :
-                        $value = $race->getAgility($racesTable, $gender, $femaleModifiersTable);
+                        $value = $race->getAgility($gender, $tables);
                         break;
                     case PropertyCodes::KNACK :
-                        $value = $race->getKnack($racesTable, $gender, $femaleModifiersTable);
+                        $value = $race->getKnack($gender, $tables);
                         break;
                     case PropertyCodes::WILL :
-                        $value = $race->getWill($racesTable, $gender, $femaleModifiersTable);
+                        $value = $race->getWill($gender, $tables);
                         break;
                     case PropertyCodes::INTELLIGENCE :
-                        $value = $race->getIntelligence($racesTable, $gender, $femaleModifiersTable);
+                        $value = $race->getIntelligence($gender, $tables);
                         break;
                     case PropertyCodes::CHARISMA :
-                        $value = $race->getCharisma($racesTable, $gender, $femaleModifiersTable);
+                        $value = $race->getCharisma($gender, $tables);
                         break;
                     default :
                         $value = null;
@@ -166,17 +161,16 @@ abstract class AbstractTestOfRace extends TestWithMockery
     /**
      * @test
      * @depends I_can_get_race
-     * @expectedException \DrdPlus\Races\Exceptions\UnknownBasePropertyCode
+     * @expectedException \DrdPlus\Races\Exceptions\UnknownPropertyCode
      *
      * @param Race $race
      */
-    public function I_can_not_get_base_property_by_its_invalid_code(Race $race)
+    public function I_can_not_get_property_by_its_invalid_code(Race $race)
     {
-        $racesTable = new RacesTable();
-        $femaleModifiersTable = new FemaleModifiersTable();
+        $tables = new Tables();
         /** @var Gender $gender */
         $gender = \Mockery::mock(Gender::class);
-        $race->getBaseProperty('invalid code', $racesTable, $gender, $femaleModifiersTable);
+        $race->getProperty('invalid code', $tables, $gender);
     }
 
     /**
@@ -187,11 +181,11 @@ abstract class AbstractTestOfRace extends TestWithMockery
      */
     public function I_can_get_non_base_property(Race $race)
     {
-        $racesTable = new RacesTable();
-        $femaleModifiersTable = new FemaleModifiersTable();
-        $weightTable = new WeightTable();
+        $tables = new Tables();
+        $racesTable = $tables->getRacesTable();
         foreach ($this->getGenders() as $gender) {
             foreach ($this->getNonBasePropertyCodes() as $propertyCode) {
+                $sameValueByGenericGetter = $race->getProperty($propertyCode, $tables, $gender);
                 switch ($propertyCode) {
                     case PropertyCodes::SENSES :
                         $value = $race->getSenses($racesTable);
@@ -200,10 +194,10 @@ abstract class AbstractTestOfRace extends TestWithMockery
                         $value = $race->getToughness($racesTable);
                         break;
                     case PropertyCodes::SIZE :
-                        $value = $race->getSize($racesTable, $gender, $femaleModifiersTable);
+                        $value = $race->getSize($gender, $tables);
                         break;
                     case PropertyCodes::WEIGHT_IN_KG :
-                        $value = $race->getWeightInKg($racesTable, $gender, $femaleModifiersTable, $weightTable);
+                        $value = $race->getWeightInKg($gender, $tables);
                         break;
                     case PropertyCodes::HEIGHT_IN_CM :
                         $value = $race->getHeightInCm($racesTable);
@@ -228,6 +222,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
                     $value,
                     "Unexpected {$gender} $propertyCode"
                 );
+                $this->assertSame($sameValueByGenericGetter, $value);
             }
         }
     }

@@ -4,9 +4,8 @@ namespace DrdPlus\Races;
 use Doctrineum\Scalar\Enum;
 use Drd\Genders\Gender;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tables\Measurements\Weight\WeightTable;
-use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
+use DrdPlus\Tables\Tables;
 use Granam\Scalar\Tools\ValueDescriber;
 
 abstract class Race extends Enum
@@ -55,126 +54,105 @@ abstract class Race extends Enum
     abstract public function getSubraceCode();
 
     /**
-     * @param RacesTable $racesTable
      * @param Gender $gender
-     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param Tables $tables
      *
      * @return int
      */
-    public function getStrength(RacesTable $racesTable, Gender $gender, FemaleModifiersTable $femaleModifiersTable)
+    public function getStrength(Gender $gender, Tables $tables)
     {
         if ($gender->isMale()) {
-            return $racesTable->getMaleStrength($this->getRaceCode(), $this->getSubraceCode());
+            return $tables->getRacesTable()->getMaleStrength($this->getRaceCode(), $this->getSubraceCode());
         }
 
-        return $racesTable->getFemaleStrength($this->getRaceCode(), $this->getSubraceCode(), $femaleModifiersTable);
+        return $tables->getRacesTable()->getFemaleStrength(
+            $this->getRaceCode(), $this->getSubraceCode(), $tables->getFemaleModifiersTable()
+        );
     }
 
     /**
-     * @param RacesTable $racesTable
      * @param Gender $gender
-     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param Tables $tables
      *
      * @return int
      */
-    public function getAgility(RacesTable $racesTable, Gender $gender, FemaleModifiersTable $femaleModifiersTable)
+    public function getAgility(Gender $gender, Tables $tables)
     {
         if ($gender->isMale()) {
-            return $racesTable->getMaleAgility($this->getRaceCode(), $this->getSubraceCode());
+            return $tables->getRacesTable()->getMaleAgility($this->getRaceCode(), $this->getSubraceCode());
         }
 
-        return $racesTable->getFemaleAgility($this->getRaceCode(), $this->getSubraceCode(), $femaleModifiersTable);
+        return $tables->getRacesTable()->getFemaleAgility(
+            $this->getRaceCode(), $this->getSubraceCode(), $tables->getFemaleModifiersTable()
+        );
     }
 
     /**
-     * @param RacesTable $racesTable
      * @param Gender $gender
-     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param Tables $tables
      *
      * @return int
      */
-    public function getKnack(RacesTable $racesTable, Gender $gender, FemaleModifiersTable $femaleModifiersTable)
+    public function getKnack(Gender $gender, Tables $tables)
     {
         if ($gender->isMale()) {
-            return $racesTable->getMaleKnack($this->getRaceCode(), $this->getSubraceCode());
+            return $tables->getRacesTable()->getMaleKnack($this->getRaceCode(), $this->getSubraceCode());
         }
 
-        return $racesTable->getFemaleKnack($this->getRaceCode(), $this->getSubraceCode(), $femaleModifiersTable);
+        return $tables->getRacesTable()->getFemaleKnack(
+            $this->getRaceCode(), $this->getSubraceCode(), $tables->getFemaleModifiersTable()
+        );
     }
 
     /**
-     * @param RacesTable $racesTable
      * @param Gender $gender
-     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param Tables $tables
      *
      * @return int
      */
-    public function getWill(RacesTable $racesTable, Gender $gender, FemaleModifiersTable $femaleModifiersTable)
+    public function getWill(Gender $gender, Tables $tables)
     {
         if ($gender->isMale()) {
-            return $racesTable->getMaleWill($this->getRaceCode(), $this->getSubraceCode());
+            return $tables->getRacesTable()->getMaleWill($this->getRaceCode(), $this->getSubraceCode());
         }
 
-        return $racesTable->getFemaleWill($this->getRaceCode(), $this->getSubraceCode(), $femaleModifiersTable);
+        return $tables->getRacesTable()->getFemaleWill(
+            $this->getRaceCode(), $this->getSubraceCode(), $tables->getFemaleModifiersTable()
+        );
     }
 
     /**
-     * @param RacesTable $racesTable
      * @param Gender $gender
-     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param Tables $tables
      *
      * @return int
      */
-    public function getIntelligence(RacesTable $racesTable, Gender $gender, FemaleModifiersTable $femaleModifiersTable)
+    public function getIntelligence(Gender $gender, Tables $tables)
     {
         if ($gender->isMale()) {
-            return $racesTable->getMaleIntelligence($this->getRaceCode(), $this->getSubraceCode());
+            return $tables->getRacesTable()->getMaleIntelligence($this->getRaceCode(), $this->getSubraceCode());
         }
 
-        return $racesTable->getFemaleIntelligence($this->getRaceCode(), $this->getSubraceCode(), $femaleModifiersTable);
+        return $tables->getRacesTable()->getFemaleIntelligence(
+            $this->getRaceCode(), $this->getSubraceCode(), $tables->getFemaleModifiersTable()
+        );
     }
 
     /**
-     * @param RacesTable $racesTable
      * @param Gender $gender
-     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param Tables $tables
      *
      * @return int
      */
-    public function getCharisma(RacesTable $racesTable, Gender $gender, FemaleModifiersTable $femaleModifiersTable)
+    public function getCharisma(Gender $gender, Tables $tables)
     {
         if ($gender->isMale()) {
-            return $racesTable->getMaleCharisma($this->getRaceCode(), $this->getSubraceCode());
+            return $tables->getRacesTable()->getMaleCharisma($this->getRaceCode(), $this->getSubraceCode());
         }
 
-        return $racesTable->getFemaleCharisma($this->getRaceCode(), $this->getSubraceCode(), $femaleModifiersTable);
-    }
-
-    public function getBaseProperty(
-        $basePropertyCode,
-        RacesTable $racesTable,
-        Gender $gender,
-        FemaleModifiersTable $femaleModifiersTable
-    )
-    {
-        switch ($basePropertyCode) {
-            case PropertyCodes::STRENGTH :
-                return $this->getStrength($racesTable, $gender, $femaleModifiersTable);
-            case PropertyCodes::AGILITY :
-                return $this->getAgility($racesTable, $gender, $femaleModifiersTable);
-            case PropertyCodes::KNACK :
-                return $this->getKnack($racesTable, $gender, $femaleModifiersTable);
-            case PropertyCodes::WILL :
-                return $this->getWill($racesTable, $gender, $femaleModifiersTable);
-            case PropertyCodes::INTELLIGENCE :
-                return $this->getIntelligence($racesTable, $gender, $femaleModifiersTable);
-            case PropertyCodes::CHARISMA :
-                return $this->getCharisma($racesTable, $gender, $femaleModifiersTable);
-            default :
-                throw new Exceptions\UnknownBasePropertyCode(
-                    "Unknown code of base property " . ValueDescriber::describe($basePropertyCode)
-                );
-        }
+        return $tables->getRacesTable()->getFemaleCharisma(
+            $this->getRaceCode(), $this->getSubraceCode(), $tables->getFemaleModifiersTable()
+        );
     }
 
     /**
@@ -198,43 +176,37 @@ abstract class Race extends Enum
     }
 
     /**
-     * @param RacesTable $racesTable
      * @param Gender $gender
-     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param Tables $tables
      * @return int
      */
-    public function getSize(RacesTable $racesTable, Gender $gender, FemaleModifiersTable $femaleModifiersTable)
+    public function getSize(Gender $gender, Tables $tables)
     {
         if ($gender->isMale()) {
-            return $racesTable->getMaleSize($this->getRaceCode(), $this->getSubraceCode());
+            return $tables->getRacesTable()->getMaleSize($this->getRaceCode(), $this->getSubraceCode());
         }
 
-        return $racesTable->getFemaleSize($this->getRaceCode(), $this->getSubraceCode(), $femaleModifiersTable);
+        return $tables->getRacesTable()->getFemaleSize(
+            $this->getRaceCode(), $this->getSubraceCode(), $tables->getFemaleModifiersTable()
+        );
     }
 
     /**
-     * @param RacesTable $racesTable
      * @param Gender $gender
-     * @param FemaleModifiersTable $femaleModifiersTable
-     * @param WeightTable $weightTable
+     * @param Tables $tables
      * @return float
      */
-    public function getWeightInKg(
-        RacesTable $racesTable,
-        Gender $gender,
-        FemaleModifiersTable $femaleModifiersTable,
-        WeightTable $weightTable
-    )
+    public function getWeightInKg(Gender $gender, Tables $tables)
     {
         if ($gender->isMale()) {
-            return $racesTable->getMaleWeightInKg($this->getRaceCode(), $this->getSubraceCode());
+            return $tables->getRacesTable()->getMaleWeightInKg($this->getRaceCode(), $this->getSubraceCode());
         }
 
-        return $racesTable->getFemaleWeightInKg(
+        return $tables->getRacesTable()->getFemaleWeightInKg(
             $this->getRaceCode(),
             $this->getSubraceCode(),
-            $femaleModifiersTable,
-            $weightTable
+            $tables->getFemaleModifiersTable(),
+            $tables->getWeightTable()
         );
     }
 
@@ -287,6 +259,50 @@ abstract class Race extends Enum
     public function getRemarkableSense(RacesTable $racesTable)
     {
         return $racesTable->getRemarkableSense($this->getRaceCode(), $this->getSubraceCode());
+    }
+
+    public function getProperty(
+        $propertyCode,
+        Tables $tables,
+        Gender $gender
+    )
+    {
+        switch ($propertyCode) {
+            case PropertyCodes::STRENGTH :
+                return $this->getStrength($gender, $tables);
+            case PropertyCodes::AGILITY :
+                return $this->getAgility($gender, $tables);
+            case PropertyCodes::KNACK :
+                return $this->getKnack($gender, $tables);
+            case PropertyCodes::WILL :
+                return $this->getWill($gender, $tables);
+            case PropertyCodes::INTELLIGENCE :
+                return $this->getIntelligence($gender, $tables);
+            case PropertyCodes::CHARISMA :
+                return $this->getCharisma($gender, $tables);
+            case PropertyCodes::SENSES :
+                return $this->getSenses($tables->getRacesTable());
+            case PropertyCodes::TOUGHNESS :
+                return $this->getToughness($tables->getRacesTable());
+            case PropertyCodes::SIZE :
+                return $this->getSize($gender, $tables);
+            case PropertyCodes::WEIGHT_IN_KG :
+                return $this->getWeightInKg($gender, $tables);
+            case PropertyCodes::HEIGHT_IN_CM :
+                return $this->getHeightInCm($tables->getRacesTable());
+            case PropertyCodes::INFRAVISION :
+                return $this->hasInfravision($tables->getRacesTable());
+            case PropertyCodes::NATIVE_REGENERATION :
+                return $this->hasNativeRegeneration($tables->getRacesTable());
+            case PropertyCodes::REQUIRES_DM_AGREEMENT :
+                return $this->requiresDmAgreement($tables->getRacesTable());
+            case PropertyCodes::REMARKABLE_SENSE :
+                return $this->getRemarkableSense($tables->getRacesTable());
+            default :
+                throw new Exceptions\UnknownPropertyCode(
+                    "Unknown code of property " . ValueDescriber::describe($propertyCode)
+                );
+        }
     }
 
 }
