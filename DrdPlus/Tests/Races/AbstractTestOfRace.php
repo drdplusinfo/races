@@ -90,7 +90,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
         $tables = new Tables();
         foreach ($this->getGenders() as $gender) {
             foreach ($this->getPropertyCodes() as $propertyCode) {
-                $sameValueByGenericGetter = $race->getProperty($propertyCode, $tables, $gender);
+                $sameValueByGenericGetter = $race->getProperty($propertyCode, $gender, $tables);
                 switch ($propertyCode) {
                     case PropertyCodes::STRENGTH :
                         $value = $race->getStrength($gender, $tables);
@@ -170,7 +170,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
         $tables = new Tables();
         /** @var Gender $gender */
         $gender = \Mockery::mock(Gender::class);
-        $race->getProperty('invalid code', $tables, $gender);
+        $race->getProperty('invalid code', $gender, $tables);
     }
 
     /**
@@ -185,7 +185,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
         $racesTable = $tables->getRacesTable();
         foreach ($this->getGenders() as $gender) {
             foreach ($this->getNonBasePropertyCodes() as $propertyCode) {
-                $sameValueByGenericGetter = $race->getProperty($propertyCode, $tables, $gender);
+                $sameValueByGenericGetter = $race->getProperty($propertyCode, $gender, $tables);
                 switch ($propertyCode) {
                     case PropertyCodes::SENSES :
                         $value = $race->getSenses($racesTable);

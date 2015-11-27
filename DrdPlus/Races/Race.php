@@ -263,8 +263,8 @@ abstract class Race extends Enum
 
     public function getProperty(
         $propertyCode,
-        Tables $tables,
-        Gender $gender
+        Gender $gender,
+        Tables $tables
     )
     {
         switch ($propertyCode) {
@@ -304,5 +304,4 @@ abstract class Race extends Enum
                 );
         }
     }
-
 }
