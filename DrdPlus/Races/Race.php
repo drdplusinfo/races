@@ -14,7 +14,7 @@ abstract class Race extends Enum
     public function __construct($value)
     {
         parent::__construct($value);
-        $this->checkRaceEnumValue($this->getEnumValue());
+        $this->checkRaceEnumValue($this->getValue());
     }
 
     private function checkRaceEnumValue($value)

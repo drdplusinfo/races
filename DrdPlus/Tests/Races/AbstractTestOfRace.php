@@ -114,7 +114,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
                         $value = null;
                 }
                 $this->assertSame(
-                    $this->getExpectedBaseProperty($gender->getEnumValue(), $propertyCode),
+                    $this->getExpectedBaseProperty($gender->getValue(), $propertyCode),
                     $value,
                     "Unexpected {$gender} $propertyCode"
                 );
@@ -218,7 +218,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
                         $value = null;
                 }
                 $this->assertSame(
-                    $this->getExpectedOtherProperty($propertyCode, $gender->getEnumValue()),
+                    $this->getExpectedOtherProperty($propertyCode, $gender->getValue()),
                     $value,
                     "Unexpected {$gender} $propertyCode"
                 );
