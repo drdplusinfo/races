@@ -261,11 +261,13 @@ abstract class Race extends Enum
         return $racesTable->getRemarkableSense($this->getRaceCode(), $this->getSubraceCode());
     }
 
-    public function getProperty(
-        $propertyCode,
-        Gender $gender,
-        Tables $tables
-    )
+    /**
+     * @param $propertyCode
+     * @param Gender $gender
+     * @param Tables $tables
+     * @return int|bool|string
+     */
+    public function getProperty($propertyCode, Gender $gender, Tables $tables)
     {
         switch ($propertyCode) {
             case PropertyCodes::STRENGTH :
@@ -301,6 +303,23 @@ abstract class Race extends Enum
             default :
                 throw new Exceptions\UnknownPropertyCode(
                     "Unknown code of property " . ValueDescriber::describe($propertyCode)
+                );
+        }
+    }
+
+    public function getBaseProperty($basePropertyCode, Gender $gender, Tables $tables)
+    {
+        switch ($basePropertyCode) {
+            case PropertyCodes::STRENGTH :
+            case PropertyCodes::AGILITY :
+            case PropertyCodes::KNACK :
+            case PropertyCodes::WILL :
+            case PropertyCodes::INTELLIGENCE :
+            case PropertyCodes::CHARISMA :
+                return $this->getProperty($basePropertyCode, $gender, $tables);
+            default :
+                throw new Exceptions\UnknownBasePropertyCode(
+                    "Unknown code of base property " . ValueDescriber::describe($basePropertyCode)
                 );
         }
     }

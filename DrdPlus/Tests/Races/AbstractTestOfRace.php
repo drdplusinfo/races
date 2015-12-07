@@ -8,6 +8,7 @@ use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Race;
 use DrdPlus\Tables\Tables;
+use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
 
 abstract class AbstractTestOfRace extends TestWithMockery
 {
@@ -89,8 +90,9 @@ abstract class AbstractTestOfRace extends TestWithMockery
     {
         $tables = new Tables();
         foreach ($this->getGenders() as $gender) {
-            foreach ($this->getPropertyCodes() as $propertyCode) {
+            foreach ($this->getBasePropertyCodes() as $propertyCode) {
                 $sameValueByGenericGetter = $race->getProperty($propertyCode, $gender, $tables);
+                $sameValueByBasePropertyGenericGetter = $race->getBaseProperty($propertyCode, $gender, $tables);
                 switch ($propertyCode) {
                     case PropertyCodes::STRENGTH :
                         $value = $race->getStrength($gender, $tables);
@@ -119,6 +121,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
                     "Unexpected {$gender} $propertyCode"
                 );
                 $this->assertSame($sameValueByGenericGetter, $value);
+                $this->assertSame($sameValueByBasePropertyGenericGetter, $value);
             }
         }
     }
@@ -137,7 +140,7 @@ abstract class AbstractTestOfRace extends TestWithMockery
     /**
      * @return array|string[]
      */
-    private function getPropertyCodes()
+    private function getBasePropertyCodes()
     {
         return [
             PropertyCodes::STRENGTH,
@@ -248,4 +251,32 @@ abstract class AbstractTestOfRace extends TestWithMockery
      * @return int|float|bool|string
      */
     abstract protected function getExpectedOtherProperty($propertyCode, $genderCode);
+
+    /**
+     * @test
+     * @dataProvider provideNonBasePropertyCode
+     * @expectedException \DrdPlus\Races\Exceptions\UnknownBasePropertyCode
+     *
+     * @param string $nonBasePropertyCode
+     */
+    public function I_can_not_get_non_base_property_by_base_getter($nonBasePropertyCode)
+    {
+        $subraceClass = $this->getSubraceClass();
+        $subrace = $subraceClass::getIt();
+        /** @var Gender $gender */
+        $gender = $this->mockery(Gender::class);
+
+        $subrace->getBaseProperty($nonBasePropertyCode, $gender, new Tables());
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function provideNonBasePropertyCode()
+    {
+        return array_map(function ($code) {
+            return [$code];
+        }, $this->getNonBasePropertyCodes());
+    }
+
 }
