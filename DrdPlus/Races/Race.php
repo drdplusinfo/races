@@ -1,14 +1,14 @@
 <?php
 namespace DrdPlus\Races;
 
-use Doctrineum\Scalar\Enum;
+use Doctrineum\Scalar\ScalarEnum;
 use Drd\Genders\Gender;
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
 use Granam\Scalar\Tools\ValueDescriber;
 
-abstract class Race extends Enum
+abstract class Race extends ScalarEnum
 {
 
     public function __construct($value)

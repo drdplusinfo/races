@@ -1,10 +1,10 @@
 <?php
 namespace DrdPlus\Races\EnumTypes;
 
-use Doctrineum\Scalar\EnumType;
+use Doctrineum\Scalar\ScalarEnumType;
 use DrdPlus\Races\Race;
 
-class RaceType extends EnumType
+class RaceType extends ScalarEnumType
 {
     const RACE = 'race';
 
