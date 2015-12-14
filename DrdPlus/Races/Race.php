@@ -182,12 +182,11 @@ abstract class Race extends ScalarEnum
      */
     public function getSize(Gender $gender, Tables $tables)
     {
-        if ($gender->isMale()) {
-            return $tables->getRacesTable()->getMaleSize($this->getRaceCode(), $this->getSubraceCode());
-        }
-
-        return $tables->getRacesTable()->getFemaleSize(
-            $this->getRaceCode(), $this->getSubraceCode(), $tables->getFemaleModifiersTable()
+        return $tables->getRacesTable()->getSize(
+            $this->getRaceCode(),
+            $this->getSubraceCode(),
+            $gender->getValue(),
+            $tables->getFemaleModifiersTable()
         );
     }
 
