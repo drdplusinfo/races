@@ -8,7 +8,7 @@ use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Race;
 use DrdPlus\Tables\Tables;
-use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use Granam\Tests\Tools\TestWithMockery;
 
 abstract class AbstractTestOfRace extends TestWithMockery
 {

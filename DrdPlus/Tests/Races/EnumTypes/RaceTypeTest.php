@@ -4,7 +4,7 @@ namespace DrdPlus\Races;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use DrdPlus\Races\EnumTypes\RaceType;
-use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use Granam\Tests\Tools\TestWithMockery;;
 
 class RaceTypeTest extends TestWithMockery
 {

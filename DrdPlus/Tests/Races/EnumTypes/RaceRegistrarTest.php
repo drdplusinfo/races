@@ -16,7 +16,7 @@ use DrdPlus\Races\Krolls\WildKroll;
 use DrdPlus\Races\Orcs\CommonOrc;
 use DrdPlus\Races\Orcs\Goblin;
 use DrdPlus\Races\Orcs\Skurut;
-use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use Granam\Tests\Tools\TestWithMockery;;
 
 class RaceRegistrarTest extends TestWithMockery
 {
