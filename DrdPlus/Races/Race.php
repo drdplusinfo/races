@@ -6,7 +6,7 @@ use Drd\Genders\Gender;
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
-use Granam\Scalar\Tools\ValueDescriber;
+use Granam\Tools\ValueDescriber;
 
 abstract class Race extends ScalarEnum
 {
