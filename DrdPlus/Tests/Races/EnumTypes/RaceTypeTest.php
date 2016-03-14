@@ -51,7 +51,7 @@ class RaceTypeTest extends TestWithMockery
     /**
      * @test
      * @depends I_can_register_subrace
-     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceValue
+     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceCode
      */
     public function I_can_not_use_unexpected_race_enum_code()
     {

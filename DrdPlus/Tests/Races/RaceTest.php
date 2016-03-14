@@ -35,7 +35,7 @@ abstract class RaceTest extends TestWithMockery
     /**
      * @return string|Race|CommonDwarf
      */
-    protected function getSubraceClass()
+    private function getSubraceClass()
     {
         return preg_replace('~[\\\]Tests(.+)Test$~', '$1', static::class);
     }
@@ -43,7 +43,7 @@ abstract class RaceTest extends TestWithMockery
     /**
      * @return string
      */
-    protected function getSubraceCode()
+    private function getSubraceCode()
     {
         $subraceCode = str_replace($this->getRaceCode(), '', strtolower($this->getSubraceBaseName()));
 
@@ -53,7 +53,7 @@ abstract class RaceTest extends TestWithMockery
     /**
      * @return string
      */
-    protected function getSubraceBaseName()
+    private function getSubraceBaseName()
     {
         $subraceClass = $this->getSubraceClass();
 
@@ -63,7 +63,7 @@ abstract class RaceTest extends TestWithMockery
     /**
      * @return string
      */
-    protected function getRaceCode()
+    private function getRaceCode()
     {
         $baseNamespace = $this->getSubraceBaseNamespace();
         $singular = preg_replace('~s$~', '', $baseNamespace);
@@ -71,18 +71,49 @@ abstract class RaceTest extends TestWithMockery
         return strtolower($singular);
     }
 
-    protected function getSubraceBaseNamespace()
+    private function getSubraceBaseNamespace()
     {
         $namespace = $this->getSubraceNamespace();
 
         return preg_replace('~(\w+\\\)*(\w+)~', '$2', $namespace);
     }
 
-    protected function getSubraceNamespace()
+    private function getSubraceNamespace()
     {
         $subraceClass = $this->getSubraceClass();
 
         return preg_replace('~\\\[\w]+$~', '', $subraceClass);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceCode
+     */
+    public function I_can_not_create_it_directly_with_invalid_code()
+    {
+        $subraceClass = $this->getSubraceClass();
+        new $subraceClass('invalid code');
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceCode
+     */
+    public function I_can_not_create_it_by_enum_factory_method_with_invalid_code()
+    {
+        $subraceClass = $this->getSubraceClass();
+        $subraceClass::getEnum('foo');
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceCode
+     * @expectedExceptionMessageRegExp ~dragonius.+drunkalius~
+     */
+    public function I_can_not_create_it_by_factory_method_with_invalid_code()
+    {
+        $subraceClass = $this->getSubraceClass();
+        $subraceClass::getItByCodes('dragonius', 'drunkalius');
     }
 
     /**

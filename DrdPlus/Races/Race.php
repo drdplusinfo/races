@@ -17,6 +17,7 @@ abstract class Race extends ScalarEnum
      * @param string $raceCode
      * @param string $subraceCode
      * @return Race
+     * @throws \DrdPlus\Races\Exceptions\UnexpectedRaceCode
      */
     public static function getItByCodes($raceCode, $subraceCode)
     {
@@ -29,19 +30,29 @@ abstract class Race extends ScalarEnum
      * @param string $raceCode
      * @param string $subraceCode
      * @return string|Race
+     * @throws \DrdPlus\Races\Exceptions\UnexpectedRaceCode
      */
     protected static function getSubraceClassByCodes($raceCode, $subraceCode)
     {
         $subraceNamespace = __NAMESPACE__ . '\\' . ucfirst($raceCode) . 's' . '\\';
         if ($raceCode !== Orc::ORC || $subraceCode === CommonOrc::COMMON) {
             if ($subraceCode !== Highlander::HIGHLANDER) {
-                return $subraceNamespace . ucfirst($subraceCode) . ucfirst($raceCode);
+                $subraceClass = $subraceNamespace . ucfirst($subraceCode) . ucfirst($raceCode);
             } else {
-                return $subraceNamespace . ucfirst($subraceCode);
+                $subraceClass = $subraceNamespace . ucfirst($subraceCode);
             }
         } else {
-            return $subraceNamespace . ucfirst($subraceCode);
+            $subraceClass = $subraceNamespace . ucfirst($subraceCode);
         }
+        if (!class_exists($subraceClass)) {
+            throw new Exceptions\UnexpectedRaceCode(
+                'Was searching for class ' . $subraceClass
+                . ' created from race code ' . ValueDescriber::describe($raceCode)
+                . ' and sub-race code ' . ValueDescriber::describe($subraceCode)
+            );
+        }
+
+        return $subraceClass;
     }
 
     public function __construct($value)
@@ -53,7 +64,7 @@ abstract class Race extends ScalarEnum
     private function checkRaceEnumValue($value)
     {
         if ($value !== self::createRaceAndSubraceCode($this->getRaceCode(), $this->getSubraceCode())) {
-            throw new Exceptions\UnexpectedRaceValue(
+            throw new Exceptions\UnexpectedRaceCode(
                 'Expected ' . self::createRaceAndSubraceCode($this->getRaceCode(), $this->getSubraceCode())
                 . ' got ' . ValueDescriber::describe($value)
             );
