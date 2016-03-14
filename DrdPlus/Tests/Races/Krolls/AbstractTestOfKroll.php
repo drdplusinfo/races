@@ -3,9 +3,9 @@ namespace DrdPlus\Tests\Races\Krolls;
 
 use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tests\Races\AbstractTestOfRace;
+use DrdPlus\Tests\Races\RaceTest;
 
-abstract class AbstractTestOfKroll extends AbstractTestOfRace
+abstract class AbstractTestOfKroll extends RaceTest
 {
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {

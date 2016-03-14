@@ -28,26 +28,26 @@ class RaceRegistrarTest extends TestWithMockery
     {
         RaceRegistrar::registerAll();
 
-        $this->assertTrue(Type::hasType(RaceType::RACE));
+        self::assertTrue(Type::hasType(RaceType::RACE));
 
-        $this->assertTrue(RaceType::hasSubTypeEnum(CommonDwarf::class));
-        $this->assertTrue(RaceType::hasSubTypeEnum(MountainDwarf::class));
-        $this->assertTrue(RaceType::hasSubTypeEnum(WoodDwarf::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(CommonDwarf::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(MountainDwarf::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(WoodDwarf::class));
 
-        $this->assertTrue(RaceType::hasSubTypeEnum(CommonElf::class));
-        $this->assertTrue(RaceType::hasSubTypeEnum(DarkElf::class));
-        $this->assertTrue(RaceType::hasSubTypeEnum(GreenElf::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(CommonElf::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(DarkElf::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(GreenElf::class));
 
-        $this->assertTrue(RaceType::hasSubTypeEnum(CommonHobbit::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(CommonHobbit::class));
 
-        $this->assertTrue(RaceType::hasSubTypeEnum(CommonHuman::class));
-        $this->assertTrue(RaceType::hasSubTypeEnum(Highlander::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(CommonHuman::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(Highlander::class));
 
-        $this->assertTrue(RaceType::hasSubTypeEnum(CommonKroll::class));
-        $this->assertTrue(RaceType::hasSubTypeEnum(WildKroll::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(CommonKroll::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(WildKroll::class));
 
-        $this->assertTrue(RaceType::hasSubTypeEnum(CommonOrc::class));
-        $this->assertTrue(RaceType::hasSubTypeEnum(Goblin::class));
-        $this->assertTrue(RaceType::hasSubTypeEnum(Skurut::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(CommonOrc::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(Goblin::class));
+        self::assertTrue(RaceType::hasSubTypeEnum(Skurut::class));
     }
 }

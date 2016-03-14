@@ -3,9 +3,9 @@ namespace DrdPlus\Tests\Races\Elfs;
 
 use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tests\Races\AbstractTestOfRace;
+use DrdPlus\Tests\Races\RaceTest;
 
-abstract class AbstractTestOfElf extends AbstractTestOfRace
+abstract class AbstractTestOfElf extends RaceTest
 {
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {

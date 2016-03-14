@@ -14,8 +14,8 @@ class RaceTypeTest extends TestWithMockery
      */
     public function I_can_get_type_name()
     {
-        $this->assertSame('race', RaceType::getTypeName());
-        $this->assertSame(RaceType::RACE, RaceType::getTypeName());
+        self::assertSame('race', RaceType::getTypeName());
+        self::assertSame(RaceType::RACE, RaceType::getTypeName());
     }
 
     /**
@@ -25,9 +25,9 @@ class RaceTypeTest extends TestWithMockery
     public function I_can_register_it_by_self()
     {
         RaceType::registerSelf();
-        $this->assertTrue(Type::hasType(RaceType::getTypeName()));
+        self::assertTrue(Type::hasType(RaceType::getTypeName()));
         $raceType = Type::getType(RaceType::getTypeName());
-        $this->assertInstanceOf(RaceType::class, $raceType);
+        self::assertInstanceOf(RaceType::class, $raceType);
     }
 
     /**
@@ -37,15 +37,15 @@ class RaceTypeTest extends TestWithMockery
     public function I_can_register_subrace()
     {
         $testSubrace = new TestSubrace('foo-bar');
-        $this->assertTrue(RaceType::registerRaceAsSubType($testSubrace));
+        self::assertTrue(RaceType::registerRaceAsSubType($testSubrace));
 
         $raceType = Type::getType(RaceType::getTypeName());
         $databaseValue = $raceType->convertToDatabaseValue($testSubrace, $this->getPlatform());
         $expectedDatabaseValue = "{$testSubrace->getRaceCode()}-{$testSubrace->getSubraceCode()}";
-        $this->assertSame($expectedDatabaseValue, $databaseValue);
+        self::assertSame($expectedDatabaseValue, $databaseValue);
 
         $restoredSubrace = $raceType->convertToPHPValue($expectedDatabaseValue, $this->getPlatform());
-        $this->assertEquals($testSubrace, $restoredSubrace);
+        self::assertEquals($testSubrace, $restoredSubrace);
     }
 
     /**

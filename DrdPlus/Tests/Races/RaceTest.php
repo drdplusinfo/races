@@ -10,7 +10,7 @@ use DrdPlus\Races\Race;
 use DrdPlus\Tables\Tables;
 use Granam\Tests\Tools\TestWithMockery;
 
-abstract class AbstractTestOfRace extends TestWithMockery
+abstract class RaceTest extends TestWithMockery
 {
     /**
      * @test
@@ -20,9 +20,14 @@ abstract class AbstractTestOfRace extends TestWithMockery
     {
         $subraceClass = $this->getSubraceClass();
         $subrace = $subraceClass::getIt();
-        $this->assertInstanceOf($subraceClass, $subrace);
-        $this->assertSame($this->getRaceCode(), $subrace->getRaceCode());
-        $this->assertSame($this->getSubraceCode(), $subrace->getSubraceCode());
+        self::assertInstanceOf($subraceClass, $subrace);
+        self::assertSame($this->getRaceCode(), $subrace->getRaceCode());
+        self::assertSame($this->getSubraceCode(), $subrace->getSubraceCode());
+
+        $equalSubrace = new $subraceClass($this->getRaceCode() . '-' . $subrace->getSubraceCode());
+        self::assertEquals($subrace, $equalSubrace);
+        $anotherButSameSubrace = Race::getItByCodes($this->getRaceCode(), $subrace->getSubraceCode());
+        self::assertSame($subrace, $anotherButSameSubrace);
 
         return $subrace;
     }
@@ -115,13 +120,13 @@ abstract class AbstractTestOfRace extends TestWithMockery
                     default :
                         $value = null;
                 }
-                $this->assertSame(
+                self::assertSame(
                     $this->getExpectedBaseProperty($gender->getValue(), $propertyCode),
                     $value,
                     "Unexpected {$gender} $propertyCode"
                 );
-                $this->assertSame($sameValueByGenericGetter, $value);
-                $this->assertSame($sameValueByBasePropertyGenericGetter, $value);
+                self::assertSame($sameValueByGenericGetter, $value);
+                self::assertSame($sameValueByBasePropertyGenericGetter, $value);
             }
         }
     }
@@ -159,7 +164,6 @@ abstract class AbstractTestOfRace extends TestWithMockery
      * @return int
      */
     abstract protected function getExpectedBaseProperty($genderCode, $propertyCode);
-
 
     /**
      * @test
@@ -220,12 +224,12 @@ abstract class AbstractTestOfRace extends TestWithMockery
                     default :
                         $value = null;
                 }
-                $this->assertSame(
+                self::assertSame(
                     $this->getExpectedOtherProperty($propertyCode, $gender->getValue()),
                     $value,
                     "Unexpected {$gender} $propertyCode"
                 );
-                $this->assertSame($sameValueByGenericGetter, $value);
+                self::assertSame($sameValueByGenericGetter, $value);
             }
         }
     }

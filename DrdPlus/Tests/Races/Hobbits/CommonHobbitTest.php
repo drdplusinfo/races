@@ -3,9 +3,9 @@ namespace DrdPlus\Tests\Races\Hobbits;
 
 use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Tests\Races\AbstractTestOfRace;
+use DrdPlus\Tests\Races\RaceTest;
 
-class CommonHobbitTest extends AbstractTestOfRace
+class CommonHobbitTest extends RaceTest
 {
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {

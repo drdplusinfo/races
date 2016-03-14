@@ -4,12 +4,45 @@ namespace DrdPlus\Races;
 use Doctrineum\Scalar\ScalarEnum;
 use Drd\Genders\Gender;
 use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Races\Humans\Highlander;
+use DrdPlus\Races\Orcs\CommonOrc;
+use DrdPlus\Races\Orcs\Orc;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
 use Granam\Tools\ValueDescriber;
 
 abstract class Race extends ScalarEnum
 {
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @return Race
+     */
+    public static function getItByCodes($raceCode, $subraceCode)
+    {
+        $subraceClass = static::getSubraceClassByCodes($raceCode, $subraceCode);
+
+        return $subraceClass::getEnum(self::createRaceAndSubraceCode($raceCode, $subraceCode));
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @return string|Race
+     */
+    protected static function getSubraceClassByCodes($raceCode, $subraceCode)
+    {
+        $subraceNamespace = __NAMESPACE__ . '\\' . ucfirst($raceCode) . 's' . '\\';
+        if ($raceCode !== Orc::ORC || $subraceCode === CommonOrc::COMMON) {
+            if ($subraceCode !== Highlander::HIGHLANDER) {
+                return $subraceNamespace . ucfirst($subraceCode) . ucfirst($raceCode);
+            } else {
+                return $subraceNamespace . ucfirst($subraceCode);
+            }
+        } else {
+            return $subraceNamespace . ucfirst($subraceCode);
+        }
+    }
 
     public function __construct($value)
     {
