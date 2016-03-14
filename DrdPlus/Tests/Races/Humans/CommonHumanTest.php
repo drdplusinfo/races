@@ -5,7 +5,7 @@ use Drd\Genders\Female;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
 
-class CommonHumanTest extends AbstractTestOfHuman
+class CommonHumanTest extends HumanTest
 {
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {

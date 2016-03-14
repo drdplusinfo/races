@@ -6,7 +6,7 @@ use Drd\Genders\Male;
 use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
 
-class SkurutTest extends AbstractTestOfOrc
+class SkurutTest extends OrcTest
 {
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {

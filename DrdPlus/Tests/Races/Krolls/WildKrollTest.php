@@ -5,7 +5,7 @@ use Drd\Genders\Female;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
 
-class WildKrollTest extends AbstractTestOfKroll
+class WildKrollTest extends KrollTest
 {
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {

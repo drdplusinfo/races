@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Races\Dwarfs;
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Tests\Races\RaceTest;
 
-abstract class AbstractTestOfDwarf extends RaceTest
+abstract class DwarfTest extends RaceTest
 {
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {

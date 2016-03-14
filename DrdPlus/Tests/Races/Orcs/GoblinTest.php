@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Races\Orcs;
 use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
 
-class GoblinTest extends AbstractTestOfOrc
+class GoblinTest extends OrcTest
 {
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {

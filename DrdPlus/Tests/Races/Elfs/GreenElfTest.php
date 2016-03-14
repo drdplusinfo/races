@@ -5,7 +5,7 @@ use Drd\Genders\Female;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCodes;
 
-class GreenElfTest extends AbstractTestOfElf
+class GreenElfTest extends ElfTest
 {
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
