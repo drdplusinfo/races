@@ -26,8 +26,8 @@ abstract class RaceTest extends TestWithMockery
 
         $equalSubrace = new $subraceClass($this->getRaceCode() . '-' . $subrace->getSubraceCode());
         self::assertEquals($subrace, $equalSubrace);
-        $anotherButSameSubrace = Race::getItByCodes($this->getRaceCode(), $subrace->getSubraceCode());
-        self::assertSame($subrace, $anotherButSameSubrace);
+
+        self::assertSame($subrace, $subraceClass::getEnum($this->getRaceCode() . '-' . $subrace->getSubraceCode()));
 
         return $subrace;
     }
@@ -103,17 +103,6 @@ abstract class RaceTest extends TestWithMockery
     {
         $subraceClass = $this->getSubraceClass();
         $subraceClass::getEnum('foo');
-    }
-
-    /**
-     * @test
-     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceCode
-     * @expectedExceptionMessageRegExp ~dragonius.+drunkalius~
-     */
-    public function I_can_not_create_it_by_factory_method_with_invalid_code()
-    {
-        $subraceClass = $this->getSubraceClass();
-        $subraceClass::getItByCodes('dragonius', 'drunkalius');
     }
 
     /**

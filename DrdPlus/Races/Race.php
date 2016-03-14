@@ -4,57 +4,12 @@ namespace DrdPlus\Races;
 use Doctrineum\Scalar\ScalarEnum;
 use Drd\Genders\Gender;
 use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Races\Humans\Highlander;
-use DrdPlus\Races\Orcs\CommonOrc;
-use DrdPlus\Races\Orcs\Orc;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
 use Granam\Tools\ValueDescriber;
 
 abstract class Race extends ScalarEnum
 {
-    /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     * @return Race
-     * @throws \DrdPlus\Races\Exceptions\UnexpectedRaceCode
-     */
-    public static function getItByCodes($raceCode, $subraceCode)
-    {
-        $subraceClass = static::getSubraceClassByCodes($raceCode, $subraceCode);
-
-        return $subraceClass::getEnum(self::createRaceAndSubraceCode($raceCode, $subraceCode));
-    }
-
-    /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     * @return string|Race
-     * @throws \DrdPlus\Races\Exceptions\UnexpectedRaceCode
-     */
-    protected static function getSubraceClassByCodes($raceCode, $subraceCode)
-    {
-        $subraceNamespace = __NAMESPACE__ . '\\' . ucfirst($raceCode) . 's' . '\\';
-        if ($raceCode !== Orc::ORC || $subraceCode === CommonOrc::COMMON) {
-            if ($subraceCode !== Highlander::HIGHLANDER) {
-                $subraceClass = $subraceNamespace . ucfirst($subraceCode) . ucfirst($raceCode);
-            } else {
-                $subraceClass = $subraceNamespace . ucfirst($subraceCode);
-            }
-        } else {
-            $subraceClass = $subraceNamespace . ucfirst($subraceCode);
-        }
-        if (!class_exists($subraceClass)) {
-            throw new Exceptions\UnexpectedRaceCode(
-                'Was searching for class ' . $subraceClass
-                . ' created from race code ' . ValueDescriber::describe($raceCode)
-                . ' and sub-race code ' . ValueDescriber::describe($subraceCode)
-            );
-        }
-
-        return $subraceClass;
-    }
-
     public function __construct($value)
     {
         parent::__construct($value);
@@ -82,7 +37,7 @@ abstract class Race extends ScalarEnum
         return self::getEnum(self::createRaceAndSubraceCode($raceCode, $subraceCode));
     }
 
-    private static function createRaceAndSubraceCode($raceCode, $subraceCode)
+    public static function createRaceAndSubraceCode($raceCode, $subraceCode)
     {
         return "$raceCode-$subraceCode";
     }
