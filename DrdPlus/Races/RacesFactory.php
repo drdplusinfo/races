@@ -7,7 +7,7 @@ use DrdPlus\Races\Orcs\Orc;
 use Granam\Strict\Object\StrictObject;
 use Granam\Tools\ValueDescriber;
 
-class SubRaceFactory extends StrictObject
+class RacesFactory extends StrictObject
 {
     /**
      * @param string $raceCode

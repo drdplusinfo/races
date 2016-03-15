@@ -16,7 +16,7 @@ use DrdPlus\Races\Orcs\CommonOrc;
 use DrdPlus\Races\Orcs\Goblin;
 use DrdPlus\Races\Orcs\Skurut;
 
-class SubRaceFactoryTest extends \PHPUnit_Framework_TestCase
+class RacesFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -28,7 +28,7 @@ class SubRaceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_create_subrace_by_its_codes($raceCode, $subraceCode, $expectedSubraceClass)
     {
-        $subrace = SubRaceFactory::getSubRaceByCodes($raceCode, $subraceCode);
+        $subrace = RacesFactory::getSubRaceByCodes($raceCode, $subraceCode);
         self::assertInstanceOf($expectedSubraceClass, $subrace);
         self::assertSame($raceCode, $subrace->getRaceCode());
         self::assertSame($subraceCode, $subrace->getSubraceCode());
@@ -61,7 +61,7 @@ class SubRaceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_not_create_subrace_by_invalid_codes()
     {
-        SubRaceFactory::getSubRaceByCodes('dragonius', 'drunkalius');
+        RacesFactory::getSubRaceByCodes('dragonius', 'drunkalius');
     }
 
 }
