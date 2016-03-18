@@ -56,12 +56,32 @@ class RacesFactoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceCode
+     * @expectedException \DrdPlus\Races\Exceptions\UnknownRaceCode
      * @expectedExceptionMessageRegExp ~dragonius.+drunkalius~
      */
-    public function I_can_not_create_subrace_by_invalid_codes()
+    public function I_can_not_create_subrace_by_unknown_codes()
     {
         RacesFactory::getSubRaceByCodes('dragonius', 'drunkalius');
     }
 
+    /**
+     * @test
+     * @dataProvider provideInvalidCodePair
+     * @expectedException \DrdPlus\Races\Exceptions\InvalidRaceCode
+     *
+     * @param string $raceCode
+     * @param string $subRaceCode
+     */
+    public function I_can_not_create_subrace_by_non_to_string_value($raceCode, $subRaceCode)
+    {
+        RacesFactory::getSubRaceByCodes($raceCode, $subRaceCode);
+    }
+
+    public function provideInvalidCodePair()
+    {
+        return [
+            ['human', []],
+            [[], 'common'],
+        ];
+    }
 }

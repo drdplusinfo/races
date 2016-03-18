@@ -87,7 +87,7 @@ abstract class RaceTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceCode
+     * @expectedException \DrdPlus\Races\Exceptions\UnknownRaceCode
      */
     public function I_can_not_create_it_directly_with_invalid_code()
     {
@@ -97,7 +97,7 @@ abstract class RaceTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Races\Exceptions\UnexpectedRaceCode
+     * @expectedException \DrdPlus\Races\Exceptions\UnknownRaceCode
      */
     public function I_can_not_create_it_by_enum_factory_method_with_invalid_code()
     {
@@ -303,4 +303,32 @@ abstract class RaceTest extends TestWithMockery
         }, $this->getNonBasePropertyCodes());
     }
 
+    /**
+     * @test
+     */
+    public function I_can_create_race_and_subrace_key()
+    {
+        self::assertSame('foo-bar', Race::createRaceAndSubraceCode('foo', 'bar'));
+    }
+
+    /**
+     * @test
+     * @dataProvider provideInvalidCodePair
+     * @expectedException \DrdPlus\Races\Exceptions\InvalidRaceCode
+     *
+     * @param $raceCode
+     * @param $subraceCode
+     */
+    public function I_can_not_create_race_and_subrace_key_by_non_to_strings($raceCode, $subraceCode)
+    {
+        Race::createRaceAndSubraceCode($raceCode, $subraceCode);
+    }
+
+    public function provideInvalidCodePair()
+    {
+        return [
+            ['human', []],
+            [[], 'common'],
+        ];
+    }
 }

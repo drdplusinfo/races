@@ -6,6 +6,7 @@ use Drd\Genders\Gender;
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
+use Granam\Scalar\Tools\ToString;
 use Granam\Tools\ValueDescriber;
 
 abstract class Race extends ScalarEnum
@@ -19,7 +20,7 @@ abstract class Race extends ScalarEnum
     private function checkRaceEnumValue($value)
     {
         if ($value !== self::createRaceAndSubraceCode($this->getRaceCode(), $this->getSubraceCode())) {
-            throw new Exceptions\UnexpectedRaceCode(
+            throw new Exceptions\UnknownRaceCode(
                 'Expected ' . self::createRaceAndSubraceCode($this->getRaceCode(), $this->getSubraceCode())
                 . ' got ' . ValueDescriber::describe($value)
             );
@@ -37,8 +38,26 @@ abstract class Race extends ScalarEnum
         return self::getEnum(self::createRaceAndSubraceCode($raceCode, $subraceCode));
     }
 
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @return string
+     * @throws \DrdPlus\Races\Exceptions\InvalidRaceCode
+     */
     public static function createRaceAndSubraceCode($raceCode, $subraceCode)
     {
+        try {
+            $raceCode = ToString::toString($raceCode);
+            $subraceCode = ToString::toString($subraceCode);
+        } catch (\Granam\Scalar\Tools\Exceptions\WrongParameterType $exception) {
+            throw new Exceptions\InvalidRaceCode(
+                'Both race codes have to be represented by string, got '
+                . ValueDescriber::describe($raceCode) . ', ' . ValueDescriber::describe($subraceCode),
+                $exception->getCode(),
+                $exception
+            );
+        }
+
         return "$raceCode-$subraceCode";
     }
 
