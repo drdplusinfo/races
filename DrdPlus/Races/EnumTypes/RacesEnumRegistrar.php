@@ -17,7 +17,7 @@ use DrdPlus\Races\Orcs\Goblin;
 use DrdPlus\Races\Orcs\Skurut;
 use Granam\Strict\Object\StrictObject;
 
-class RaceRegistrar extends StrictObject
+class RacesEnumRegistrar extends StrictObject
 {
     public static function registerAll()
     {

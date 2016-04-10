@@ -18,7 +18,7 @@ use DrdPlus\Races\Orcs\Goblin;
 use DrdPlus\Races\Orcs\Skurut;
 use Granam\Tests\Tools\TestWithMockery;;
 
-class RaceRegistrarTest extends TestWithMockery
+class RacesEnumRegistrarTest extends TestWithMockery
 {
 
     /**
@@ -26,7 +26,7 @@ class RaceRegistrarTest extends TestWithMockery
      */
     public function I_can_register_all_the_races_at_once()
     {
-        RaceRegistrar::registerAll();
+        RacesEnumRegistrar::registerAll();
 
         self::assertTrue(Type::hasType(RaceType::RACE));
 
