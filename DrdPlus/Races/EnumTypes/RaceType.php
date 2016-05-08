@@ -17,4 +17,12 @@ class RaceType extends ScalarEnumType
         return static::addSubTypeEnum(get_class($race), "~^$race$~");
     }
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return self::RACE;
+    }
+
 }

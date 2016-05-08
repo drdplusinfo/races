@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Races\EnumTypes;
+namespace DrdPlus\Tests\Races\EnumTypes;
 
 use Doctrine\DBAL\Types\Type;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
@@ -8,6 +8,8 @@ use DrdPlus\Races\Dwarfs\WoodDwarf;
 use DrdPlus\Races\Elfs\CommonElf;
 use DrdPlus\Races\Elfs\DarkElf;
 use DrdPlus\Races\Elfs\GreenElf;
+use DrdPlus\Races\EnumTypes\RacesEnumRegistrar;
+use DrdPlus\Races\EnumTypes\RaceType;
 use DrdPlus\Races\Hobbits\CommonHobbit;
 use DrdPlus\Races\Humans\CommonHuman;
 use DrdPlus\Races\Humans\Highlander;
@@ -16,7 +18,7 @@ use DrdPlus\Races\Krolls\WildKroll;
 use DrdPlus\Races\Orcs\CommonOrc;
 use DrdPlus\Races\Orcs\Goblin;
 use DrdPlus\Races\Orcs\Skurut;
-use Granam\Tests\Tools\TestWithMockery;;
+use Granam\Tests\Tools\TestWithMockery;
 
 class RacesEnumRegistrarTest extends TestWithMockery
 {

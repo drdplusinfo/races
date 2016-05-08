@@ -1,45 +1,25 @@
 <?php
-namespace DrdPlus\Races;
+namespace DrdPlus\Tests\Races\EnumTypes;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
+use Doctrineum\Tests\SelfRegisteringType\AbstractSelfRegisteringTypeTest;
 use DrdPlus\Races\EnumTypes\RaceType;
-use Granam\Tests\Tools\TestWithMockery;;
+use DrdPlus\Races\Race;
 
-class RaceTypeTest extends TestWithMockery
+class RaceTypeTest extends AbstractSelfRegisteringTypeTest
 {
 
     /**
      * @test
      */
-    public function I_can_get_type_name()
-    {
-        self::assertSame('race', RaceType::getTypeName());
-        self::assertSame(RaceType::RACE, RaceType::getTypeName());
-    }
-
-    /**
-     * @test
-     * @depends I_can_get_type_name
-     */
-    public function I_can_register_it_by_self()
-    {
-        RaceType::registerSelf();
-        self::assertTrue(Type::hasType(RaceType::getTypeName()));
-        $raceType = Type::getType(RaceType::getTypeName());
-        self::assertInstanceOf(RaceType::class, $raceType);
-    }
-
-    /**
-     * @test
-     * @depends I_can_register_it_by_self
-     */
     public function I_can_register_subrace()
     {
+        RaceType::registerSelf();
         $testSubrace = new TestSubrace('foo-bar');
         self::assertTrue(RaceType::registerRaceAsSubType($testSubrace));
 
-        $raceType = Type::getType(RaceType::getTypeName());
+        $raceType = Type::getType($this->getExpectedTypeName());
         $databaseValue = $raceType->convertToDatabaseValue($testSubrace, $this->getPlatform());
         $expectedDatabaseValue = "{$testSubrace->getRaceCode()}-{$testSubrace->getSubraceCode()}";
         self::assertSame($expectedDatabaseValue, $databaseValue);
