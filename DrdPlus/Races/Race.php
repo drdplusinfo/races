@@ -3,7 +3,7 @@ namespace DrdPlus\Races;
 
 use Doctrineum\Scalar\ScalarEnum;
 use Drd\Genders\Gender;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
 use Granam\Scalar\Tools\ToString;
@@ -287,35 +287,35 @@ abstract class Race extends ScalarEnum
     public function getProperty($propertyCode, Gender $gender, Tables $tables)
     {
         switch ($propertyCode) {
-            case PropertyCodes::STRENGTH :
+            case PropertyCode::STRENGTH :
                 return $this->getStrength($gender, $tables);
-            case PropertyCodes::AGILITY :
+            case PropertyCode::AGILITY :
                 return $this->getAgility($gender, $tables);
-            case PropertyCodes::KNACK :
+            case PropertyCode::KNACK :
                 return $this->getKnack($gender, $tables);
-            case PropertyCodes::WILL :
+            case PropertyCode::WILL :
                 return $this->getWill($gender, $tables);
-            case PropertyCodes::INTELLIGENCE :
+            case PropertyCode::INTELLIGENCE :
                 return $this->getIntelligence($gender, $tables);
-            case PropertyCodes::CHARISMA :
+            case PropertyCode::CHARISMA :
                 return $this->getCharisma($gender, $tables);
-            case PropertyCodes::SENSES :
+            case PropertyCode::SENSES :
                 return $this->getSenses($tables->getRacesTable());
-            case PropertyCodes::TOUGHNESS :
+            case PropertyCode::TOUGHNESS :
                 return $this->getToughness($tables->getRacesTable());
-            case PropertyCodes::SIZE :
+            case PropertyCode::SIZE :
                 return $this->getSize($gender, $tables);
-            case PropertyCodes::WEIGHT_IN_KG :
+            case PropertyCode::WEIGHT_IN_KG :
                 return $this->getWeightInKg($gender, $tables);
-            case PropertyCodes::HEIGHT_IN_CM :
+            case PropertyCode::HEIGHT_IN_CM :
                 return $this->getHeightInCm($tables->getRacesTable());
-            case PropertyCodes::INFRAVISION :
+            case PropertyCode::INFRAVISION :
                 return $this->hasInfravision($tables->getRacesTable());
-            case PropertyCodes::NATIVE_REGENERATION :
+            case PropertyCode::NATIVE_REGENERATION :
                 return $this->hasNativeRegeneration($tables->getRacesTable());
-            case PropertyCodes::REQUIRES_DM_AGREEMENT :
+            case PropertyCode::REQUIRES_DM_AGREEMENT :
                 return $this->requiresDmAgreement($tables->getRacesTable());
-            case PropertyCodes::REMARKABLE_SENSE :
+            case PropertyCode::REMARKABLE_SENSE :
                 return $this->getRemarkableSense($tables->getRacesTable());
             default :
                 throw new Exceptions\UnknownPropertyCode(
@@ -327,12 +327,12 @@ abstract class Race extends ScalarEnum
     public function getBaseProperty($basePropertyCode, Gender $gender, Tables $tables)
     {
         switch ($basePropertyCode) {
-            case PropertyCodes::STRENGTH :
-            case PropertyCodes::AGILITY :
-            case PropertyCodes::KNACK :
-            case PropertyCodes::WILL :
-            case PropertyCodes::INTELLIGENCE :
-            case PropertyCodes::CHARISMA :
+            case PropertyCode::STRENGTH :
+            case PropertyCode::AGILITY :
+            case PropertyCode::KNACK :
+            case PropertyCode::WILL :
+            case PropertyCode::INTELLIGENCE :
+            case PropertyCode::CHARISMA :
                 return $this->getProperty($basePropertyCode, $gender, $tables);
             default :
                 throw new Exceptions\UnknownBasePropertyCode(

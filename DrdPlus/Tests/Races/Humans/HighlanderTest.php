@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Races\Humans;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\PropertyCode;
 
 class HighlanderTest extends HumanTest
 {
@@ -11,20 +11,20 @@ class HighlanderTest extends HumanTest
     {
         $properties = [
             Male::MALE => [
-                PropertyCodes::STRENGTH => 1,
-                PropertyCodes::AGILITY => 0,
-                PropertyCodes::KNACK => 0,
-                PropertyCodes::WILL => 1,
-                PropertyCodes::INTELLIGENCE => -1,
-                PropertyCodes::CHARISMA => -1,
+                PropertyCode::STRENGTH => 1,
+                PropertyCode::AGILITY => 0,
+                PropertyCode::KNACK => 0,
+                PropertyCode::WILL => 1,
+                PropertyCode::INTELLIGENCE => -1,
+                PropertyCode::CHARISMA => -1,
             ],
             Female::FEMALE => [
-                PropertyCodes::STRENGTH => 0,
-                PropertyCodes::AGILITY => 0,
-                PropertyCodes::KNACK => 0,
-                PropertyCodes::WILL => 1,
-                PropertyCodes::INTELLIGENCE => -1,
-                PropertyCodes::CHARISMA => 0,
+                PropertyCode::STRENGTH => 0,
+                PropertyCode::AGILITY => 0,
+                PropertyCode::KNACK => 0,
+                PropertyCode::WILL => 1,
+                PropertyCode::INTELLIGENCE => -1,
+                PropertyCode::CHARISMA => 0,
             ],
         ];
 

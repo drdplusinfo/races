@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Races\Krolls;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\PropertyCode;
 
 class WildKrollTest extends KrollTest
 {
@@ -11,20 +11,20 @@ class WildKrollTest extends KrollTest
     {
         $properties = [
             Male::MALE => [
-                PropertyCodes::STRENGTH => 3,
-                PropertyCodes::AGILITY => -1,
-                PropertyCodes::KNACK => -2,
-                PropertyCodes::WILL => 2,
-                PropertyCodes::INTELLIGENCE => -3,
-                PropertyCodes::CHARISMA => -2,
+                PropertyCode::STRENGTH => 3,
+                PropertyCode::AGILITY => -1,
+                PropertyCode::KNACK => -2,
+                PropertyCode::WILL => 2,
+                PropertyCode::INTELLIGENCE => -3,
+                PropertyCode::CHARISMA => -2,
             ],
             Female::FEMALE => [
-                PropertyCodes::STRENGTH => 2,
-                PropertyCodes::AGILITY => 0,
-                PropertyCodes::KNACK => -2,
-                PropertyCodes::WILL => 1,
-                PropertyCodes::INTELLIGENCE => -3,
-                PropertyCodes::CHARISMA => -1,
+                PropertyCode::STRENGTH => 2,
+                PropertyCode::AGILITY => 0,
+                PropertyCode::KNACK => -2,
+                PropertyCode::WILL => 1,
+                PropertyCode::INTELLIGENCE => -3,
+                PropertyCode::CHARISMA => -1,
             ],
         ];
 
@@ -33,7 +33,7 @@ class WildKrollTest extends KrollTest
 
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
-        if ($propertyCode === PropertyCodes::REQUIRES_DM_AGREEMENT) {
+        if ($propertyCode === PropertyCode::REQUIRES_DM_AGREEMENT) {
             return true;
         }
 

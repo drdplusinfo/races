@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Races\Dwarfs;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\PropertyCode;
 
 class MountainDwarfTest extends DwarfTest
 {
@@ -11,20 +11,20 @@ class MountainDwarfTest extends DwarfTest
     {
         $properties = [
             Male::MALE => [
-                PropertyCodes::STRENGTH => 2,
-                PropertyCodes::AGILITY => -1,
-                PropertyCodes::KNACK => 0,
-                PropertyCodes::WILL => 2,
-                PropertyCodes::INTELLIGENCE => -2,
-                PropertyCodes::CHARISMA => -2,
+                PropertyCode::STRENGTH => 2,
+                PropertyCode::AGILITY => -1,
+                PropertyCode::KNACK => 0,
+                PropertyCode::WILL => 2,
+                PropertyCode::INTELLIGENCE => -2,
+                PropertyCode::CHARISMA => -2,
             ],
             Female::FEMALE => [
-                PropertyCodes::STRENGTH => 2,
-                PropertyCodes::AGILITY => -1,
-                PropertyCodes::KNACK => -1,
-                PropertyCodes::WILL => 2,
-                PropertyCodes::INTELLIGENCE => -1,
-                PropertyCodes::CHARISMA => -2,
+                PropertyCode::STRENGTH => 2,
+                PropertyCode::AGILITY => -1,
+                PropertyCode::KNACK => -1,
+                PropertyCode::WILL => 2,
+                PropertyCode::INTELLIGENCE => -1,
+                PropertyCode::CHARISMA => -2,
             ],
         ];
 

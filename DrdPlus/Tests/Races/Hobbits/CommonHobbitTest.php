@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tests\Races\Hobbits;
 
-use DrdPlus\Codes\GenderCodes;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\GenderCode;
+use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Tests\Races\RaceTest;
 
 class CommonHobbitTest extends RaceTest
@@ -10,23 +10,23 @@ class CommonHobbitTest extends RaceTest
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
-            PropertyCodes::STRENGTH => [
-                GenderCodes::MALE => -3,
-                GenderCodes::FEMALE => -4,
+            PropertyCode::STRENGTH => [
+                GenderCode::MALE => -3,
+                GenderCode::FEMALE => -4,
             ],
-            PropertyCodes::AGILITY => [
-                GenderCodes::MALE => 1,
-                GenderCodes::FEMALE => 2,
+            PropertyCode::AGILITY => [
+                GenderCode::MALE => 1,
+                GenderCode::FEMALE => 2,
             ],
-            PropertyCodes::KNACK => [
-                GenderCodes::MALE => 1,
-                GenderCodes::FEMALE => 0,
+            PropertyCode::KNACK => [
+                GenderCode::MALE => 1,
+                GenderCode::FEMALE => 0,
             ],
-            PropertyCodes::WILL => 0,
-            PropertyCodes::INTELLIGENCE => -1,
-            PropertyCodes::CHARISMA => [
-                GenderCodes::MALE => 2,
-                GenderCodes::FEMALE => 3,
+            PropertyCode::WILL => 0,
+            PropertyCode::INTELLIGENCE => -1,
+            PropertyCode::CHARISMA => [
+                GenderCode::MALE => 2,
+                GenderCode::FEMALE => 3,
             ],
         ];
 
@@ -38,21 +38,21 @@ class CommonHobbitTest extends RaceTest
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         $properties = [
-            PropertyCodes::SENSES => 0,
-            PropertyCodes::TOUGHNESS => 0,
-            PropertyCodes::SIZE => [
-                GenderCodes::MALE => -2,
-                GenderCodes::FEMALE => -3,
+            PropertyCode::SENSES => 0,
+            PropertyCode::TOUGHNESS => 0,
+            PropertyCode::SIZE => [
+                GenderCode::MALE => -2,
+                GenderCode::FEMALE => -3,
             ],
-            PropertyCodes::WEIGHT_IN_KG => [
-                GenderCodes::MALE => 40.0,
-                GenderCodes::FEMALE => 36.0
+            PropertyCode::WEIGHT_IN_KG => [
+                GenderCode::MALE => 40.0,
+                GenderCode::FEMALE => 36.0
             ],
-            PropertyCodes::HEIGHT_IN_CM => 110.0,
-            PropertyCodes::INFRAVISION => false,
-            PropertyCodes::NATIVE_REGENERATION => false,
-            PropertyCodes::REQUIRES_DM_AGREEMENT => false,
-            PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TASTE,
+            PropertyCode::HEIGHT_IN_CM => 110.0,
+            PropertyCode::INFRAVISION => false,
+            PropertyCode::NATIVE_REGENERATION => false,
+            PropertyCode::REQUIRES_DM_AGREEMENT => false,
+            PropertyCode::REMARKABLE_SENSE => PropertyCode::TASTE,
         ];
 
         return isset($properties[$propertyCode][$genderCode])

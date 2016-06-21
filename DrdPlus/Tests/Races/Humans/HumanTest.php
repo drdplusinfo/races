@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tests\Races\Humans;
 
-use DrdPlus\Codes\GenderCodes;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\GenderCode;
+use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Tests\Races\RaceTest;
 
 abstract class HumanTest extends RaceTest
@@ -10,21 +10,21 @@ abstract class HumanTest extends RaceTest
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         $properties = [
-            PropertyCodes::SENSES => 0,
-            PropertyCodes::TOUGHNESS => 0,
-            PropertyCodes::SIZE => [
-                GenderCodes::MALE => 0,
-                GenderCodes::FEMALE => -1,
+            PropertyCode::SENSES => 0,
+            PropertyCode::TOUGHNESS => 0,
+            PropertyCode::SIZE => [
+                GenderCode::MALE => 0,
+                GenderCode::FEMALE => -1,
             ],
-            PropertyCodes::WEIGHT_IN_KG => [
-                GenderCodes::MALE => 80.0,
-                GenderCodes::FEMALE => 70.0,
+            PropertyCode::WEIGHT_IN_KG => [
+                GenderCode::MALE => 80.0,
+                GenderCode::FEMALE => 70.0,
             ],
-            PropertyCodes::HEIGHT_IN_CM => 180.0,
-            PropertyCodes::INFRAVISION => false,
-            PropertyCodes::NATIVE_REGENERATION => false,
-            PropertyCodes::REQUIRES_DM_AGREEMENT => false,
-            PropertyCodes::REMARKABLE_SENSE => '',
+            PropertyCode::HEIGHT_IN_CM => 180.0,
+            PropertyCode::INFRAVISION => false,
+            PropertyCode::NATIVE_REGENERATION => false,
+            PropertyCode::REQUIRES_DM_AGREEMENT => false,
+            PropertyCode::REMARKABLE_SENSE => '',
         ];
 
 

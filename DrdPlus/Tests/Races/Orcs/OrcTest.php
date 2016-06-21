@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Races\Orcs;
 
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Tests\Races\RaceTest;
 
 abstract class OrcTest extends RaceTest
@@ -9,12 +9,12 @@ abstract class OrcTest extends RaceTest
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         $properties = [
-            PropertyCodes::SENSES => 1,
-            PropertyCodes::TOUGHNESS => 0,
-            PropertyCodes::INFRAVISION => true,
-            PropertyCodes::NATIVE_REGENERATION => false,
-            PropertyCodes::REQUIRES_DM_AGREEMENT => true,
-            PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SMELL,
+            PropertyCode::SENSES => 1,
+            PropertyCode::TOUGHNESS => 0,
+            PropertyCode::INFRAVISION => true,
+            PropertyCode::NATIVE_REGENERATION => false,
+            PropertyCode::REQUIRES_DM_AGREEMENT => true,
+            PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
         ];
 
         return $properties[$propertyCode];

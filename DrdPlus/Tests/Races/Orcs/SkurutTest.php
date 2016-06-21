@@ -3,8 +3,8 @@ namespace DrdPlus\Tests\Races\Orcs;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
-use DrdPlus\Codes\GenderCodes;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\GenderCode;
+use DrdPlus\Codes\PropertyCode;
 
 class SkurutTest extends OrcTest
 {
@@ -12,20 +12,20 @@ class SkurutTest extends OrcTest
     {
         $properties = [
             Male::MALE => [
-                PropertyCodes::STRENGTH => 1,
-                PropertyCodes::AGILITY => 1,
-                PropertyCodes::KNACK => -1,
-                PropertyCodes::WILL => 0,
-                PropertyCodes::INTELLIGENCE => 0,
-                PropertyCodes::CHARISMA => -2,
+                PropertyCode::STRENGTH => 1,
+                PropertyCode::AGILITY => 1,
+                PropertyCode::KNACK => -1,
+                PropertyCode::WILL => 0,
+                PropertyCode::INTELLIGENCE => 0,
+                PropertyCode::CHARISMA => -2,
             ],
             Female::FEMALE => [
-                PropertyCodes::STRENGTH => 0,
-                PropertyCodes::AGILITY => 1,
-                PropertyCodes::KNACK => -1,
-                PropertyCodes::WILL => 1,
-                PropertyCodes::INTELLIGENCE => 0,
-                PropertyCodes::CHARISMA => -2,
+                PropertyCode::STRENGTH => 0,
+                PropertyCode::AGILITY => 1,
+                PropertyCode::KNACK => -1,
+                PropertyCode::WILL => 1,
+                PropertyCode::INTELLIGENCE => 0,
+                PropertyCode::CHARISMA => -2,
             ],
         ];
 
@@ -35,15 +35,15 @@ class SkurutTest extends OrcTest
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         $properties = [
-            PropertyCodes::SIZE => [
-                GenderCodes::MALE => 1,
-                GenderCodes::FEMALE => 0,
+            PropertyCode::SIZE => [
+                GenderCode::MALE => 1,
+                GenderCode::FEMALE => 0,
             ],
-            PropertyCodes::WEIGHT_IN_KG => [
-                GenderCodes::MALE => 90.0,
-                GenderCodes::FEMALE => 80.0,
+            PropertyCode::WEIGHT_IN_KG => [
+                GenderCode::MALE => 90.0,
+                GenderCode::FEMALE => 80.0,
             ],
-            PropertyCodes::HEIGHT_IN_CM => 180.0,
+            PropertyCode::HEIGHT_IN_CM => 180.0,
         ];
 
 

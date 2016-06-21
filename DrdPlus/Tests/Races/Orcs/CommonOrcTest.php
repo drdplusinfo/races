@@ -1,26 +1,26 @@
 <?php
 namespace DrdPlus\Tests\Races\Orcs;
 
-use DrdPlus\Codes\GenderCodes;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\GenderCode;
+use DrdPlus\Codes\PropertyCode;
 
 class CommonOrcTest extends OrcTest
 {
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
-            PropertyCodes::STRENGTH => [
-                GenderCodes::MALE => 0,
-                GenderCodes::FEMALE => -1,
+            PropertyCode::STRENGTH => [
+                GenderCode::MALE => 0,
+                GenderCode::FEMALE => -1,
             ],
-            PropertyCodes::AGILITY => 2,
-            PropertyCodes::KNACK => 0,
-            PropertyCodes::WILL => [
-                GenderCodes::MALE => -1,
-                GenderCodes::FEMALE => 0,
+            PropertyCode::AGILITY => 2,
+            PropertyCode::KNACK => 0,
+            PropertyCode::WILL => [
+                GenderCode::MALE => -1,
+                GenderCode::FEMALE => 0,
             ],
-            PropertyCodes::INTELLIGENCE => 0,
-            PropertyCodes::CHARISMA => -2,
+            PropertyCode::INTELLIGENCE => 0,
+            PropertyCode::CHARISMA => -2,
         ];
 
 
@@ -32,15 +32,15 @@ class CommonOrcTest extends OrcTest
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         $properties = [
-            PropertyCodes::SIZE => [
-                GenderCodes::MALE => -1,
-                GenderCodes::FEMALE => -2,
+            PropertyCode::SIZE => [
+                GenderCode::MALE => -1,
+                GenderCode::FEMALE => -2,
             ],
-            PropertyCodes::WEIGHT_IN_KG => [
-                GenderCodes::MALE => 60.0,
-                GenderCodes::FEMALE => 56.0,
+            PropertyCode::WEIGHT_IN_KG => [
+                GenderCode::MALE => 60.0,
+                GenderCode::FEMALE => 56.0,
             ],
-            PropertyCodes::HEIGHT_IN_CM => 160.0,
+            PropertyCode::HEIGHT_IN_CM => 160.0,
         ];
 
         if (isset($properties[$propertyCode][$genderCode])) {

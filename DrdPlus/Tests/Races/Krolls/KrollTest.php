@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tests\Races\Krolls;
 
-use DrdPlus\Codes\GenderCodes;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\GenderCode;
+use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Tests\Races\RaceTest;
 
 abstract class KrollTest extends RaceTest
@@ -10,21 +10,21 @@ abstract class KrollTest extends RaceTest
     protected function getExpectedOtherProperty($propertyCode, $genderCode)
     {
         $properties = [
-            PropertyCodes::SENSES => 0,
-            PropertyCodes::TOUGHNESS => 0,
-            PropertyCodes::SIZE => [
-                GenderCodes::MALE => 3,
-                GenderCodes::FEMALE => 2,
+            PropertyCode::SENSES => 0,
+            PropertyCode::TOUGHNESS => 0,
+            PropertyCode::SIZE => [
+                GenderCode::MALE => 3,
+                GenderCode::FEMALE => 2,
             ],
-            PropertyCodes::WEIGHT_IN_KG => [
-                GenderCodes::MALE => 120.0,
-                GenderCodes::FEMALE => 110.0,
+            PropertyCode::WEIGHT_IN_KG => [
+                GenderCode::MALE => 120.0,
+                GenderCode::FEMALE => 110.0,
             ],
-            PropertyCodes::HEIGHT_IN_CM => 220.0,
-            PropertyCodes::INFRAVISION => false,
-            PropertyCodes::NATIVE_REGENERATION => true,
-            PropertyCodes::REQUIRES_DM_AGREEMENT => false,
-            PropertyCodes::REMARKABLE_SENSE => PropertyCodes::HEARING,
+            PropertyCode::HEIGHT_IN_CM => 220.0,
+            PropertyCode::INFRAVISION => false,
+            PropertyCode::NATIVE_REGENERATION => true,
+            PropertyCode::REQUIRES_DM_AGREEMENT => false,
+            PropertyCode::REMARKABLE_SENSE => PropertyCode::HEARING,
         ];
 
         return isset($properties[$propertyCode][$genderCode])

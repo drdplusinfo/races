@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Races\Krolls;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\PropertyCode;
 
 class CommonKrollTest extends KrollTest
 {
@@ -11,20 +11,20 @@ class CommonKrollTest extends KrollTest
     {
         $properties = [
             Male::MALE => [
-                PropertyCodes::STRENGTH => 3,
-                PropertyCodes::AGILITY => -2,
-                PropertyCodes::KNACK => -1,
-                PropertyCodes::WILL => 1,
-                PropertyCodes::INTELLIGENCE => -3,
-                PropertyCodes::CHARISMA => -1,
+                PropertyCode::STRENGTH => 3,
+                PropertyCode::AGILITY => -2,
+                PropertyCode::KNACK => -1,
+                PropertyCode::WILL => 1,
+                PropertyCode::INTELLIGENCE => -3,
+                PropertyCode::CHARISMA => -1,
             ],
             Female::FEMALE => [
-                PropertyCodes::STRENGTH => 2,
-                PropertyCodes::AGILITY => -1,
-                PropertyCodes::KNACK => -1,
-                PropertyCodes::WILL => 0,
-                PropertyCodes::INTELLIGENCE => -3,
-                PropertyCodes::CHARISMA => 0,
+                PropertyCode::STRENGTH => 2,
+                PropertyCode::AGILITY => -1,
+                PropertyCode::KNACK => -1,
+                PropertyCode::WILL => 0,
+                PropertyCode::INTELLIGENCE => -3,
+                PropertyCode::CHARISMA => 0,
             ],
         ];
 

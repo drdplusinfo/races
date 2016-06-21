@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Races;
 use Drd\Genders\Female;
 use Drd\Genders\Gender;
 use Drd\Genders\Male;
-use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Race;
 use DrdPlus\Tables\Tables;
@@ -119,22 +119,22 @@ abstract class RaceTest extends TestWithMockery
                 $sameValueByGenericGetter = $race->getProperty($propertyCode, $gender, $tables);
                 $sameValueByBasePropertyGenericGetter = $race->getBaseProperty($propertyCode, $gender, $tables);
                 switch ($propertyCode) {
-                    case PropertyCodes::STRENGTH :
+                    case PropertyCode::STRENGTH :
                         $value = $race->getStrength($gender, $tables);
                         break;
-                    case PropertyCodes::AGILITY :
+                    case PropertyCode::AGILITY :
                         $value = $race->getAgility($gender, $tables);
                         break;
-                    case PropertyCodes::KNACK :
+                    case PropertyCode::KNACK :
                         $value = $race->getKnack($gender, $tables);
                         break;
-                    case PropertyCodes::WILL :
+                    case PropertyCode::WILL :
                         $value = $race->getWill($gender, $tables);
                         break;
-                    case PropertyCodes::INTELLIGENCE :
+                    case PropertyCode::INTELLIGENCE :
                         $value = $race->getIntelligence($gender, $tables);
                         break;
-                    case PropertyCodes::CHARISMA :
+                    case PropertyCode::CHARISMA :
                         $value = $race->getCharisma($gender, $tables);
                         break;
                     default :
@@ -168,12 +168,12 @@ abstract class RaceTest extends TestWithMockery
     private function getBasePropertyCodes()
     {
         return [
-            PropertyCodes::STRENGTH,
-            PropertyCodes::AGILITY,
-            PropertyCodes::KNACK,
-            PropertyCodes::WILL,
-            PropertyCodes::INTELLIGENCE,
-            PropertyCodes::CHARISMA,
+            PropertyCode::STRENGTH,
+            PropertyCode::AGILITY,
+            PropertyCode::KNACK,
+            PropertyCode::WILL,
+            PropertyCode::INTELLIGENCE,
+            PropertyCode::CHARISMA,
         ];
     }
 
@@ -214,31 +214,31 @@ abstract class RaceTest extends TestWithMockery
             foreach ($this->getNonBasePropertyCodes() as $propertyCode) {
                 $sameValueByGenericGetter = $race->getProperty($propertyCode, $gender, $tables);
                 switch ($propertyCode) {
-                    case PropertyCodes::SENSES :
+                    case PropertyCode::SENSES :
                         $value = $race->getSenses($racesTable);
                         break;
-                    case PropertyCodes::TOUGHNESS :
+                    case PropertyCode::TOUGHNESS :
                         $value = $race->getToughness($racesTable);
                         break;
-                    case PropertyCodes::SIZE :
+                    case PropertyCode::SIZE :
                         $value = $race->getSize($gender, $tables);
                         break;
-                    case PropertyCodes::WEIGHT_IN_KG :
+                    case PropertyCode::WEIGHT_IN_KG :
                         $value = $race->getWeightInKg($gender, $tables);
                         break;
-                    case PropertyCodes::HEIGHT_IN_CM :
+                    case PropertyCode::HEIGHT_IN_CM :
                         $value = $race->getHeightInCm($racesTable);
                         break;
-                    case PropertyCodes::INFRAVISION :
+                    case PropertyCode::INFRAVISION :
                         $value = $race->hasInfravision($racesTable);
                         break;
-                    case PropertyCodes::NATIVE_REGENERATION :
+                    case PropertyCode::NATIVE_REGENERATION :
                         $value = $race->hasNativeRegeneration($racesTable);
                         break;
-                    case PropertyCodes::REQUIRES_DM_AGREEMENT :
+                    case PropertyCode::REQUIRES_DM_AGREEMENT :
                         $value = $race->requiresDmAgreement($racesTable);
                         break;
-                    case PropertyCodes::REMARKABLE_SENSE :
+                    case PropertyCode::REMARKABLE_SENSE :
                         $value = $race->getRemarkableSense($racesTable);
                         break;
                     default :
@@ -257,15 +257,15 @@ abstract class RaceTest extends TestWithMockery
     private function getNonBasePropertyCodes()
     {
         return [
-            PropertyCodes::SENSES,
-            PropertyCodes::TOUGHNESS,
-            PropertyCodes::SIZE,
-            PropertyCodes::WEIGHT_IN_KG,
-            PropertyCodes::HEIGHT_IN_CM,
-            PropertyCodes::INFRAVISION,
-            PropertyCodes::NATIVE_REGENERATION,
-            PropertyCodes::REQUIRES_DM_AGREEMENT,
-            PropertyCodes::REMARKABLE_SENSE,
+            PropertyCode::SENSES,
+            PropertyCode::TOUGHNESS,
+            PropertyCode::SIZE,
+            PropertyCode::WEIGHT_IN_KG,
+            PropertyCode::HEIGHT_IN_CM,
+            PropertyCode::INFRAVISION,
+            PropertyCode::NATIVE_REGENERATION,
+            PropertyCode::REQUIRES_DM_AGREEMENT,
+            PropertyCode::REMARKABLE_SENSE,
         ];
     }
 
