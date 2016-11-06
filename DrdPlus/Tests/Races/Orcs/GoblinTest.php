@@ -41,6 +41,7 @@ class GoblinTest extends OrcTest
                 GenderCode::FEMALE => 50.0,
             ],
             PropertyCode::HEIGHT_IN_CM => 150.0,
+            PropertyCode::HEIGHT => 4, // closest lower bonus to distance of 1.5 meters
         ];
 
 

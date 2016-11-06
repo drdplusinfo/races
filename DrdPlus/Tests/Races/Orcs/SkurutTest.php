@@ -44,6 +44,7 @@ class SkurutTest extends OrcTest
                 GenderCode::FEMALE => 80.0,
             ],
             PropertyCode::HEIGHT_IN_CM => 180.0,
+            PropertyCode::HEIGHT => 5,
         ];
 
 

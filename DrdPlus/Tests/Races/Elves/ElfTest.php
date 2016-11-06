@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tests\Races\Elfs;
+namespace DrdPlus\Tests\Races\Elves;
 
 use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
@@ -21,6 +21,7 @@ abstract class ElfTest extends RaceTest
                 GenderCode::FEMALE => 45.0,
             ],
             PropertyCode::HEIGHT_IN_CM => 160.0,
+            PropertyCode::HEIGHT => 4,
             PropertyCode::INFRAVISION => false,
             PropertyCode::NATIVE_REGENERATION => false,
             PropertyCode::REQUIRES_DM_AGREEMENT => false,

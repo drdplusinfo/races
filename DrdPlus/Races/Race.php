@@ -4,6 +4,8 @@ namespace DrdPlus\Races;
 use Doctrineum\Scalar\ScalarEnum;
 use Drd\Genders\Gender;
 use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
 use Granam\Scalar\Tools\ToString;
@@ -89,7 +91,6 @@ abstract class Race extends ScalarEnum
     /**
      * @param Gender $gender
      * @param Tables $tables
-     *
      * @return int
      */
     public function getStrength(Gender $gender, Tables $tables)
@@ -108,7 +109,6 @@ abstract class Race extends ScalarEnum
     /**
      * @param Gender $gender
      * @param Tables $tables
-     *
      * @return int
      */
     public function getAgility(Gender $gender, Tables $tables)
@@ -127,7 +127,6 @@ abstract class Race extends ScalarEnum
     /**
      * @param Gender $gender
      * @param Tables $tables
-     *
      * @return int
      */
     public function getKnack(Gender $gender, Tables $tables)
@@ -146,7 +145,6 @@ abstract class Race extends ScalarEnum
     /**
      * @param Gender $gender
      * @param Tables $tables
-     *
      * @return int
      */
     public function getWill(Gender $gender, Tables $tables)
@@ -165,7 +163,6 @@ abstract class Race extends ScalarEnum
     /**
      * @param Gender $gender
      * @param Tables $tables
-     *
      * @return int
      */
     public function getIntelligence(Gender $gender, Tables $tables)
@@ -184,7 +181,6 @@ abstract class Race extends ScalarEnum
     /**
      * @param Gender $gender
      * @param Tables $tables
-     *
      * @return int
      */
     public function getCharisma(Gender $gender, Tables $tables)
@@ -202,7 +198,6 @@ abstract class Race extends ScalarEnum
 
     /**
      * @param RacesTable $racesTable
-     *
      * @return int
      */
     public function getSenses(RacesTable $racesTable)
@@ -212,7 +207,6 @@ abstract class Race extends ScalarEnum
 
     /**
      * @param RacesTable $racesTable
-     *
      * @return int
      */
     public function getToughness(RacesTable $racesTable)
@@ -259,7 +253,6 @@ abstract class Race extends ScalarEnum
 
     /**
      * @param RacesTable $racesTable
-     *
      * @return int
      */
     public function getHeightInCm(RacesTable $racesTable)
@@ -269,8 +262,24 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param RacesTable $racesTable
+     * Gives race height as bonus of distance (height in cm).
+     * Useful for speed and fight modifiers.
      *
+     * @param RacesTable $racesTable
+     * @param DistanceTable $distanceTable
+     * @return int
+     */
+    public function getHeight(RacesTable $racesTable, DistanceTable $distanceTable)
+    {
+        $heightInMeters = $this->getHeightInCm($racesTable) / 100;
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $distance = new Distance($heightInMeters, Distance::M, $distanceTable);
+
+        return $distance->getBonus()->getValue();
+    }
+
+    /**
+     * @param RacesTable $racesTable
      * @return bool
      */
     public function hasInfravision(RacesTable $racesTable)
@@ -281,7 +290,6 @@ abstract class Race extends ScalarEnum
 
     /**
      * @param RacesTable $racesTable
-     *
      * @return bool
      */
     public function hasNativeRegeneration(RacesTable $racesTable)
@@ -292,7 +300,6 @@ abstract class Race extends ScalarEnum
 
     /**
      * @param RacesTable $racesTable
-     *
      * @return bool
      */
     public function requiresDmAgreement(RacesTable $racesTable)
@@ -303,8 +310,6 @@ abstract class Race extends ScalarEnum
 
     /**
      * @param RacesTable $racesTable
-     *
-     * @return string
      * @return string
      */
     public function getRemarkableSense(RacesTable $racesTable)
@@ -345,6 +350,8 @@ abstract class Race extends ScalarEnum
                 return $this->getWeightInKg($gender, $tables);
             case PropertyCode::HEIGHT_IN_CM :
                 return $this->getHeightInCm($tables->getRacesTable());
+            case PropertyCode::HEIGHT :
+                return $this->getHeight($tables->getRacesTable(), $tables->getDistanceTable());
             case PropertyCode::INFRAVISION :
                 return $this->hasInfravision($tables->getRacesTable());
             case PropertyCode::NATIVE_REGENERATION :

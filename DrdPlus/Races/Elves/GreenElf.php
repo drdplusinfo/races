@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Races\Elfs;
+namespace DrdPlus\Races\Elves;
 
 class GreenElf extends Elf
 {

@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Races\Elfs;
+namespace DrdPlus\Races\Elves;
 
 use DrdPlus\Races\Race;
 
@@ -9,10 +9,11 @@ abstract class Elf extends Race
 
     /**
      * @param string $subraceCode
-     * @return static
+     * @return Elf|Race
      */
     protected static function getItBySubrace($subraceCode)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return parent::getItByRaceAndSubrace(self::ELF, $subraceCode);
     }
 

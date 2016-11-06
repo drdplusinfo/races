@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tests\Races\Elfs;
+namespace DrdPlus\Tests\Races\Elves;
 
 use Drd\Genders\Female;
 use Drd\Genders\Male;

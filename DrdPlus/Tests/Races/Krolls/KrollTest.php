@@ -21,6 +21,7 @@ abstract class KrollTest extends RaceTest
                 GenderCode::FEMALE => 110.0,
             ],
             PropertyCode::HEIGHT_IN_CM => 220.0,
+            PropertyCode::HEIGHT => 7,
             PropertyCode::INFRAVISION => false,
             PropertyCode::NATIVE_REGENERATION => true,
             PropertyCode::REQUIRES_DM_AGREEMENT => false,

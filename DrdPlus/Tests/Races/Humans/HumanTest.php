@@ -21,6 +21,7 @@ abstract class HumanTest extends RaceTest
                 GenderCode::FEMALE => 70.0,
             ],
             PropertyCode::HEIGHT_IN_CM => 180.0,
+            PropertyCode::HEIGHT => 5,
             PropertyCode::INFRAVISION => false,
             PropertyCode::NATIVE_REGENERATION => false,
             PropertyCode::REQUIRES_DM_AGREEMENT => false,

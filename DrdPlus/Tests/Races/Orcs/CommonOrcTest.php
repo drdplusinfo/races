@@ -41,6 +41,7 @@ class CommonOrcTest extends OrcTest
                 GenderCode::FEMALE => 56.0,
             ],
             PropertyCode::HEIGHT_IN_CM => 160.0,
+            PropertyCode::HEIGHT => 4,
         ];
 
         if (isset($properties[$propertyCode][$genderCode])) {

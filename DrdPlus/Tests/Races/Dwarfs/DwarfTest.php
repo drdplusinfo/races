@@ -14,6 +14,7 @@ abstract class DwarfTest extends RaceTest
             PropertyCode::SIZE => 0,
             PropertyCode::WEIGHT_IN_KG => 70.0,
             PropertyCode::HEIGHT_IN_CM => 140.0,
+            PropertyCode::HEIGHT => 3,
             PropertyCode::INFRAVISION => true,
             PropertyCode::NATIVE_REGENERATION => false,
             PropertyCode::REQUIRES_DM_AGREEMENT => false,

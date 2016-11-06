@@ -66,7 +66,11 @@ abstract class RaceTest extends TestWithMockery
     private function getRaceCode()
     {
         $baseNamespace = $this->getSubraceBaseNamespace();
-        $singular = preg_replace('~s$~', '', $baseNamespace);
+        if (preg_match('~ves$~', $baseNamespace)) {
+            $singular = preg_replace('~ves$~', 'f', $baseNamespace);
+        } else {
+            $singular = preg_replace('~s$~', '', $baseNamespace);
+        }
 
         return strtolower($singular);
     }
@@ -210,6 +214,7 @@ abstract class RaceTest extends TestWithMockery
     {
         $tables = new Tables();
         $racesTable = $tables->getRacesTable();
+        $distanceTable = $tables->getDistanceTable();
         foreach ($this->getGenders() as $gender) {
             foreach ($this->getNonBasePropertyCodes() as $propertyCode) {
                 $sameValueByGenericGetter = $race->getProperty($propertyCode, $gender, $tables);
@@ -229,6 +234,9 @@ abstract class RaceTest extends TestWithMockery
                     case PropertyCode::HEIGHT_IN_CM :
                         $value = $race->getHeightInCm($racesTable);
                         break;
+                    case PropertyCode::HEIGHT :
+                        $value = $race->getHeight($racesTable, $distanceTable);
+                        break;
                     case PropertyCode::INFRAVISION :
                         $value = $race->hasInfravision($racesTable);
                         break;
@@ -247,7 +255,7 @@ abstract class RaceTest extends TestWithMockery
                 self::assertSame(
                     $this->getExpectedOtherProperty($propertyCode, $gender->getValue()),
                     $value,
-                    "Unexpected {$gender} $propertyCode"
+                    "Unexpected {$propertyCode} of {$gender} {$race->getSubraceCode()} {$race->getRaceCode()}"
                 );
                 self::assertSame($sameValueByGenericGetter, $value);
             }
@@ -262,6 +270,7 @@ abstract class RaceTest extends TestWithMockery
             PropertyCode::SIZE,
             PropertyCode::WEIGHT_IN_KG,
             PropertyCode::HEIGHT_IN_CM,
+            PropertyCode::HEIGHT,
             PropertyCode::INFRAVISION,
             PropertyCode::NATIVE_REGENERATION,
             PropertyCode::REQUIRES_DM_AGREEMENT,

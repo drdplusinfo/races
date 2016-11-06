@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Races;
 
+use DrdPlus\Codes\RaceCode;
 use DrdPlus\Races\Humans\Highlander;
 use DrdPlus\Races\Orcs\CommonOrc;
 use DrdPlus\Races\Orcs\Orc;
@@ -43,7 +44,12 @@ class RacesFactory extends StrictObject
                 $exception
             );
         }
-        $subraceNamespace = __NAMESPACE__ . '\\' . ucfirst($raceCode) . 's' . '\\';
+        if ($raceCode === RaceCode::ELF) {
+            $baseNamespace = 'elves';
+        } else {
+            $baseNamespace = $raceCode . 's';
+        }
+        $subraceNamespace = __NAMESPACE__ . '\\' . ucfirst($baseNamespace) . '\\';
         if ($raceCode !== Orc::ORC || $subraceCode === CommonOrc::COMMON) {
             if ($subraceCode !== Highlander::HIGHLANDER) {
                 $subraceClass = $subraceNamespace . ucfirst($subraceCode) . ucfirst($raceCode);

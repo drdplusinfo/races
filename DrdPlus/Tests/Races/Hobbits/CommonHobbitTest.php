@@ -49,6 +49,7 @@ class CommonHobbitTest extends RaceTest
                 GenderCode::FEMALE => 36.0
             ],
             PropertyCode::HEIGHT_IN_CM => 110.0,
+            PropertyCode::HEIGHT => 1,
             PropertyCode::INFRAVISION => false,
             PropertyCode::NATIVE_REGENERATION => false,
             PropertyCode::REQUIRES_DM_AGREEMENT => false,
