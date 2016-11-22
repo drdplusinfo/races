@@ -23,10 +23,6 @@ abstract class RaceTest extends TestWithMockery
         self::assertInstanceOf($subraceClass, $subrace);
         self::assertSame($this->getRaceCode(), $subrace->getRaceCode());
         self::assertSame($this->getSubraceCode(), $subrace->getSubraceCode());
-
-        $equalSubrace = new $subraceClass($this->getRaceCode() . '-' . $subrace->getSubraceCode());
-        self::assertEquals($subrace, $equalSubrace);
-
         self::assertSame($subrace, $subraceClass::getEnum($this->getRaceCode() . '-' . $subrace->getSubraceCode()));
 
         return $subrace;
@@ -87,16 +83,6 @@ abstract class RaceTest extends TestWithMockery
         $subraceClass = $this->getSubraceClass();
 
         return preg_replace('~\\\[\w]+$~', '', $subraceClass);
-    }
-
-    /**
-     * @test
-     * @expectedException \DrdPlus\Races\Exceptions\UnknownRaceCode
-     */
-    public function I_can_not_create_it_directly_with_invalid_code()
-    {
-        $subraceClass = $this->getSubraceClass();
-        new $subraceClass('invalid code');
     }
 
     /**

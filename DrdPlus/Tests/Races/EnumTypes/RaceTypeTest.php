@@ -16,7 +16,7 @@ class RaceTypeTest extends AbstractSelfRegisteringTypeTest
     public function I_can_register_subrace()
     {
         RaceType::registerSelf();
-        $testSubrace = new TestSubrace('foo-bar');
+        $testSubrace = TestSubrace::getIt();
         self::assertTrue(RaceType::registerRaceAsSubType($testSubrace));
 
         $raceType = Type::getType($this->getExpectedTypeName());
@@ -26,16 +26,6 @@ class RaceTypeTest extends AbstractSelfRegisteringTypeTest
 
         $restoredSubrace = $raceType->convertToPHPValue($expectedDatabaseValue, $this->getPlatform());
         self::assertEquals($testSubrace, $restoredSubrace);
-    }
-
-    /**
-     * @test
-     * @depends I_can_register_subrace
-     * @expectedException \DrdPlus\Races\Exceptions\UnknownRaceCode
-     */
-    public function I_can_not_use_unexpected_race_enum_code()
-    {
-        new TestSubrace('unexpected');
     }
 
     /**
@@ -51,6 +41,11 @@ class RaceTypeTest extends AbstractSelfRegisteringTypeTest
 /** inner */
 class TestSubrace extends Race
 {
+
+    public static function getIt()
+    {
+        return parent::getItByRaceAndSubrace('foo', 'bar');
+    }
 
     public function getRaceCode()
     {

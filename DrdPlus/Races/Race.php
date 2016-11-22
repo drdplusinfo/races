@@ -23,7 +23,7 @@ abstract class Race extends ScalarEnum
      * @throws \Doctrineum\Scalar\Exceptions\UnexpectedValueToEnum
      * @throws \DrdPlus\Races\Exceptions\InvalidRaceCode
      */
-    public function __construct($value)
+    protected function __construct($value)
     {
         parent::__construct($value);
         $this->checkRaceEnumValue($this->getValue());
