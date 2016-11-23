@@ -1,21 +1,26 @@
 <?php
 namespace DrdPlus\Races\Elves;
 
+use DrdPlus\Codes\SubRaceCode;
+
 class DarkElf extends Elf
 {
-    const DARK = 'dark';
+    const DARK = SubRaceCode::DARK;
 
     /**
-     * @return static
+     * @return DarkElf|Elf
      */
     public static function getIt()
     {
-        return parent::getItBySubrace(self::DARK);
+        return parent::getItBySubrace(SubRaceCode::getIt(self::DARK));
     }
 
+    /**
+     * @return SubRaceCode
+     */
     public function getSubraceCode()
     {
-        return self::DARK;
+        return SubRaceCode::getIt(self::DARK);
     }
 
 }

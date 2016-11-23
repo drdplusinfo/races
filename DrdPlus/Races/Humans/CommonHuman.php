@@ -1,18 +1,26 @@
 <?php
 namespace DrdPlus\Races\Humans;
 
+use DrdPlus\Codes\SubRaceCode;
+
 class CommonHuman extends Human
 {
-    const COMMON = 'common';
+    const COMMON = SubRaceCode::COMMON;
 
+    /**
+     * @return Human|CommonHuman
+     */
     public static function getIt()
     {
-        return parent::getItBySubrace(self::COMMON);
+        return parent::getItBySubrace(SubRaceCode::getIt(self::COMMON));
     }
 
+    /**
+     * @return SubRaceCode
+     */
     public function getSubraceCode()
     {
-        return self::COMMON;
+        return SubRaceCode::getIt(self::COMMON);
     }
 
 }

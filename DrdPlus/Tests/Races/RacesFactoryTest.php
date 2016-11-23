@@ -1,6 +1,8 @@
 <?php
 namespace DrdPlus\Tests\Races;
 
+use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Dwarfs\MountainDwarf;
 use DrdPlus\Races\Dwarfs\WoodDwarf;
@@ -16,19 +18,22 @@ use DrdPlus\Races\Orcs\CommonOrc;
 use DrdPlus\Races\Orcs\Goblin;
 use DrdPlus\Races\Orcs\Skurut;
 use DrdPlus\Races\RacesFactory;
+use Granam\Tests\Tools\TestWithMockery;
 
-class RacesFactoryTest extends \PHPUnit_Framework_TestCase
+class RacesFactoryTest extends TestWithMockery
 {
 
     /**
      * @test
      * @dataProvider provideSubraceCodesAndClass
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param string $raceCodeValue
+     * @param string $subraceCodeValue
      * @param string $expectedSubraceClass
      */
-    public function I_can_create_subrace_by_its_codes($raceCode, $subraceCode, $expectedSubraceClass)
+    public function I_can_create_subrace_by_its_codes($raceCodeValue, $subraceCodeValue, $expectedSubraceClass)
     {
+        $raceCode = RaceCode::getIt($raceCodeValue);
+        $subraceCode = SubRaceCode::getIt($subraceCodeValue);
         $subrace = RacesFactory::getSubRaceByCodes($raceCode, $subraceCode);
         self::assertInstanceOf($expectedSubraceClass, $subrace);
         self::assertSame($raceCode, $subrace->getRaceCode());
@@ -62,27 +67,32 @@ class RacesFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_not_create_subrace_by_unknown_codes()
     {
-        RacesFactory::getSubRaceByCodes('dragonius', 'drunkalius');
+        RacesFactory::getSubRaceByCodes($this->createRaceCode('dragonius'), $this->createSubraceCode('drunkalius'));
     }
 
     /**
-     * @test
-     * @dataProvider provideInvalidCodePair
-     * @expectedException \DrdPlus\Races\Exceptions\InvalidRaceCode
-     *
-     * @param string $raceCode
-     * @param string $subRaceCode
+     * @param $value
+     * @return \Mockery\MockInterface|RaceCode
      */
-    public function I_can_not_create_subrace_by_non_to_string_value($raceCode, $subRaceCode)
+    private function createRaceCode($value)
     {
-        RacesFactory::getSubRaceByCodes($raceCode, $subRaceCode);
+        $raceCode = $this->mockery(RaceCode::class);
+        $raceCode->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $raceCode;
     }
 
-    public function provideInvalidCodePair()
+    /**
+     * @param $value
+     * @return \Mockery\MockInterface|SubRaceCode
+     */
+    private function createSubraceCode($value)
     {
-        return [
-            ['human', []],
-            [[], 'common'],
-        ];
+        $subraceCode = $this->mockery(SubRaceCode::class);
+        $subraceCode->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $subraceCode;
     }
 }

@@ -1,18 +1,26 @@
 <?php
 namespace DrdPlus\Races\Orcs;
 
+use DrdPlus\Codes\SubRaceCode;
+
 class Goblin extends Orc
 {
-    const GOBLIN = 'goblin';
+    const GOBLIN = SubRaceCode::GOBLIN;
 
+    /**
+     * @return Orc|Goblin
+     */
     public static function getIt()
     {
-        return parent::getItBySubrace(self::GOBLIN);
+        return parent::getItBySubrace(SubRaceCode::getIt(self::GOBLIN));
     }
 
+    /**
+     * @return SubRaceCode
+     */
     public function getSubraceCode()
     {
-        return self::GOBLIN;
+        return SubRaceCode::getIt(self::GOBLIN);
     }
 
 }

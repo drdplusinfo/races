@@ -5,6 +5,8 @@ use Drd\Genders\Female;
 use Drd\Genders\Gender;
 use Drd\Genders\Male;
 use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Race;
 use DrdPlus\Tables\Tables;
@@ -37,13 +39,13 @@ abstract class RaceTest extends TestWithMockery
     }
 
     /**
-     * @return string
+     * @return SubRaceCode
      */
     private function getSubraceCode()
     {
-        $subraceCode = str_replace($this->getRaceCode(), '', strtolower($this->getSubraceBaseName()));
+        $subraceCodeString = str_replace($this->getRaceCode(), '', strtolower($this->getSubraceBaseName()));
 
-        return $subraceCode;
+        return SubRaceCode::getIt($subraceCodeString);
     }
 
     /**
@@ -57,7 +59,7 @@ abstract class RaceTest extends TestWithMockery
     }
 
     /**
-     * @return string
+     * @return RaceCode
      */
     private function getRaceCode()
     {
@@ -68,9 +70,12 @@ abstract class RaceTest extends TestWithMockery
             $singular = preg_replace('~s$~', '', $baseNamespace);
         }
 
-        return strtolower($singular);
+        return RaceCode::getIt(strtolower($singular));
     }
 
+    /**
+     * @return string
+     */
     private function getSubraceBaseNamespace()
     {
         $namespace = $this->getSubraceNamespace();
@@ -78,6 +83,9 @@ abstract class RaceTest extends TestWithMockery
         return preg_replace('~(\w+\\\)*(\w+)~', '$2', $namespace);
     }
 
+    /**
+     * @return string
+     */
     private function getSubraceNamespace()
     {
         $subraceClass = $this->getSubraceClass();
@@ -296,34 +304,5 @@ abstract class RaceTest extends TestWithMockery
         return array_map(function ($code) {
             return [$code];
         }, $this->getNonBasePropertyCodes());
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_create_race_and_subrace_key()
-    {
-        self::assertSame('foo-bar', Race::createRaceAndSubraceCode('foo', 'bar'));
-    }
-
-    /**
-     * @test
-     * @dataProvider provideInvalidCodePair
-     * @expectedException \DrdPlus\Races\Exceptions\InvalidRaceCode
-     *
-     * @param $raceCode
-     * @param $subraceCode
-     */
-    public function I_can_not_create_race_and_subrace_key_by_non_to_strings($raceCode, $subraceCode)
-    {
-        Race::createRaceAndSubraceCode($raceCode, $subraceCode);
-    }
-
-    public function provideInvalidCodePair()
-    {
-        return [
-            ['human', []],
-            [[], 'common'],
-        ];
     }
 }

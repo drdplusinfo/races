@@ -1,25 +1,29 @@
 <?php
 namespace DrdPlus\Races\Elves;
 
+use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Races\Race;
 
 abstract class Elf extends Race
 {
-    const ELF = 'elf';
+    const ELF = RaceCode::ELF;
 
     /**
-     * @param string $subraceCode
+     * @param SubRaceCode $subraceCode
      * @return Elf|Race
      */
-    protected static function getItBySubrace($subraceCode)
+    protected static function getItBySubrace(SubRaceCode $subraceCode)
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return parent::getItByRaceAndSubrace(self::ELF, $subraceCode);
+        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::ELF), $subraceCode);
     }
 
+    /**
+     * @return RaceCode
+     */
     public function getRaceCode()
     {
-        return self::ELF;
+        return RaceCode::getIt(self::ELF);
     }
 
 }

@@ -1,18 +1,26 @@
 <?php
 namespace DrdPlus\Races\Elves;
 
+use DrdPlus\Codes\SubRaceCode;
+
 class CommonElf extends Elf
 {
-    const COMMON = 'common';
+    const COMMON = SubRaceCode::COMMON;
 
+    /**
+     * @return Elf|CommonElf
+     */
     public static function getIt()
     {
-        return parent::getItBySubrace(self::COMMON);
+        return parent::getItBySubrace(SubRaceCode::getIt(self::COMMON));
     }
 
+    /**
+     * @return SubRaceCode
+     */
     public function getSubraceCode()
     {
-        return self::COMMON;
+        return SubRaceCode::getIt(self::COMMON);
     }
 
 }

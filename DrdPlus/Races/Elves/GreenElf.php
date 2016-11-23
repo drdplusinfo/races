@@ -1,18 +1,26 @@
 <?php
 namespace DrdPlus\Races\Elves;
 
+use DrdPlus\Codes\SubRaceCode;
+
 class GreenElf extends Elf
 {
-    const GREEN = 'green';
+    const GREEN = SubRaceCode::GREEN;
 
+    /**
+     * @return GreenElf|Elf
+     */
     public static function getIt()
     {
-        return parent::getItBySubrace(self::GREEN);
+        return parent::getItBySubrace(SubRaceCode::getIt(self::GREEN));
     }
 
+    /**
+     * @return SubRaceCode
+     */
     public function getSubraceCode()
     {
-        return self::GREEN;
+        return SubRaceCode::getIt(self::GREEN);
     }
 
 }

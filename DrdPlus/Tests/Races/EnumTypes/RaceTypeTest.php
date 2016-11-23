@@ -4,6 +4,8 @@ namespace DrdPlus\Tests\Races\EnumTypes;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use Doctrineum\Tests\SelfRegisteringType\AbstractSelfRegisteringTypeTest;
+use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Races\EnumTypes\RaceType;
 use DrdPlus\Races\Race;
 
@@ -44,16 +46,48 @@ class TestSubrace extends Race
 
     public static function getIt()
     {
-        return parent::getItByRaceAndSubrace('foo', 'bar');
+        return parent::getItByRaceAndSubrace(self::getLocalRaceCode(), self::getLocalSubraceCode());
+    }
+
+    private static $raceCode;
+
+    /**
+     * @return \Mockery\MockInterface|RaceCode
+     */
+    private static function getLocalRaceCode()
+    {
+        if (self::$raceCode === null) {
+            self::$raceCode = \Mockery::mock(RaceCode::class);
+            self::$raceCode->shouldReceive('getValue')
+                ->andReturn('foo');
+        }
+
+        return self::$raceCode;
+    }
+
+    private static $subraceCode;
+
+    /**
+     * @return \Mockery\MockInterface|SubRaceCode
+     */
+    private static function getLocalSubraceCode()
+    {
+        if (self::$subraceCode === null) {
+            self::$subraceCode = \Mockery::mock(SubRaceCode::class);
+            self::$subraceCode->shouldReceive('getValue')
+                ->andReturn('bar');
+        }
+
+        return self::$subraceCode;
     }
 
     public function getRaceCode()
     {
-        return 'foo';
+        return self::getLocalRaceCode();
     }
 
     public function getSubraceCode()
     {
-        return 'bar';
+        return self::getLocalSubraceCode();
     }
 }

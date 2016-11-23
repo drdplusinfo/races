@@ -8,12 +8,17 @@ class RaceType extends ScalarEnumType
 {
     const RACE = 'race';
 
+    /**
+     * @param Race $race
+     * @return bool
+     */
     public static function registerRaceAsSubType(Race $race)
     {
         if (static::hasSubTypeEnum(get_class($race))) {
             return false;
         }
 
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return static::addSubTypeEnum(get_class($race), "~^$race$~");
     }
 

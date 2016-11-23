@@ -1,18 +1,26 @@
 <?php
 namespace DrdPlus\Races\Humans;
 
+use DrdPlus\Codes\SubRaceCode;
+
 class Highlander extends Human
 {
-    const HIGHLANDER = 'highlander';
+    const HIGHLANDER = SubRaceCode::HIGHLANDER;
 
+    /**
+     * @return Human|Highlander
+     */
     public static function getIt()
     {
-        return parent::getItBySubrace(self::HIGHLANDER);
+        return parent::getItBySubrace(SubRaceCode::getIt(self::HIGHLANDER));
     }
 
+    /**
+     * @return SubRaceCode
+     */
     public function getSubraceCode()
     {
-        return self::HIGHLANDER;
+        return SubRaceCode::getIt(self::HIGHLANDER);
     }
 
 }

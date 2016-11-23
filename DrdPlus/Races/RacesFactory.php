@@ -2,68 +2,56 @@
 namespace DrdPlus\Races;
 
 use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
+use DrdPlus\Races\Dwarfs\WoodDwarf;
 use DrdPlus\Races\Humans\Highlander;
 use DrdPlus\Races\Orcs\CommonOrc;
 use DrdPlus\Races\Orcs\Orc;
-use Granam\Scalar\Tools\ToString;
 use Granam\Strict\Object\StrictObject;
-use Granam\Tools\ValueDescriber;
 
 class RacesFactory extends StrictObject
 {
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubRaceCode $subraceCode
      * @return Race
      * @throws \DrdPlus\Races\Exceptions\UnknownRaceCode
      */
-    public static function getSubRaceByCodes($raceCode, $subraceCode)
+    public static function getSubRaceByCodes(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         $subraceClass = static::getSubraceClassByCodes($raceCode, $subraceCode);
 
-        return $subraceClass::getEnum($subraceClass::createRaceAndSubraceCode($raceCode, $subraceCode));
+        return $subraceClass::getIt();
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     * @return string|Race
-     * @throws \DrdPlus\Races\Exceptions\InvalidRaceCode
+     * @param RaceCode $raceCode
+     * @param SubRaceCode $subraceCode
+     * @return string|Race|WoodDwarf|CommonOrc ...
      * @throws \DrdPlus\Races\Exceptions\UnknownRaceCode
      */
-    protected static function getSubraceClassByCodes($raceCode, $subraceCode)
+    private static function getSubraceClassByCodes(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
-        try {
-            $raceCode = ToString::toString($raceCode);
-            $subraceCode = ToString::toString($subraceCode);
-        } catch (\Granam\Scalar\Tools\Exceptions\WrongParameterType $exception) {
-            throw new Exceptions\InvalidRaceCode(
-                'Both race codes have to be represented by string, got '
-                . ValueDescriber::describe($raceCode) . ', ' . ValueDescriber::describe($subraceCode),
-                $exception->getCode(),
-                $exception
-            );
-        }
-        if ($raceCode === RaceCode::ELF) {
+        $raceCodeValue = $raceCode->getValue();
+        $subraceCodeValue = $subraceCode->getValue();
+        if ($raceCodeValue === RaceCode::ELF) {
             $baseNamespace = 'elves';
         } else {
-            $baseNamespace = $raceCode . 's';
+            $baseNamespace = $raceCodeValue . 's';
         }
         $subraceNamespace = __NAMESPACE__ . '\\' . ucfirst($baseNamespace) . '\\';
-        if ($raceCode !== Orc::ORC || $subraceCode === CommonOrc::COMMON) {
-            if ($subraceCode !== Highlander::HIGHLANDER) {
-                $subraceClass = $subraceNamespace . ucfirst($subraceCode) . ucfirst($raceCode);
+        if ($raceCodeValue !== Orc::ORC || $subraceCodeValue === CommonOrc::COMMON) {
+            if ($subraceCodeValue !== Highlander::HIGHLANDER) {
+                $subraceClass = $subraceNamespace . ucfirst($subraceCodeValue) . ucfirst($raceCodeValue);
             } else {
-                $subraceClass = $subraceNamespace . ucfirst($subraceCode);
+                $subraceClass = $subraceNamespace . ucfirst($subraceCodeValue);
             }
         } else {
-            $subraceClass = $subraceNamespace . ucfirst($subraceCode);
+            $subraceClass = $subraceNamespace . ucfirst($subraceCodeValue);
         }
         if (!class_exists($subraceClass)) {
             throw new Exceptions\UnknownRaceCode(
-                'Was searching for class ' . $subraceClass
-                . ' created from race code ' . ValueDescriber::describe($raceCode)
-                . ' and sub-race code ' . ValueDescriber::describe($subraceCode)
+                "Was searching for class {$subraceClass}" . " created from race code {$raceCodeValue} and sub-race code {$subraceCodeValue}"
             );
         }
 

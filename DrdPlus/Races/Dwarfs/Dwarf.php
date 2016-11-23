@@ -1,24 +1,29 @@
 <?php
 namespace DrdPlus\Races\Dwarfs;
 
+use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Races\Race;
 
 abstract class Dwarf extends Race
 {
-    const DWARF = 'dwarf';
+    const DWARF = RaceCode::DWARF;
 
     /**
-     * @param string $subraceCode
-     * @return static
+     * @param SubRaceCode $subraceCode
+     * @return Dwarf|Race
      */
-    protected static function getItBySubrace($subraceCode)
+    protected static function getItBySubrace(SubRaceCode $subraceCode)
     {
-        return parent::getItByRaceAndSubrace(self::DWARF, $subraceCode);
+        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::DWARF), $subraceCode);
     }
 
+    /**
+     * @return RaceCode
+     */
     public function getRaceCode()
     {
-        return self::DWARF;
+        return RaceCode::getIt(self::DWARF);
     }
 
 }

@@ -1,20 +1,29 @@
 <?php
 namespace DrdPlus\Races\Humans;
 
+use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Races\Race;
 
 abstract class Human extends Race
 {
-    const HUMAN = 'human';
+    const HUMAN = RaceCode::HUMAN;
 
-    protected static function getItBySubrace($subraceCode)
+    /**
+     * @param SubRaceCode $subraceCode
+     * @return Race|Human
+     */
+    protected static function getItBySubrace(SubRaceCode $subraceCode)
     {
-        return parent::getItByRaceAndSubrace(self::HUMAN, $subraceCode);
+        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::HUMAN), $subraceCode);
     }
 
+    /**
+     * @return RaceCode
+     */
     public function getRaceCode()
     {
-        return self::HUMAN;
+        return RaceCode::getIt(self::HUMAN);
     }
 
 }

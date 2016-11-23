@@ -1,21 +1,26 @@
 <?php
 namespace DrdPlus\Races\Dwarfs;
 
+use DrdPlus\Codes\SubRaceCode;
+
 class CommonDwarf extends Dwarf
 {
-    const COMMON = 'common';
+    const COMMON = SubRaceCode::COMMON;
 
     /**
-     * @return static
+     * @return CommonDwarf|Dwarf
      */
     public static function getIt()
     {
-        return parent::getItBySubrace(self::COMMON);
+        return parent::getItBySubrace(SubRaceCode::getIt(self::COMMON));
     }
 
+    /**
+     * @return SubRaceCode
+     */
     public function getSubraceCode()
     {
-        return self::COMMON;
+        return SubRaceCode::getIt(self::COMMON);
     }
 
 }

@@ -1,20 +1,29 @@
 <?php
 namespace DrdPlus\Races\Orcs;
 
+use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Races\Race;
 
 abstract class Orc extends Race
 {
-    const ORC = 'orc';
+    const ORC = RaceCode::ORC;
 
-    protected static function getItBySubrace($subraceCode)
+    /**
+     * @param SubRaceCode $subraceCode
+     * @return Race|Orc
+     */
+    protected static function getItBySubrace(SubRaceCode $subraceCode)
     {
-        return parent::getItByRaceAndSubrace(self::ORC, $subraceCode);
+        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::ORC), $subraceCode);
     }
 
+    /**
+     * @return RaceCode
+     */
     public function getRaceCode()
     {
-        return self::ORC;
+        return RaceCode::getIt(self::ORC);
     }
 
 }

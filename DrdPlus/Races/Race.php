@@ -4,11 +4,12 @@ namespace DrdPlus\Races;
 use Doctrineum\Scalar\ScalarEnum;
 use Drd\Genders\Gender;
 use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
-use Granam\Scalar\Tools\ToString;
 use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
@@ -21,7 +22,6 @@ abstract class Race extends ScalarEnum
      * @param string|StringInterface $value
      * @throws Exceptions\UnknownRaceCode
      * @throws \Doctrineum\Scalar\Exceptions\UnexpectedValueToEnum
-     * @throws \DrdPlus\Races\Exceptions\InvalidRaceCode
      */
     protected function __construct($value)
     {
@@ -32,7 +32,6 @@ abstract class Race extends ScalarEnum
     /**
      * @param string $value
      * @throws Exceptions\UnknownRaceCode
-     * @throws \DrdPlus\Races\Exceptions\InvalidRaceCode
      */
     private function checkRaceEnumValue($value)
     {
@@ -45,46 +44,32 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     * @return static
-     * @throws \DrdPlus\Races\Exceptions\InvalidRaceCode
+     * @param RaceCode $raceCode
+     * @param SubRaceCode $subraceCode
+     * @return Race
      */
-    protected static function getItByRaceAndSubrace($raceCode, $subraceCode)
+    protected static function getItByRaceAndSubrace(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return self::getEnum(self::createRaceAndSubraceCode($raceCode, $subraceCode));
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubRaceCode $subraceCode
      * @return string
-     * @throws \DrdPlus\Races\Exceptions\InvalidRaceCode
      */
-    public static function createRaceAndSubraceCode($raceCode, $subraceCode)
+    private static function createRaceAndSubraceCode(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
-        try {
-            $raceCode = ToString::toString($raceCode);
-            $subraceCode = ToString::toString($subraceCode);
-        } catch (\Granam\Scalar\Tools\Exceptions\WrongParameterType $exception) {
-            throw new Exceptions\InvalidRaceCode(
-                'Both race codes have to be represented by string, got '
-                . ValueDescriber::describe($raceCode) . ', ' . ValueDescriber::describe($subraceCode),
-                $exception->getCode(),
-                $exception
-            );
-        }
-
         return "$raceCode-$subraceCode";
     }
 
     /**
-     * @return string
+     * @return RaceCode
      */
     abstract public function getRaceCode();
 
     /**
-     * @return string
+     * @return SubRaceCode
      */
     abstract public function getSubraceCode();
 
@@ -202,6 +187,7 @@ abstract class Race extends ScalarEnum
      */
     public function getSenses(RacesTable $racesTable)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $racesTable->getSenses($this->getRaceCode(), $this->getSubraceCode());
     }
 
