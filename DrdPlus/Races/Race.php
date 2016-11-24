@@ -3,6 +3,7 @@ namespace DrdPlus\Races;
 
 use Doctrineum\Scalar\ScalarEnum;
 use Drd\Genders\Gender;
+use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
@@ -208,10 +209,11 @@ abstract class Race extends ScalarEnum
      */
     public function getSize(Gender $gender, Tables $tables)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $tables->getRacesTable()->getSize(
             $this->getRaceCode(),
             $this->getSubraceCode(),
-            $gender->getValue(),
+            GenderCode::getIt($gender->getValue()),
             $tables->getFemaleModifiersTable()
         );
     }
