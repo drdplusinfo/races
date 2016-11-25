@@ -1,8 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Races\Krolls;
 
-use Drd\Genders\Female;
-use Drd\Genders\Male;
+use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 
 class WildKrollTest extends KrollTest
@@ -10,7 +9,7 @@ class WildKrollTest extends KrollTest
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
-            Male::MALE => [
+            GenderCode::MALE => [
                 PropertyCode::STRENGTH => 3,
                 PropertyCode::AGILITY => -1,
                 PropertyCode::KNACK => -2,
@@ -18,7 +17,7 @@ class WildKrollTest extends KrollTest
                 PropertyCode::INTELLIGENCE => -3,
                 PropertyCode::CHARISMA => -2,
             ],
-            Female::FEMALE => [
+            GenderCode::FEMALE => [
                 PropertyCode::STRENGTH => 2,
                 PropertyCode::AGILITY => 0,
                 PropertyCode::KNACK => -2,

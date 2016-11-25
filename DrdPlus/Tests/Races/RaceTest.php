@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tests\Races;
 
-use Drd\Genders\Female;
-use Drd\Genders\Gender;
-use Drd\Genders\Male;
+use DrdPlus\Genders\Female;
+use DrdPlus\Genders\Gender;
+use DrdPlus\Genders\Male;
 use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
@@ -139,7 +139,7 @@ abstract class RaceTest extends TestWithMockery
                         $value = null;
                 }
                 self::assertSame(
-                    $this->getExpectedBaseProperty($gender->getValue(), $propertyCode),
+                    $this->getExpectedBaseProperty($gender->getCode()->getValue(), $propertyCode),
                     $value,
                     "Unexpected {$gender} $propertyCode"
                 );

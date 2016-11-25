@@ -1,8 +1,6 @@
 <?php
 namespace DrdPlus\Tests\Races\Orcs;
 
-use Drd\Genders\Female;
-use Drd\Genders\Male;
 use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 
@@ -11,7 +9,7 @@ class SkurutTest extends OrcTest
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
-            Male::MALE => [
+            GenderCode::MALE => [
                 PropertyCode::STRENGTH => 1,
                 PropertyCode::AGILITY => 1,
                 PropertyCode::KNACK => -1,
@@ -19,7 +17,7 @@ class SkurutTest extends OrcTest
                 PropertyCode::INTELLIGENCE => 0,
                 PropertyCode::CHARISMA => -2,
             ],
-            Female::FEMALE => [
+            GenderCode::FEMALE => [
                 PropertyCode::STRENGTH => 0,
                 PropertyCode::AGILITY => 1,
                 PropertyCode::KNACK => -1,

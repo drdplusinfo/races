@@ -1,8 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Races\Elves;
 
-use Drd\Genders\Female;
-use Drd\Genders\Male;
+use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 
 class CommonElfTest extends ElfTest
@@ -10,7 +9,7 @@ class CommonElfTest extends ElfTest
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
-            Male::MALE => [
+            GenderCode::MALE => [
                 PropertyCode::STRENGTH => -1,
                 PropertyCode::AGILITY => 1,
                 PropertyCode::KNACK => 1,
@@ -18,7 +17,7 @@ class CommonElfTest extends ElfTest
                 PropertyCode::INTELLIGENCE => 1,
                 PropertyCode::CHARISMA => 1,
             ],
-            Female::FEMALE => [
+            GenderCode::FEMALE => [
                 PropertyCode::STRENGTH => -2,
                 PropertyCode::AGILITY => 1,
                 PropertyCode::KNACK => 2,

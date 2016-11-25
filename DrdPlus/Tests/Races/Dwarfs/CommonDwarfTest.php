@@ -1,8 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Races\Dwarfs;
 
-use Drd\Genders\Female;
-use Drd\Genders\Male;
+use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 
 class CommonDwarfTest extends DwarfTest
@@ -10,7 +9,7 @@ class CommonDwarfTest extends DwarfTest
     protected function getExpectedBaseProperty($genderCode, $propertyCode)
     {
         $properties = [
-            Male::MALE => [
+            GenderCode::MALE => [
                 PropertyCode::STRENGTH => 1,
                 PropertyCode::AGILITY => -1,
                 PropertyCode::KNACK => 0,
@@ -19,7 +18,7 @@ class CommonDwarfTest extends DwarfTest
                 PropertyCode::CHARISMA => -2,
 
             ],
-            Female::FEMALE => [
+            GenderCode::FEMALE => [
                 PropertyCode::STRENGTH => 1,
                 PropertyCode::AGILITY => -1,
                 PropertyCode::KNACK => -1,
