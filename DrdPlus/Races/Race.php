@@ -2,7 +2,7 @@
 namespace DrdPlus\Races;
 
 use Doctrineum\Scalar\ScalarEnum;
-use DrdPlus\Genders\Gender;
+use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
@@ -75,13 +75,13 @@ abstract class Race extends ScalarEnum
     abstract public function getSubraceCode();
 
     /**
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      */
-    public function getStrength(Gender $gender, Tables $tables)
+    public function getStrength(GenderCode $genderCode, Tables $tables)
     {
-        if ($gender->isMale()) {
+        if ($genderCode->isMale()) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $tables->getRacesTable()->getMaleStrength($this->getRaceCode(), $this->getSubraceCode());
         }
@@ -93,13 +93,13 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      */
-    public function getAgility(Gender $gender, Tables $tables)
+    public function getAgility(GenderCode $genderCode, Tables $tables)
     {
-        if ($gender->isMale()) {
+        if ($genderCode->isMale()) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $tables->getRacesTable()->getMaleAgility($this->getRaceCode(), $this->getSubraceCode());
         }
@@ -111,13 +111,13 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      */
-    public function getKnack(Gender $gender, Tables $tables)
+    public function getKnack(GenderCode $genderCode, Tables $tables)
     {
-        if ($gender->isMale()) {
+        if ($genderCode->isMale()) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $tables->getRacesTable()->getMaleKnack($this->getRaceCode(), $this->getSubraceCode());
         }
@@ -129,13 +129,13 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      */
-    public function getWill(Gender $gender, Tables $tables)
+    public function getWill(GenderCode $genderCode, Tables $tables)
     {
-        if ($gender->isMale()) {
+        if ($genderCode->isMale()) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $tables->getRacesTable()->getMaleWill($this->getRaceCode(), $this->getSubraceCode());
         }
@@ -147,13 +147,13 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      */
-    public function getIntelligence(Gender $gender, Tables $tables)
+    public function getIntelligence(GenderCode $genderCode, Tables $tables)
     {
-        if ($gender->isMale()) {
+        if ($genderCode->isMale()) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $tables->getRacesTable()->getMaleIntelligence($this->getRaceCode(), $this->getSubraceCode());
         }
@@ -165,13 +165,13 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      */
-    public function getCharisma(Gender $gender, Tables $tables)
+    public function getCharisma(GenderCode $genderCode, Tables $tables)
     {
-        if ($gender->isMale()) {
+        if ($genderCode->isMale()) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $tables->getRacesTable()->getMaleCharisma($this->getRaceCode(), $this->getSubraceCode());
         }
@@ -203,17 +203,17 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      */
-    public function getSize(Gender $gender, Tables $tables)
+    public function getSize(GenderCode $genderCode, Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $tables->getRacesTable()->getSize(
             $this->getRaceCode(),
             $this->getSubraceCode(),
-            $gender->getCode(),
+            $genderCode,
             $tables->getFemaleModifiersTable()
         );
     }
@@ -221,25 +221,25 @@ abstract class Race extends ScalarEnum
     /**
      * Bonus of body weight
      *
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      */
-    public function getWeight(Gender $gender, Tables $tables)
+    public function getWeight(GenderCode $genderCode, Tables $tables)
     {
-        $weightInKg = $this->getWeightInKg($gender, $tables);
+        $weightInKg = $this->getWeightInKg($genderCode, $tables);
 
         return (new Weight($weightInKg, Weight::KG, $tables->getWeightTable()))->getValue();
     }
 
     /**
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return float
      */
-    public function getWeightInKg(Gender $gender, Tables $tables)
+    public function getWeightInKg(GenderCode $genderCode, Tables $tables)
     {
-        if ($gender->isMale()) {
+        if ($genderCode->isMale()) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $tables->getRacesTable()->getMaleWeightInKg($this->getRaceCode(), $this->getSubraceCode());
         }
@@ -334,36 +334,36 @@ abstract class Race extends ScalarEnum
 
     /**
      * @param $propertyCode
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int|float|bool|string
      * @throws \DrdPlus\Races\Exceptions\UnknownPropertyCode
      */
-    public function getProperty($propertyCode, Gender $gender, Tables $tables)
+    public function getProperty($propertyCode, GenderCode $genderCode, Tables $tables)
     {
         switch ($propertyCode) {
             case PropertyCode::STRENGTH :
-                return $this->getStrength($gender, $tables);
+                return $this->getStrength($genderCode, $tables);
             case PropertyCode::AGILITY :
-                return $this->getAgility($gender, $tables);
+                return $this->getAgility($genderCode, $tables);
             case PropertyCode::KNACK :
-                return $this->getKnack($gender, $tables);
+                return $this->getKnack($genderCode, $tables);
             case PropertyCode::WILL :
-                return $this->getWill($gender, $tables);
+                return $this->getWill($genderCode, $tables);
             case PropertyCode::INTELLIGENCE :
-                return $this->getIntelligence($gender, $tables);
+                return $this->getIntelligence($genderCode, $tables);
             case PropertyCode::CHARISMA :
-                return $this->getCharisma($gender, $tables);
+                return $this->getCharisma($genderCode, $tables);
             case PropertyCode::SENSES :
                 return $this->getSenses($tables->getRacesTable());
             case PropertyCode::TOUGHNESS :
                 return $this->getToughness($tables->getRacesTable());
             case PropertyCode::SIZE :
-                return $this->getSize($gender, $tables);
+                return $this->getSize($genderCode, $tables);
             case PropertyCode::WEIGHT :
-                return $this->getWeight($gender, $tables);
+                return $this->getWeight($genderCode, $tables);
             case PropertyCode::WEIGHT_IN_KG :
-                return $this->getWeightInKg($gender, $tables);
+                return $this->getWeightInKg($genderCode, $tables);
             case PropertyCode::HEIGHT_IN_CM :
                 return $this->getHeightInCm($tables->getRacesTable());
             case PropertyCode::HEIGHT :
@@ -387,16 +387,16 @@ abstract class Race extends ScalarEnum
 
     /**
      * @param string $basePropertyCode
-     * @param Gender $gender
+     * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int
      * @throws \DrdPlus\Races\Exceptions\UnknownBasePropertyCode
      * @throws \DrdPlus\Races\Exceptions\UnknownPropertyCode
      */
-    public function getBaseProperty($basePropertyCode, Gender $gender, Tables $tables)
+    public function getBaseProperty($basePropertyCode, GenderCode $genderCode, Tables $tables)
     {
         if (in_array($basePropertyCode, PropertyCode::getBasePropertyPossibleValues(), true)) {
-            return $this->getProperty($basePropertyCode, $gender, $tables);
+            return $this->getProperty($basePropertyCode, $genderCode, $tables);
         }
         throw new Exceptions\UnknownBasePropertyCode(
             'Unknown base property ' . ValueDescriber::describe($basePropertyCode)
