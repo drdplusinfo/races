@@ -54,6 +54,7 @@ class CommonHobbitTest extends RaceTest
             PropertyCode::NATIVE_REGENERATION => false,
             PropertyCode::REQUIRES_DM_AGREEMENT => false,
             PropertyCode::REMARKABLE_SENSE => PropertyCode::TASTE,
+            PropertyCode::AGE => 25,
         ];
 
         return isset($properties[$propertyCode][$genderCode])

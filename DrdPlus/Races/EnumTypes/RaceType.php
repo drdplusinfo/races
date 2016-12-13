@@ -14,6 +14,7 @@ class RaceType extends ScalarEnumType
      */
     public static function registerRaceAsSubType(Race $race)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         if (static::hasSubTypeEnum(get_class($race))) {
             return false;
         }

@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Races;
 
+use DrdPlus\Codes\GenderCode;
 use DrdPlus\Genders\Female;
 use DrdPlus\Genders\Gender;
 use DrdPlus\Genders\Male;
@@ -9,6 +10,8 @@ use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Race;
+use DrdPlus\Tables\Measurements\Weight\Weight;
+use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Tables;
 use Granam\Tests\Tools\TestWithMockery;
 
@@ -55,7 +58,7 @@ abstract class RaceTest extends TestWithMockery
     {
         $subraceClass = $this->getSubraceClass();
 
-        return preg_replace('~(\w+\\\)*(\w+)~', '$2', $subraceClass);
+        return preg_replace('~(\w+\\\){0,5}(\w+)~', '$2', $subraceClass);
     }
 
     /**
@@ -80,7 +83,7 @@ abstract class RaceTest extends TestWithMockery
     {
         $namespace = $this->getSubraceNamespace();
 
-        return preg_replace('~(\w+\\\)*(\w+)~', '$2', $namespace);
+        return preg_replace('~(\w+\\\){0,5}(\w+)~', '$2', $namespace);
     }
 
     /**
@@ -201,8 +204,8 @@ abstract class RaceTest extends TestWithMockery
     /**
      * @test
      * @depends I_can_get_race
-     *
      * @param Race $race
+     * @throws \LogicException
      */
     public function I_can_get_non_base_property(Race $race)
     {
@@ -210,7 +213,7 @@ abstract class RaceTest extends TestWithMockery
         $racesTable = $tables->getRacesTable();
         $distanceTable = $tables->getDistanceTable();
         foreach ($this->getGenders() as $gender) {
-            foreach ($this->getNonBasePropertyCodes() as $propertyCode) {
+            foreach ($this->getNonBaseNonDerivedPropertyCodes() as $propertyCode) {
                 $sameValueByGenericGetter = $race->getProperty($propertyCode, $gender, $tables);
                 switch ($propertyCode) {
                     case PropertyCode::SENSES :
@@ -221,6 +224,9 @@ abstract class RaceTest extends TestWithMockery
                         break;
                     case PropertyCode::SIZE :
                         $value = $race->getSize($gender, $tables);
+                        break;
+                    case PropertyCode::WEIGHT :
+                        $value = $race->getWeight($gender, $tables);
                         break;
                     case PropertyCode::WEIGHT_IN_KG :
                         $value = $race->getWeightInKg($gender, $tables);
@@ -243,33 +249,54 @@ abstract class RaceTest extends TestWithMockery
                     case PropertyCode::REMARKABLE_SENSE :
                         $value = $race->getRemarkableSense($racesTable);
                         break;
+                    case PropertyCode::AGE :
+                        $value = $race->getAge($racesTable);
+                        break;
                     default :
-                        $value = null;
+                        throw new \LogicException(
+                            "Unexpected property {$propertyCode} for {$race->getSubraceCode()} {$race->getRaceCode()} {$gender}"
+                        );
                 }
-                self::assertSame(
-                    $this->getExpectedOtherProperty($propertyCode, $gender->getValue()),
+                if ($propertyCode === PropertyCode::WEIGHT) {
+                    $expectedOtherProperty = $this->getExpectedWeight($gender->getCode(), $tables->getWeightTable());
+                } else {
+                    $expectedOtherProperty = $this->getExpectedOtherProperty($propertyCode, $gender->getValue());
+                }
+                self::assertEquals(
+                    $expectedOtherProperty,
                     $value,
-                    "Unexpected {$propertyCode} of {$gender} {$race->getSubraceCode()} {$race->getRaceCode()}"
+                    "Unexpected {$propertyCode} of {$race->getSubraceCode()} {$race->getRaceCode()} {$gender}"
                 );
                 self::assertSame($sameValueByGenericGetter, $value);
             }
         }
     }
 
-    private function getNonBasePropertyCodes()
+    /**
+     * @return array|string[]
+     */
+    private function getNonBaseNonDerivedPropertyCodes()
     {
-        return [
-            PropertyCode::SENSES,
-            PropertyCode::TOUGHNESS,
-            PropertyCode::SIZE,
-            PropertyCode::WEIGHT_IN_KG,
-            PropertyCode::HEIGHT_IN_CM,
-            PropertyCode::HEIGHT,
-            PropertyCode::INFRAVISION,
-            PropertyCode::NATIVE_REGENERATION,
-            PropertyCode::REQUIRES_DM_AGREEMENT,
-            PropertyCode::REMARKABLE_SENSE,
-        ];
+        return array_diff(
+            PropertyCode::getPossibleValues(),
+            PropertyCode::getBasePropertyPossibleValues(),
+            PropertyCode::getDerivedPropertyPossibleValues(), // exclude derived properties
+            PropertyCode::getRemarkableSensePropertyPossibleValues() // those are just values of a remarkable sense
+        );
+    }
+
+    /**
+     * @param GenderCode $gender
+     * @param WeightTable $weightTable
+     * @return float
+     */
+    private function getExpectedWeight(GenderCode $gender, WeightTable $weightTable)
+    {
+        return (new Weight(
+            $this->getExpectedOtherProperty(PropertyCode::WEIGHT_IN_KG, $gender->getValue()),
+            Weight::KG,
+            $weightTable
+        ))->getValue();
     }
 
     /**
@@ -303,6 +330,6 @@ abstract class RaceTest extends TestWithMockery
     {
         return array_map(function ($code) {
             return [$code];
-        }, $this->getNonBasePropertyCodes());
+        }, $this->getNonBaseNonDerivedPropertyCodes());
     }
 }

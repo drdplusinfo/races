@@ -29,4 +29,19 @@ class WoodDwarfTest extends DwarfTest
 
         return $properties[$genderCode][$propertyCode];
     }
+
+    /**
+     * @param string $propertyCode
+     * @param string $genderCode
+     * @return string|int|float|bool
+     */
+    protected function getExpectedOtherProperty($propertyCode, $genderCode)
+    {
+        if ($propertyCode === PropertyCode::AGE) {
+            return 20;
+        }
+
+        return parent::getExpectedOtherProperty($propertyCode, $genderCode);
+    }
+
 }

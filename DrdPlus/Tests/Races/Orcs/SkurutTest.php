@@ -43,6 +43,7 @@ class SkurutTest extends OrcTest
             ],
             PropertyCode::HEIGHT_IN_CM => 180.0,
             PropertyCode::HEIGHT => 5,
+            PropertyCode::AGE => 13,
         ];
 
 

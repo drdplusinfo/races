@@ -35,7 +35,11 @@ class WildKrollTest extends KrollTest
         if ($propertyCode === PropertyCode::REQUIRES_DM_AGREEMENT) {
             return true;
         }
+        if ($propertyCode === PropertyCode::AGE) {
+            return 11;
+        }
 
         return parent::getExpectedOtherProperty($propertyCode, $genderCode);
     }
+
 }

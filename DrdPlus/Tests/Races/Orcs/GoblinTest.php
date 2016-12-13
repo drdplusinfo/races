@@ -42,6 +42,7 @@ class GoblinTest extends OrcTest
             ],
             PropertyCode::HEIGHT_IN_CM => 150.0,
             PropertyCode::HEIGHT => 4, // closest lower bonus to distance of 1.5 meters
+            PropertyCode::AGE => 9,
         ];
 
 

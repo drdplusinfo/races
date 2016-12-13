@@ -8,6 +8,7 @@ use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
+use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
 use Granam\String\StringInterface;
@@ -218,6 +219,20 @@ abstract class Race extends ScalarEnum
     }
 
     /**
+     * Bonus of body weight
+     *
+     * @param Gender $gender
+     * @param Tables $tables
+     * @return int
+     */
+    public function getWeight(Gender $gender, Tables $tables)
+    {
+        $weightInKg = $this->getWeightInKg($gender, $tables);
+
+        return (new Weight($weightInKg, Weight::KG, $tables->getWeightTable()))->getValue();
+    }
+
+    /**
      * @param Gender $gender
      * @param Tables $tables
      * @return float
@@ -306,11 +321,23 @@ abstract class Race extends ScalarEnum
     }
 
     /**
+     * Gives usual age of a race on his first great adventure - like 15 years for common human or 25 for hobbit.
+     *
+     * @param RacesTable $racesTable
+     * @return int
+     */
+    public function getAge(RacesTable $racesTable)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $racesTable->getAge($this->getRaceCode(), $this->getSubraceCode());
+    }
+
+    /**
      * @param $propertyCode
      * @param Gender $gender
      * @param Tables $tables
-     * @return int
-     * @throws Exceptions\UnknownPropertyCode
+     * @return int|float|bool|string
+     * @throws \DrdPlus\Races\Exceptions\UnknownPropertyCode
      */
     public function getProperty($propertyCode, Gender $gender, Tables $tables)
     {
@@ -333,6 +360,8 @@ abstract class Race extends ScalarEnum
                 return $this->getToughness($tables->getRacesTable());
             case PropertyCode::SIZE :
                 return $this->getSize($gender, $tables);
+            case PropertyCode::WEIGHT :
+                return $this->getWeight($gender, $tables);
             case PropertyCode::WEIGHT_IN_KG :
                 return $this->getWeightInKg($gender, $tables);
             case PropertyCode::HEIGHT_IN_CM :
@@ -347,6 +376,8 @@ abstract class Race extends ScalarEnum
                 return $this->requiresDmAgreement($tables->getRacesTable());
             case PropertyCode::REMARKABLE_SENSE :
                 return $this->getRemarkableSense($tables->getRacesTable());
+            case PropertyCode::AGE :
+                return $this->getAge($tables->getRacesTable());
             default :
                 throw new Exceptions\UnknownPropertyCode(
                     'Unknown code of property ' . ValueDescriber::describe($propertyCode)
@@ -359,23 +390,16 @@ abstract class Race extends ScalarEnum
      * @param Gender $gender
      * @param Tables $tables
      * @return int
-     * @throws Exceptions\UnknownBasePropertyCode
-     * @throws Exceptions\UnknownPropertyCode
+     * @throws \DrdPlus\Races\Exceptions\UnknownBasePropertyCode
+     * @throws \DrdPlus\Races\Exceptions\UnknownPropertyCode
      */
     public function getBaseProperty($basePropertyCode, Gender $gender, Tables $tables)
     {
-        switch ($basePropertyCode) {
-            case PropertyCode::STRENGTH :
-            case PropertyCode::AGILITY :
-            case PropertyCode::KNACK :
-            case PropertyCode::WILL :
-            case PropertyCode::INTELLIGENCE :
-            case PropertyCode::CHARISMA :
-                return $this->getProperty($basePropertyCode, $gender, $tables);
-            default :
-                throw new Exceptions\UnknownBasePropertyCode(
-                    'Unknown code of base property ' . ValueDescriber::describe($basePropertyCode)
-                );
+        if (in_array($basePropertyCode, PropertyCode::getBasePropertyPossibleValues(), true)) {
+            return $this->getProperty($basePropertyCode, $gender, $tables);
         }
+        throw new Exceptions\UnknownBasePropertyCode(
+            'Unknown base property ' . ValueDescriber::describe($basePropertyCode)
+        );
     }
 }

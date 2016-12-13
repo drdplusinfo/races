@@ -37,6 +37,8 @@ class DarkElfTest extends ElfTest
                 return true;
             case PropertyCode::REQUIRES_DM_AGREEMENT :
                 return true;
+            case PropertyCode::AGE :
+                return 30;
             default :
                 return parent::getExpectedOtherProperty($propertyCode, $genderCode);
         }
