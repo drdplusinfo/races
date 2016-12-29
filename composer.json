@@ -13,7 +13,7 @@
     "roave/security-advisories": "dev-master",
     "doctrineum/scalar": "dev-master",
     "granam/strict-object": "dev-master",
-    "granam/tools": "dev-master",
+    "granam/calculations": "dev-master",
     "drd-plus/tables": "dev-master"
   },
   "require-dev": {
