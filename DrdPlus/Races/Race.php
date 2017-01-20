@@ -7,9 +7,7 @@ use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
-use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
-use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Tables;
 use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
@@ -183,23 +181,23 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param RacesTable $racesTable
+     * @param Tables $tables
      * @return int
      */
-    public function getSenses(RacesTable $racesTable)
+    public function getSenses(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $racesTable->getSenses($this->getRaceCode(), $this->getSubraceCode());
+        return $tables->getRacesTable()->getSenses($this->getRaceCode(), $this->getSubraceCode());
     }
 
     /**
-     * @param RacesTable $racesTable
+     * @param Tables $tables
      * @return int
      */
-    public function getToughness(RacesTable $racesTable)
+    public function getToughness(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $racesTable->getToughness($this->getRaceCode(), $this->getSubraceCode());
+        return $tables->getRacesTable()->getToughness($this->getRaceCode(), $this->getSubraceCode());
     }
 
     /**
@@ -254,94 +252,93 @@ abstract class Race extends ScalarEnum
     }
 
     /**
-     * @param RacesTable $racesTable
+     * @param Tables $tables
      * @return int
      */
-    public function getHeightInCm(RacesTable $racesTable)
+    public function getHeightInCm(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $racesTable->getHeightInCm($this->getRaceCode(), $this->getSubraceCode());
+        return $tables->getRacesTable()->getHeightInCm($this->getRaceCode(), $this->getSubraceCode());
     }
 
     /**
      * Gives race height as bonus of distance (height in cm).
      * Useful for speed and fight modifiers.
      *
-     * @param RacesTable $racesTable
-     * @param DistanceTable $distanceTable
+     * @param Tables $tables
      * @return int
      */
-    public function getHeight(RacesTable $racesTable, DistanceTable $distanceTable)
+    public function getHeight(Tables $tables)
     {
-        $heightInMeters = $this->getHeightInCm($racesTable) / 100;
+        $heightInMeters = $this->getHeightInCm($tables) / 100;
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $distance = new Distance($heightInMeters, Distance::M, $distanceTable);
+        $distance = new Distance($heightInMeters, Distance::M, $tables->getDistanceTable());
 
         return $distance->getBonus()->getValue();
     }
 
     /**
-     * @param RacesTable $racesTable
+     * @param Tables $tables
      * @return bool
      */
-    public function hasInfravision(RacesTable $racesTable)
+    public function hasInfravision(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $racesTable->hasInfravision($this->getRaceCode(), $this->getSubraceCode());
+        return $tables->getRacesTable()->hasInfravision($this->getRaceCode(), $this->getSubraceCode());
     }
 
     /**
-     * @param RacesTable $racesTable
+     * @param Tables $tables
      * @return bool
      */
-    public function hasNativeRegeneration(RacesTable $racesTable)
+    public function hasNativeRegeneration(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $racesTable->hasNativeRegeneration($this->getRaceCode(), $this->getSubraceCode());
+        return $tables->getRacesTable()->hasNativeRegeneration($this->getRaceCode(), $this->getSubraceCode());
     }
 
     /**
-     * @param RacesTable $racesTable
+     * @param Tables $tables
      * @return bool
      */
-    public function requiresDmAgreement(RacesTable $racesTable)
+    public function requiresDmAgreement(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $racesTable->requiresDmAgreement($this->getRaceCode(), $this->getSubraceCode());
+        return $tables->getRacesTable()->requiresDmAgreement($this->getRaceCode(), $this->getSubraceCode());
     }
 
     /**
-     * @param RacesTable $racesTable
+     * @param Tables $tables
      * @return string
      */
-    public function getRemarkableSense(RacesTable $racesTable)
+    public function getRemarkableSense(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $racesTable->getRemarkableSense($this->getRaceCode(), $this->getSubraceCode());
+        return $tables->getRacesTable()->getRemarkableSense($this->getRaceCode(), $this->getSubraceCode());
     }
 
     /**
      * Gives usual age of a race on his first great adventure - like 15 years for common human or 25 for hobbit.
      *
-     * @param RacesTable $racesTable
+     * @param Tables $tables
      * @return int
      */
-    public function getAge(RacesTable $racesTable)
+    public function getAge(Tables $tables)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $racesTable->getAge($this->getRaceCode(), $this->getSubraceCode());
+        return $tables->getRacesTable()->getAge($this->getRaceCode(), $this->getSubraceCode());
     }
 
     /**
-     * @param $propertyCode
+     * @param PropertyCode $propertyCode
      * @param GenderCode $genderCode
      * @param Tables $tables
      * @return int|float|bool|string
      * @throws \DrdPlus\Races\Exceptions\UnknownPropertyCode
      */
-    public function getProperty($propertyCode, GenderCode $genderCode, Tables $tables)
+    public function getProperty(PropertyCode $propertyCode, GenderCode $genderCode, Tables $tables)
     {
-        switch ($propertyCode) {
+        switch ($propertyCode->getValue()) {
             case PropertyCode::STRENGTH :
                 return $this->getStrength($genderCode, $tables);
             case PropertyCode::AGILITY :
@@ -355,9 +352,9 @@ abstract class Race extends ScalarEnum
             case PropertyCode::CHARISMA :
                 return $this->getCharisma($genderCode, $tables);
             case PropertyCode::SENSES :
-                return $this->getSenses($tables->getRacesTable());
+                return $this->getSenses($tables);
             case PropertyCode::TOUGHNESS :
-                return $this->getToughness($tables->getRacesTable());
+                return $this->getToughness($tables);
             case PropertyCode::SIZE :
                 return $this->getSize($genderCode, $tables);
             case PropertyCode::WEIGHT :
@@ -365,41 +362,23 @@ abstract class Race extends ScalarEnum
             case PropertyCode::WEIGHT_IN_KG :
                 return $this->getWeightInKg($genderCode, $tables);
             case PropertyCode::HEIGHT_IN_CM :
-                return $this->getHeightInCm($tables->getRacesTable());
+                return $this->getHeightInCm($tables);
             case PropertyCode::HEIGHT :
-                return $this->getHeight($tables->getRacesTable(), $tables->getDistanceTable());
+                return $this->getHeight($tables);
             case PropertyCode::INFRAVISION :
-                return $this->hasInfravision($tables->getRacesTable());
+                return $this->hasInfravision($tables);
             case PropertyCode::NATIVE_REGENERATION :
-                return $this->hasNativeRegeneration($tables->getRacesTable());
+                return $this->hasNativeRegeneration($tables);
             case PropertyCode::REQUIRES_DM_AGREEMENT :
-                return $this->requiresDmAgreement($tables->getRacesTable());
+                return $this->requiresDmAgreement($tables);
             case PropertyCode::REMARKABLE_SENSE :
-                return $this->getRemarkableSense($tables->getRacesTable());
+                return $this->getRemarkableSense($tables);
             case PropertyCode::AGE :
-                return $this->getAge($tables->getRacesTable());
+                return $this->getAge($tables);
             default :
                 throw new Exceptions\UnknownPropertyCode(
-                    'Unknown code of property ' . ValueDescriber::describe($propertyCode)
+                    'Unknown property ' . ValueDescriber::describe($propertyCode)
                 );
         }
-    }
-
-    /**
-     * @param string $basePropertyCode
-     * @param GenderCode $genderCode
-     * @param Tables $tables
-     * @return int
-     * @throws \DrdPlus\Races\Exceptions\UnknownBasePropertyCode
-     * @throws \DrdPlus\Races\Exceptions\UnknownPropertyCode
-     */
-    public function getBaseProperty($basePropertyCode, GenderCode $genderCode, Tables $tables)
-    {
-        if (in_array($basePropertyCode, PropertyCode::getBasePropertyPossibleValues(), true)) {
-            return $this->getProperty($basePropertyCode, $genderCode, $tables);
-        }
-        throw new Exceptions\UnknownBasePropertyCode(
-            'Unknown base property ' . ValueDescriber::describe($basePropertyCode)
-        );
     }
 }
