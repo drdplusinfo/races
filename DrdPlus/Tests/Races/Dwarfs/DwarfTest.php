@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Races\Dwarfs;
 
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tests\Races\RaceTest;

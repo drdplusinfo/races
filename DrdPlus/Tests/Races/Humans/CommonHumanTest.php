@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Races\Humans;
 
 use DrdPlus\Codes\GenderCode;
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 
 class CommonHumanTest extends HumanTest
 {

@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Races\Orcs;
 
 use DrdPlus\Codes\GenderCode;
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 
 class SkurutTest extends OrcTest
 {

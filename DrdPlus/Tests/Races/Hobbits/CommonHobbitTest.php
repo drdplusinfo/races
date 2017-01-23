@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Races\Hobbits;
 
 use DrdPlus\Codes\GenderCode;
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Tests\Races\RaceTest;
 
 class CommonHobbitTest extends RaceTest

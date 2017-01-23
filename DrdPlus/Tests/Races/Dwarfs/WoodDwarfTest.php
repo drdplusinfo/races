@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Races\Dwarfs;
 
 use DrdPlus\Codes\GenderCode;
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 
 class WoodDwarfTest extends DwarfTest
 {

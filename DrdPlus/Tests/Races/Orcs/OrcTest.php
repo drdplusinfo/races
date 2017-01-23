@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Races\Orcs;
 
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Tests\Races\RaceTest;
 
 abstract class OrcTest extends RaceTest

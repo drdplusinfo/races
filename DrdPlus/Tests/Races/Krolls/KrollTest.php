@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Races\Krolls;
 
 use DrdPlus\Codes\GenderCode;
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Tests\Races\RaceTest;
 
 abstract class KrollTest extends RaceTest

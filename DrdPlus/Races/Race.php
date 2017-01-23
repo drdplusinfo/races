@@ -3,7 +3,7 @@ namespace DrdPlus\Races;
 
 use Doctrineum\Scalar\ScalarEnum;
 use DrdPlus\Codes\GenderCode;
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
