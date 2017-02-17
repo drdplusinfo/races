@@ -2,10 +2,13 @@
 namespace DrdPlus\Tests\Races;
 
 use DrdPlus\Races\Race;
-use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
+use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
-class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
+class RacesExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
+    /**
+     * @return string
+     */
     protected function getTestedNamespace()
     {
         $reflection = new \ReflectionClass(Race::class);
@@ -13,6 +16,9 @@ class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
         return $reflection->getNamespaceName();
     }
 
+    /**
+     * @return string
+     */
     protected function getRootNamespace()
     {
         return $this->getTestedNamespace();
