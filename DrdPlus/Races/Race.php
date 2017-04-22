@@ -2,6 +2,7 @@
 namespace DrdPlus\Races;
 
 use Doctrineum\Scalar\ScalarEnum;
+use DrdPlus\Codes\DistanceCode;
 use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Codes\RaceCode;
@@ -272,7 +273,7 @@ abstract class Race extends ScalarEnum
     {
         $heightInMeters = $this->getHeightInCm($tables) / 100;
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $distance = new Distance($heightInMeters, Distance::M, $tables->getDistanceTable());
+        $distance = new Distance($heightInMeters, DistanceCode::M, $tables->getDistanceTable());
 
         return $distance->getBonus()->getValue();
     }
