@@ -273,7 +273,7 @@ abstract class Race extends ScalarEnum
     {
         $heightInMeters = $this->getHeightInCm($tables) / 100;
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $distance = new Distance($heightInMeters, DistanceCode::M, $tables->getDistanceTable());
+        $distance = new Distance($heightInMeters, DistanceCode::METER, $tables->getDistanceTable());
 
         return $distance->getBonus()->getValue();
     }
