@@ -2,7 +2,7 @@
 namespace DrdPlus\Races;
 
 use Doctrineum\Scalar\ScalarEnum;
-use DrdPlus\Codes\DistanceUnitCode;
+use DrdPlus\Codes\Units\DistanceUnitCode;
 use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Codes\RaceCode;
@@ -224,7 +224,7 @@ abstract class Race extends ScalarEnum
      * @param Tables $tables
      * @return int
      */
-    public function getWeight(GenderCode $genderCode, Tables $tables)
+    public function getBodyWeight(GenderCode $genderCode, Tables $tables)
     {
         $weightInKg = $this->getWeightInKg($genderCode, $tables);
 
@@ -358,8 +358,8 @@ abstract class Race extends ScalarEnum
                 return $this->getToughness($tables);
             case PropertyCode::SIZE :
                 return $this->getSize($genderCode, $tables);
-            case PropertyCode::WEIGHT :
-                return $this->getWeight($genderCode, $tables);
+            case PropertyCode::BODY_WEIGHT :
+                return $this->getBodyWeight($genderCode, $tables);
             case PropertyCode::WEIGHT_IN_KG :
                 return $this->getWeightInKg($genderCode, $tables);
             case PropertyCode::HEIGHT_IN_CM :

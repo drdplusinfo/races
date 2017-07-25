@@ -231,8 +231,8 @@ abstract class RaceTest extends TestWithMockery
                     case PropertyCode::SIZE :
                         $value = $race->getSize($genderCode, Tables::getIt());
                         break;
-                    case PropertyCode::WEIGHT :
-                        $value = $race->getWeight($genderCode, Tables::getIt());
+                    case PropertyCode::BODY_WEIGHT :
+                        $value = $race->getBodyWeight($genderCode, Tables::getIt());
                         break;
                     case PropertyCode::WEIGHT_IN_KG :
                         $value = $race->getWeightInKg($genderCode, Tables::getIt());
@@ -263,7 +263,7 @@ abstract class RaceTest extends TestWithMockery
                             "Unexpected property {$propertyName} for {$race->getSubraceCode()} {$race->getRaceCode()} {$genderCode}"
                         );
                 }
-                if ($propertyName === PropertyCode::WEIGHT) {
+                if ($propertyName === PropertyCode::BODY_WEIGHT) {
                     $expectedOtherProperty = $this->getExpectedWeight($genderCode, Tables::getIt());
                 } else {
                     $expectedOtherProperty = $this->getExpectedOtherProperty($propertyName, $genderCode->getValue());
