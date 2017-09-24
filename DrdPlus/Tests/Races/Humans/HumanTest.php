@@ -16,7 +16,7 @@ abstract class HumanTest extends RaceTest
                 GenderCode::MALE => 0,
                 GenderCode::FEMALE => -1,
             ],
-            PropertyCode::WEIGHT_IN_KG => [
+            PropertyCode::BODY_WEIGHT_IN_KG => [
                 GenderCode::MALE => 80.0,
                 GenderCode::FEMALE => 70.0,
             ],

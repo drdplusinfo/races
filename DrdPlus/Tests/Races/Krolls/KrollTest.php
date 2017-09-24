@@ -16,7 +16,7 @@ abstract class KrollTest extends RaceTest
                 GenderCode::MALE => 3,
                 GenderCode::FEMALE => 2,
             ],
-            PropertyCode::WEIGHT_IN_KG => [
+            PropertyCode::BODY_WEIGHT_IN_KG => [
                 GenderCode::MALE => 120.0,
                 GenderCode::FEMALE => 110.0,
             ],

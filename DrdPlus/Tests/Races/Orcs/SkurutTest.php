@@ -37,7 +37,7 @@ class SkurutTest extends OrcTest
                 GenderCode::MALE => 1,
                 GenderCode::FEMALE => 0,
             ],
-            PropertyCode::WEIGHT_IN_KG => [
+            PropertyCode::BODY_WEIGHT_IN_KG => [
                 GenderCode::MALE => 90.0,
                 GenderCode::FEMALE => 80.0,
             ],

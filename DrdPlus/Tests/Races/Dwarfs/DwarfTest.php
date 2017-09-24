@@ -20,7 +20,7 @@ abstract class DwarfTest extends RaceTest
             PropertyCode::TOUGHNESS => 1,
             PropertyCode::SIZE => 0,
             PropertyCode::BODY_WEIGHT => (new Weight(70, Weight::KG, new WeightTable()))->getValue(),
-            PropertyCode::WEIGHT_IN_KG => 70.0,
+            PropertyCode::BODY_WEIGHT_IN_KG => 70.0,
             PropertyCode::HEIGHT_IN_CM => 140.0,
             PropertyCode::HEIGHT => 3,
             PropertyCode::INFRAVISION => true,

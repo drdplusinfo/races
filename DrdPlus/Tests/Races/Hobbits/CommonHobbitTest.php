@@ -44,7 +44,7 @@ class CommonHobbitTest extends RaceTest
                 GenderCode::MALE => -2,
                 GenderCode::FEMALE => -3,
             ],
-            PropertyCode::WEIGHT_IN_KG => [
+            PropertyCode::BODY_WEIGHT_IN_KG => [
                 GenderCode::MALE => 40.0,
                 GenderCode::FEMALE => 36.0
             ],

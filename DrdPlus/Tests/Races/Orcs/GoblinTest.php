@@ -36,7 +36,7 @@ class GoblinTest extends OrcTest
                 GenderCode::MALE => -1,
                 GenderCode::FEMALE => -2
             ],
-            PropertyCode::WEIGHT_IN_KG => [
+            PropertyCode::BODY_WEIGHT_IN_KG => [
                 GenderCode::MALE => 55.0,
                 GenderCode::FEMALE => 50.0,
             ],

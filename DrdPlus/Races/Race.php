@@ -360,7 +360,7 @@ abstract class Race extends ScalarEnum
                 return $this->getSize($genderCode, $tables);
             case PropertyCode::BODY_WEIGHT :
                 return $this->getBodyWeight($genderCode, $tables);
-            case PropertyCode::WEIGHT_IN_KG :
+            case PropertyCode::BODY_WEIGHT_IN_KG :
                 return $this->getWeightInKg($genderCode, $tables);
             case PropertyCode::HEIGHT_IN_CM :
                 return $this->getHeightInCm($tables);
