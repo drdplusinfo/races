@@ -33,7 +33,7 @@ class RaceTypeTest extends AbstractSelfRegisteringTypeTest
     /**
      * @return AbstractPlatform
      */
-    protected function getPlatform()
+    protected function getPlatform(): AbstractPlatform
     {
         return \Mockery::mock(AbstractPlatform::class);
     }

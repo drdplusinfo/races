@@ -12,7 +12,7 @@ class RaceType extends ScalarEnumType
      * @param Race $race
      * @return bool
      */
-    public static function registerRaceAsSubType(Race $race)
+    public static function registerRaceAsSubType(Race $race): bool
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         if (static::hasSubTypeEnum(get_class($race))) {
@@ -26,7 +26,7 @@ class RaceType extends ScalarEnumType
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return self::RACE;
     }
