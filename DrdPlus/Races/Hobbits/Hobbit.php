@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Hobbits;
 
@@ -9,22 +9,19 @@ use DrdPlus\Races\Race;
 
 abstract class Hobbit extends Race
 {
-    const HOBBIT = RaceCode::HOBBIT;
+    public const HOBBIT = RaceCode::HOBBIT;
 
     /**
-     * @param SubRaceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return Race|Hobbit
      */
-    protected static function getItBySubrace(SubRaceCode $subraceCode)
+    protected static function getItBySubRace(SubRaceCode $subRaceCode): Hobbit
     {
-        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::HOBBIT), $subraceCode);
+        return parent::getItByRaceAndSubRace(RaceCode::getIt(RaceCode::HOBBIT), $subRaceCode);
     }
 
-    /**
-     * @return RaceCode
-     */
-    public function getRaceCode()
+    public function getRaceCode(): RaceCode
     {
-        return RaceCode::getIt(self::HOBBIT);
+        return RaceCode::getIt(RaceCode::HOBBIT);
     }
 }

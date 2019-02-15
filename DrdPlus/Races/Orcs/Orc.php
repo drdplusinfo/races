@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Orcs;
 
@@ -9,23 +9,20 @@ use DrdPlus\Races\Race;
 
 abstract class Orc extends Race
 {
-    const ORC = RaceCode::ORC;
+    public const ORC = RaceCode::ORC;
 
     /**
-     * @param SubRaceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return Race|Orc
      */
-    protected static function getItBySubrace(SubRaceCode $subraceCode)
+    protected static function getItBySubrace(SubRaceCode $subRaceCode): Orc
     {
-        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::ORC), $subraceCode);
+        return parent::getItByRaceAndSubRace(RaceCode::getIt(RaceCode::ORC), $subRaceCode);
     }
 
-    /**
-     * @return RaceCode
-     */
-    public function getRaceCode()
+    public function getRaceCode(): RaceCode
     {
-        return RaceCode::getIt(self::ORC);
+        return RaceCode::getIt(RaceCode::ORC);
     }
 
 }

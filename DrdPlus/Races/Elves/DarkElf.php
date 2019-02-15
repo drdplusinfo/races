@@ -7,22 +7,19 @@ use DrdPlus\Codes\SubRaceCode;
 
 class DarkElf extends Elf
 {
-    const DARK = SubRaceCode::DARK;
+    public const DARK = SubRaceCode::DARK;
 
     /**
      * @return DarkElf|Elf
      */
-    public static function getIt()
+    public static function getIt(): DarkElf
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::DARK));
+        return parent::getItBySubRace(SubRaceCode::getIt(SubRaceCode::DARK));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::DARK);
+        return SubRaceCode::getIt(SubRaceCode::DARK);
     }
 
 }

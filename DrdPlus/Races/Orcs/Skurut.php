@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Orcs;
 
@@ -7,19 +7,19 @@ use DrdPlus\Codes\SubRaceCode;
 
 class Skurut extends Orc
 {
-    const SKURUT = SubRaceCode::SKURUT;
+    public const SKURUT = SubRaceCode::SKURUT;
 
     /**
      * @return Orc|Skurut
      */
-    public static function getIt()
+    public static function getIt(): Skurut
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::SKURUT));
+        return parent::getItBySubrace(SubRaceCode::getIt(SubRaceCode::SKURUT));
     }
 
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::SKURUT);
+        return SubRaceCode::getIt(SubRaceCode::SKURUT);
     }
 
 }

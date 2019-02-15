@@ -7,22 +7,19 @@ use DrdPlus\Codes\SubRaceCode;
 
 class CommonElf extends Elf
 {
-    const COMMON = SubRaceCode::COMMON;
+    public const COMMON = SubRaceCode::COMMON;
 
     /**
      * @return Elf|CommonElf
      */
-    public static function getIt()
+    public static function getIt(): CommonElf
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::COMMON));
+        return parent::getItBySubRace(SubRaceCode::getIt(SubRaceCode::COMMON));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::COMMON);
+        return SubRaceCode::getIt(SubRaceCode::COMMON);
     }
 
 }

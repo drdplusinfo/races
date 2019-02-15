@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Dwarfs;
 
@@ -7,22 +7,19 @@ use DrdPlus\Codes\SubRaceCode;
 
 class WoodDwarf extends Dwarf
 {
-    const WOOD = SubRaceCode::WOOD;
+    public const WOOD = SubRaceCode::WOOD;
 
     /**
      * @return WoodDwarf|Dwarf
      */
-    public static function getIt()
+    public static function getIt(): WoodDwarf
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::WOOD));
+        return parent::getItBySubRace(SubRaceCode::getIt(SubRaceCode::WOOD));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::WOOD);
+        return SubRaceCode::getIt(SubRaceCode::WOOD);
     }
 
 }

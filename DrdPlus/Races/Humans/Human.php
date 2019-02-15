@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Humans;
 
@@ -9,23 +9,20 @@ use DrdPlus\Races\Race;
 
 abstract class Human extends Race
 {
-    const HUMAN = RaceCode::HUMAN;
+    public const HUMAN = RaceCode::HUMAN;
 
     /**
-     * @param SubRaceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return Race|Human
      */
-    protected static function getItBySubrace(SubRaceCode $subraceCode)
+    protected static function getItBySubRace(SubRaceCode $subRaceCode): Human
     {
-        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::HUMAN), $subraceCode);
+        return parent::getItByRaceAndSubRace(RaceCode::getIt(RaceCode::HUMAN), $subRaceCode);
     }
 
-    /**
-     * @return RaceCode
-     */
-    public function getRaceCode()
+    public function getRaceCode(): RaceCode
     {
-        return RaceCode::getIt(self::HUMAN);
+        return RaceCode::getIt(RaceCode::HUMAN);
     }
 
 }

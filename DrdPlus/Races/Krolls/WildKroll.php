@@ -7,21 +7,18 @@ use DrdPlus\Codes\SubRaceCode;
 
 class WildKroll extends Kroll
 {
-    const WILD = SubRaceCode::WILD;
+    public const WILD = SubRaceCode::WILD;
 
     /**
      * @return Kroll|WildKroll
      */
-    public static function getIt()
+    public static function getIt(): WildKroll
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::WILD));
+        return parent::getItBySubrace(SubRaceCode::getIt(SubRaceCode::WILD));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::WILD);
+        return SubRaceCode::getIt(SubRaceCode::WILD);
     }
 }

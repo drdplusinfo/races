@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Tests\Races;
 
@@ -25,8 +25,8 @@ abstract class RaceTest extends TestWithMockery
         $subrace = $subraceClass::getIt();
         self::assertInstanceOf($subraceClass, $subrace);
         self::assertSame($this->getRaceCode(), $subrace->getRaceCode());
-        self::assertSame($this->getSubraceCode(), $subrace->getSubraceCode());
-        self::assertSame($subrace, $subraceClass::getEnum($this->getRaceCode() . '-' . $subrace->getSubraceCode()));
+        self::assertSame($this->getSubraceCode(), $subrace->getSubRaceCode());
+        self::assertSame($subrace, $subraceClass::getEnum($this->getRaceCode() . '-' . $subrace->getSubRaceCode()));
 
         return $subrace;
     }
@@ -262,18 +262,18 @@ abstract class RaceTest extends TestWithMockery
                         break;
                     default :
                         throw new \LogicException(
-                            "Unexpected property {$propertyName} for {$race->getSubraceCode()} {$race->getRaceCode()} {$genderCode}"
+                            "Unexpected property {$propertyName} for {$race->getSubRaceCode()} {$race->getRaceCode()} {$genderCode}"
                         );
                 }
                 if ($propertyName === PropertyCode::BODY_WEIGHT) {
-                    $expectedOtherProperty = $this->getExpectedWeight($genderCode, Tables::getIt());
+                    $expectedOtherProperty = $this->getExpectedWeightBonus($genderCode, Tables::getIt());
                 } else {
                     $expectedOtherProperty = $this->getExpectedOtherProperty($propertyName, $genderCode->getValue());
                 }
                 self::assertEquals(
                     $expectedOtherProperty,
                     $value,
-                    "Unexpected {$propertyName} of {$race->getSubraceCode()} {$race->getRaceCode()} {$genderCode}"
+                    "Unexpected {$propertyName} of {$race->getSubRaceCode()} {$race->getRaceCode()} {$genderCode}"
                 );
                 self::assertSame($sameValueByGenericGetter, $value);
             }
@@ -283,9 +283,9 @@ abstract class RaceTest extends TestWithMockery
     /**
      * @return array|string[]
      */
-    private function getNonBaseNonDerivedPropertyNames()
+    private function getNonBaseNonDerivedPropertyNames(): array
     {
-        return array_diff(
+        return \array_diff(
             PropertyCode::getPossibleValues(),
             PropertyCode::getBasePropertyPossibleValues(),
             PropertyCode::getDerivedPropertyPossibleValues(), // exclude derived properties
@@ -296,15 +296,15 @@ abstract class RaceTest extends TestWithMockery
     /**
      * @param GenderCode $genderCode
      * @param Tables $tables
-     * @return float
+     * @return int
      */
-    private function getExpectedWeight(GenderCode $genderCode, Tables $tables)
+    private function getExpectedWeightBonus(GenderCode $genderCode, Tables $tables): int
     {
         return (new Weight(
             $this->getExpectedOtherProperty(PropertyCode::BODY_WEIGHT_IN_KG, $genderCode->getValue()),
             Weight::KG,
             $tables->getWeightTable()
-        ))->getValue();
+        ))->getBonus()->getValue();
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Krolls;
 
@@ -7,22 +7,19 @@ use DrdPlus\Codes\SubRaceCode;
 
 class CommonKroll extends Kroll
 {
-    const COMMON = SubRaceCode::COMMON;
+    public const COMMON = SubRaceCode::COMMON;
 
     /**
      * @return Kroll|CommonKroll
      */
-    public static function getIt()
+    public static function getIt(): CommonKroll
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::COMMON));
+        return parent::getItBySubrace(SubRaceCode::getIt(SubRaceCode::COMMON));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::COMMON);
+        return SubRaceCode::getIt(SubRaceCode::COMMON);
     }
 
 }

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races;
 
@@ -15,49 +15,49 @@ class RacesFactory extends StrictObject
 {
     /**
      * @param RaceCode $raceCode
-     * @param SubRaceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return Race
      * @throws \DrdPlus\Races\Exceptions\UnknownRaceCode
      */
-    public static function getSubRaceByCodes(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public static function getSubRaceByCodes(RaceCode $raceCode, SubRaceCode $subRaceCode): Race
     {
-        $subraceClass = static::getSubraceClassByCodes($raceCode, $subraceCode);
+        $subRaceClass = static::getSubRaceClassByCodes($raceCode, $subRaceCode);
 
-        return $subraceClass::getIt();
+        return $subRaceClass::getIt();
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubRaceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return string|Race|WoodDwarf|CommonOrc ...
      * @throws \DrdPlus\Races\Exceptions\UnknownRaceCode
      */
-    private static function getSubraceClassByCodes(RaceCode $raceCode, SubRaceCode $subraceCode)
+    private static function getSubRaceClassByCodes(RaceCode $raceCode, SubRaceCode $subRaceCode): string
     {
         $raceCodeValue = $raceCode->getValue();
-        $subraceCodeValue = $subraceCode->getValue();
+        $subRaceCodeValue = $subRaceCode->getValue();
         if ($raceCodeValue === RaceCode::ELF) {
             $baseNamespace = 'elves';
         } else {
             $baseNamespace = $raceCodeValue . 's';
         }
         $subraceNamespace = __NAMESPACE__ . '\\' . ucfirst($baseNamespace) . '\\';
-        if ($raceCodeValue !== Orc::ORC || $subraceCodeValue === CommonOrc::COMMON) {
-            if ($subraceCodeValue !== Highlander::HIGHLANDER) {
-                $subraceClass = $subraceNamespace . ucfirst($subraceCodeValue) . ucfirst($raceCodeValue);
+        if ($raceCodeValue !== Orc::ORC || $subRaceCodeValue === CommonOrc::COMMON) {
+            if ($subRaceCodeValue !== Highlander::HIGHLANDER) {
+                $subRaceClass = $subraceNamespace . ucfirst($subRaceCodeValue) . ucfirst($raceCodeValue);
             } else {
-                $subraceClass = $subraceNamespace . ucfirst($subraceCodeValue);
+                $subRaceClass = $subraceNamespace . ucfirst($subRaceCodeValue);
             }
         } else {
-            $subraceClass = $subraceNamespace . ucfirst($subraceCodeValue);
+            $subRaceClass = $subraceNamespace . ucfirst($subRaceCodeValue);
         }
-        if (!class_exists($subraceClass)) {
+        if (!\class_exists($subRaceClass)) {
             throw new Exceptions\UnknownRaceCode(
-                "Was searching for class {$subraceClass}" . " created from race code {$raceCodeValue} and sub-race code {$subraceCodeValue}"
+                "Was searching for class {$subRaceClass}" . " created from race code {$raceCodeValue} and sub-race code {$subRaceCodeValue}"
             );
         }
 
-        return $subraceClass;
+        return $subRaceClass;
     }
 
 }

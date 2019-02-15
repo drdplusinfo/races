@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Elves;
 
@@ -7,22 +7,19 @@ use DrdPlus\Codes\SubRaceCode;
 
 class GreenElf extends Elf
 {
-    const GREEN = SubRaceCode::GREEN;
+    public const GREEN = SubRaceCode::GREEN;
 
     /**
      * @return GreenElf|Elf
      */
-    public static function getIt()
+    public static function getIt(): GreenElf
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::GREEN));
+        return parent::getItBySubRace(SubRaceCode::getIt(SubRaceCode::GREEN));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::GREEN);
+        return SubRaceCode::getIt(SubRaceCode::GREEN);
     }
 
 }

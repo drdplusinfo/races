@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Hobbits;
 
@@ -7,21 +7,18 @@ use DrdPlus\Codes\SubRaceCode;
 
 class CommonHobbit extends Hobbit
 {
-    const COMMON = SubRaceCode::COMMON;
+    public const COMMON = SubRaceCode::COMMON;
 
     /**
      * @return Hobbit|CommonHobbit
      */
-    public static function getIt()
+    public static function getIt(): CommonHobbit
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::COMMON));
+        return parent::getItBySubRace(SubRaceCode::getIt(SubRaceCode::COMMON));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::COMMON);
+        return SubRaceCode::getIt(SubRaceCode::COMMON);
     }
 }

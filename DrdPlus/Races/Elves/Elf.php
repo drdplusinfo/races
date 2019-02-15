@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Elves;
 
@@ -9,23 +9,20 @@ use DrdPlus\Races\Race;
 
 abstract class Elf extends Race
 {
-    const ELF = RaceCode::ELF;
+    public const ELF = RaceCode::ELF;
 
     /**
-     * @param SubRaceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return Elf|Race
      */
-    protected static function getItBySubrace(SubRaceCode $subraceCode)
+    protected static function getItBySubRace(SubRaceCode $subRaceCode): Elf
     {
-        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::ELF), $subraceCode);
+        return parent::getItByRaceAndSubRace(RaceCode::getIt(RaceCode::ELF), $subRaceCode);
     }
 
-    /**
-     * @return RaceCode
-     */
-    public function getRaceCode()
+    public function getRaceCode(): RaceCode
     {
-        return RaceCode::getIt(self::ELF);
+        return RaceCode::getIt(RaceCode::ELF);
     }
 
 }

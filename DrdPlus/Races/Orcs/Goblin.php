@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Orcs;
 
@@ -7,22 +7,19 @@ use DrdPlus\Codes\SubRaceCode;
 
 class Goblin extends Orc
 {
-    const GOBLIN = SubRaceCode::GOBLIN;
+    public const GOBLIN = SubRaceCode::GOBLIN;
 
     /**
      * @return Orc|Goblin
      */
-    public static function getIt()
+    public static function getIt(): Goblin
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::GOBLIN));
+        return parent::getItBySubrace(SubRaceCode::getIt(SubRaceCode::GOBLIN));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::GOBLIN);
+        return SubRaceCode::getIt(SubRaceCode::GOBLIN);
     }
 
 }

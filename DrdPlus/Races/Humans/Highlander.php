@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Humans;
 
@@ -7,22 +7,19 @@ use DrdPlus\Codes\SubRaceCode;
 
 class Highlander extends Human
 {
-    const HIGHLANDER = SubRaceCode::HIGHLANDER;
+    public const HIGHLANDER = SubRaceCode::HIGHLANDER;
 
     /**
      * @return Human|Highlander
      */
-    public static function getIt()
+    public static function getIt(): Highlander
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::HIGHLANDER));
+        return parent::getItBySubRace(SubRaceCode::getIt(SubRaceCode::HIGHLANDER));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::HIGHLANDER);
+        return SubRaceCode::getIt(SubRaceCode::HIGHLANDER);
     }
 
 }

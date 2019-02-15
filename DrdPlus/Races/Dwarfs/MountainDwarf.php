@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DrdPlus\Races\Dwarfs;
 
@@ -8,22 +8,19 @@ use DrdPlus\Codes\SubRaceCode;
 class MountainDwarf extends Dwarf
 {
 
-    const MOUNTAIN = SubRaceCode::MOUNTAIN;
+    public const MOUNTAIN = SubRaceCode::MOUNTAIN;
 
     /**
      * @return MountainDwarf|Dwarf
      */
-    public static function getIt()
+    public static function getIt(): MountainDwarf
     {
-        return parent::getItBySubrace(SubRaceCode::getIt(self::MOUNTAIN));
+        return parent::getItBySubRace(SubRaceCode::getIt(SubRaceCode::MOUNTAIN));
     }
 
-    /**
-     * @return SubRaceCode
-     */
-    public function getSubraceCode()
+    public function getSubRaceCode(): SubRaceCode
     {
-        return SubRaceCode::getIt(self::MOUNTAIN);
+        return SubRaceCode::getIt(SubRaceCode::MOUNTAIN);
     }
 
 }

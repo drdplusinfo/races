@@ -39,7 +39,7 @@ class RacesFactoryTest extends TestWithMockery
         $subrace = RacesFactory::getSubRaceByCodes($raceCode, $subraceCode);
         self::assertInstanceOf($expectedSubraceClass, $subrace);
         self::assertSame($raceCode, $subrace->getRaceCode());
-        self::assertSame($subraceCode, $subrace->getSubraceCode());
+        self::assertSame($subraceCode, $subrace->getSubRaceCode());
     }
 
     public function provideSubraceCodesAndClass()

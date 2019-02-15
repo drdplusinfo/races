@@ -9,23 +9,20 @@ use DrdPlus\Races\Race;
 
 abstract class Kroll extends Race
 {
-    const KROLL = RaceCode::KROLL;
+    public const KROLL = RaceCode::KROLL;
 
     /**
-     * @param SubRaceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return Race|Kroll
      */
-    protected static function getItBySubrace(SubRaceCode $subraceCode)
+    protected static function getItBySubrace(SubRaceCode $subRaceCode)
     {
-        return parent::getItByRaceAndSubrace(RaceCode::getIt(self::KROLL), $subraceCode);
+        return parent::getItByRaceAndSubRace(RaceCode::getIt(RaceCode::KROLL), $subRaceCode);
     }
 
-    /**
-     * @return RaceCode
-     */
-    public function getRaceCode()
+    public function getRaceCode(): RaceCode
     {
-        return RaceCode::getIt(self::KROLL);
+        return RaceCode::getIt(RaceCode::KROLL);
     }
 
 }
