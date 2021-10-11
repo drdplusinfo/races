@@ -19,7 +19,7 @@ use DrdPlus\Races\Orcs\CommonOrc;
 use DrdPlus\Races\Orcs\Goblin;
 use DrdPlus\Races\Orcs\Skurut;
 use DrdPlus\Races\RacesFactory;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class RacesFactoryTest extends TestWithMockery
 {
@@ -67,7 +67,7 @@ class RacesFactoryTest extends TestWithMockery
     public function I_can_not_create_subrace_by_unknown_codes()
     {
         $this->expectException(\DrdPlus\Races\Exceptions\UnknownRaceCode::class);
-        $this->expectExceptionMessageRegExp('~dragonius.+drunkalius~');
+        $this->expectExceptionMessageMatches('~dragonius.+drunkalius~');
         RacesFactory::getSubRaceByCodes($this->createRaceCode('dragonius'), $this->createSubraceCode('drunkalius'));
     }
 

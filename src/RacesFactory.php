@@ -35,11 +35,7 @@ class RacesFactory extends StrictObject
     {
         $raceCodeValue = $raceCode->getValue();
         $subRaceCodeValue = $subRaceCode->getValue();
-        if ($raceCodeValue === RaceCode::ELF) {
-            $baseNamespace = 'elves';
-        } else {
-            $baseNamespace = $raceCodeValue . 's';
-        }
+        $baseNamespace = $raceCodeValue === RaceCode::ELF ? 'elves' : $raceCodeValue . 's';
         $subraceNamespace = __NAMESPACE__ . '\\' . ucfirst($baseNamespace) . '\\';
         if ($raceCodeValue !== Orc::ORC || $subRaceCodeValue === CommonOrc::COMMON) {
             if ($subRaceCodeValue !== Highlander::HIGHLANDER) {

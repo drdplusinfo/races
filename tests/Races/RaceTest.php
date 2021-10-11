@@ -10,7 +10,7 @@ use DrdPlus\Races\Dwarfs\CommonDwarf;
 use DrdPlus\Races\Race;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 abstract class RaceTest extends TestWithMockery
 {
@@ -43,7 +43,7 @@ abstract class RaceTest extends TestWithMockery
      */
     private function getSubraceCode()
     {
-        $subraceCodeString = str_replace($this->getRaceCode(), '', strtolower($this->getSubraceBaseName()));
+        $subraceCodeString = str_replace((string)$this->getRaceCode(), '', strtolower($this->getSubraceBaseName()));
 
         return SubRaceCode::getIt($subraceCodeString);
     }
@@ -188,7 +188,7 @@ abstract class RaceTest extends TestWithMockery
     public function I_can_not_get_property_by_its_invalid_code(Race $race)
     {
         $this->expectException(\DrdPlus\Races\Exceptions\UnknownPropertyCode::class);
-        $this->expectExceptionMessageRegExp('~soft~');
+        $this->expectExceptionMessageMatches('~soft~');
         $tables = Tables::getIt();
         /** @var GenderCode $genderCode */
         $genderCode = \Mockery::mock(GenderCode::class);
